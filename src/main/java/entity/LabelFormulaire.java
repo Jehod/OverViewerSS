@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface LabelFormulaire extends Serializable    
 {
-    List<ModifTrack>getAllModifTrack();
+    List<ModifTrack>getModifTrackFromLabel();
     String getLastVersion();
     String getLastDate();
     String getLastContributor();

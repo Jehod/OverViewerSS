@@ -16,6 +16,10 @@ import java.util.List;
 public interface ModifTrackDAO extends Serializable
 {
     List<SimpleModifTrack> findAllModifTrack(); 
-    
+    SimpleModifTrack getLastModifTrack();
+    String getLastVersion();
+    String getLastDate();
+    String getLastContributor();
+    String getLastAction();
     
 }

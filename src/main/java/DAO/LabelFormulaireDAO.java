@@ -5,9 +5,9 @@
  */
 package DAO;
 
-import entity.ModifTrack;
+import entity.SimpleModifTrack;
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -15,5 +15,10 @@ import java.util.ArrayList;
  */
 public interface LabelFormulaireDAO extends Serializable
 {
+    List<SimpleModifTrack> findAllModifTrack();
+    String getLastVersion();
+    String getLastContributor();
+    String getLastDate();
+    
    
 }

@@ -15,15 +15,15 @@ import java.util.List;
 public class SimpleLabelFormulaire implements LabelFormulaire
 {
     
-    private ArrayList<ModifTrack> allModifTrack;
+    private ArrayList<ModifTrack> modifTrackFromLabel;
     private String lastVersion;
     private String lastDate;
     private String lastContributor;
 
     @Override
-    public List<ModifTrack> getAllModifTrack()
+    public List<ModifTrack> getModifTrackFromLabel()
     {
-        return allModifTrack;
+        return modifTrackFromLabel;
     }
 
     @Override

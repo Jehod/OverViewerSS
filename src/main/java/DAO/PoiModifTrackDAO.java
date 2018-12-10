@@ -91,5 +91,63 @@ public class PoiModifTrackDAO implements ModifTrackDAO
        
        return rtk;
     }
+
+    @Override
+    public SimpleModifTrack getLastModifTrack() {
+         final File file = new File(fileName);
+          SimpleModifTrack mtk = null;
+     
+       
+        try
+        {
+            final Workbook wb = WorkbookFactory.create(file);
+            final Sheet sheet = wb.getSheetAt(0);
+            
+            int index = 1;
+            Row row =sheet.getRow(index++);
+            
+            while (row.getCell(0) != null && row.getCell(0).getCellTypeEnum() == CellType.STRING)
+            {
+                
+                 mtk = rowToModifTrack(row);
+                
+                row = sheet.getRow(index++);
+            }
+            
+            
+            
+        } catch ( IOException e)
+        {
+            System.out.println("findAllRowTracker catch: "+ e.getMessage());
+        } catch (InvalidFormatException ex)
+        {
+            Logger.getLogger(PoiRowTrackerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (EncryptedDocumentException ex)
+        {
+            Logger.getLogger(PoiRowTrackerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+      
+        return mtk;
+    }
+
+    @Override
+    public String getLastVersion() {
+        return getLastModifTrack().getVersion();
+    }
+
+    @Override
+    public String getLastDate() {
+        return getLastModifTrack().getDate();
+    }
+
+    @Override
+    public String getLastContributor() {
+       return getLastModifTrack().getContributor();
+    }
+    
+    @Override
+    public String getLastAction(){
+    return getLastModifTrack().getAction();}
     
 }
