@@ -17,6 +17,20 @@ public class SimpleModifTrack implements ModifTrack
     private String version;
     private String action;
 
+    public SimpleModifTrack(String date, String contributor, String version, String action)
+    {
+        this.date = date;
+        this.contributor = contributor;
+        this.version = version;
+        this.action = action;
+    }
+
+    public SimpleModifTrack()
+    {
+    }
+    
+    
+
     
     
     public void setAction(String action)

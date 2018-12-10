@@ -16,27 +16,55 @@ public class SimpleTracker implements Tracker
         
 {
 
-    private String date;
-    private ArrayList<RowTracker> allRowTracker;
-    private String name;
+    private  String date;
+    private  ArrayList<SimpleRowTracker> allRowTracker;
+    private  String name;
+
+    public SimpleTracker(String date, ArrayList<SimpleRowTracker> allRowTracker, String name)
+    {
+        this.date = date;
+        this.allRowTracker = allRowTracker;
+        this.name = name;
+    }
+
+    
+    public SimpleTracker()
+    {
+    }
+
+    public void setDate(String date)
+    {
+        this.date = date;
+    }
+
+    public void setAllRowTracker(ArrayList<SimpleRowTracker> allRowTracker)
+    {
+        this.allRowTracker = allRowTracker;
+    }
+
+    public void setName(String name)
+    {
+        this.name = name;
+    }
     
 
+    
     @Override
-    public ArrayList<RowTracker> getAllRowTracker()
+    public ArrayList<SimpleRowTracker> getAllRowTracker()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return allRowTracker;
     }
 
     @Override
     public String getName()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       return name;
     }
 
     @Override
     public String getDate()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return date;
     }
     
 }

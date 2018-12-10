@@ -14,6 +14,10 @@ import java.util.List;
  */
 public interface RowTrackerDAO
 {
+    /**
+     * renvoie une liste des rowtracker, soit une ligne par mofication rapporté dans le label
+     * @return 
+     */
     List<SimpleRowTracker> findAllRowTracker();
     
 }

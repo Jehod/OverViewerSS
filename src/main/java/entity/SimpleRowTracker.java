@@ -16,6 +16,19 @@ public class SimpleRowTracker implements RowTracker
     private String version;
     private String formulaire;
 
+    public SimpleRowTracker(String langue, String version, String formulaire)
+    {
+        this.langue = langue;
+        this.version = version;
+        this.formulaire = formulaire;
+    }
+
+    public SimpleRowTracker()
+    {
+    }
+    
+    
+
     public void setLangue(String langue)
     {
         this.langue = langue;

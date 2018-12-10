@@ -14,7 +14,12 @@ import java.util.ArrayList;
  */
 public interface Tracker extends Serializable
 {
-    ArrayList<RowTracker> getAllRowTracker();
+    ArrayList<SimpleRowTracker> getAllRowTracker();
+    /**
+     * retourne le nom de la sheet qui contient le tracker
+     * le nom est "Track_"+date
+     * @return 
+     */
     String getName();
     String getDate();
     

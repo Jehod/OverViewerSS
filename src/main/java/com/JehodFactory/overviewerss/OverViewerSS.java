@@ -11,8 +11,8 @@ package com.JehodFactory.overviewerss;
  */
 import DAO.PoiModifTrackDAO;
 import DAO.PoiRowTrackerDAO;
+import DAO.PoiTrackerDAO;
 import java.io.IOException;
-import java.util.Arrays;
 import metier.Overviewer;
 
 /**
@@ -35,6 +35,11 @@ public class OverViewerSS {
           
         PoiModifTrackDAO pmtk = new PoiModifTrackDAO("HR_HR/Label_LESIONCOUNT_HR_HR.xlsx");
         System.out.println("liste recuperer dans le label: \r"+pmtk.findAllModifTrack().get(0).toString());
+        
+        PoiTrackerDAO ptk = new PoiTrackerDAO("HR_HR/Tracker_HR_HR.xlsx");
+        
+        
+        ptk.addTracker(ptk.getLastTracker());
     
         //lancer le tracker
         //ov.tracker("./");
