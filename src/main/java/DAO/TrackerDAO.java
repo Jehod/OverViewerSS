@@ -47,6 +47,12 @@ public interface TrackerDAO extends Serializable
     * @return 
     */
   String getLastTrackerName();
+  
+  /**
+   * creer un tracker vide, avec une sheet vide
+   * @return 
+   */
+  boolean createTracker();
    
     
 }

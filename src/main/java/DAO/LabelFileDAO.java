@@ -1,0 +1,34 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package DAO;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ *
+ * @author nrochas
+ */
+public class LabelFileDAO implements LabelsFilesDAO {
+
+    final String pathLabels;
+
+    public LabelFileDAO(String pathLabels) {
+        super();
+        this.pathLabels = pathLabels;
+    }
+
+    @Override
+    public List<String> getAllLabelsFiles() {
+
+        List list;
+        
+        list = Outils.FilesWorker.ListerDirByform(pathLabels, ".._..");
+        return list;
+
+    }
+
+}

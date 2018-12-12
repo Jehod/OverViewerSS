@@ -25,6 +25,9 @@ public class SimpleRowTracker implements RowTracker
 
     public SimpleRowTracker()
     {
+        langue = "AA_AA";
+        version ="A.A.A";
+        formulaire = "VoidRowTracker";
     }
     
     

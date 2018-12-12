@@ -9,11 +9,13 @@ package com.JehodFactory.overviewerss;
  *
  * @author nik
  */
+import DAO.LabelFileDAO;
 import DAO.PoiModifTrackDAO;
 import DAO.PoiRowTrackerDAO;
 import DAO.PoiTrackerDAO;
 import java.io.IOException;
-import metier.Overviewer;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -26,22 +28,17 @@ public class OverViewerSS {
      */
     public static void main(String[] args) throws IOException {
         
-        Overviewer ov = new metier.Overviewer();
-        
-        
-        PoiRowTrackerDAO prtk = new PoiRowTrackerDAO("HR_HR/Tracker_HR_HR.xlsx");
+        //Overviewer ov = new metier.Overviewer();
        
-          System.out.println("liste recuperer par la DAO: \r"+ prtk.findAllRowTracker().get(0).toString()+ "\r"+prtk.findAllRowTracker().get(1).toString());
-          
-        PoiModifTrackDAO pmtk = new PoiModifTrackDAO("HR_HR/Label_LESIONCOUNT_HR_HR.xlsx");
-        System.out.println("liste recuperer dans le label: \r"+pmtk.findAllModifTrack().get(0).toString());
         
-        PoiTrackerDAO ptk = new PoiTrackerDAO("HR_HR/Tracker_HR_HR.xlsx");
-        
-        
-        ptk.addTracker(ptk.getLastTracker());
+        String path ="D:\\project\\CAIN457M2302";
+        String pathLabels ="\\Settings\\Labels\\";
+       
     
+        
         //lancer le tracker
+        metier.OverViewerSS ov = new metier.OverViewerSS(path, pathLabels);
+        ov.overview();
         //ov.tracker("./");
        //Outils.XlsManager.createXLSTracker("EN_US",new DateManager().getSimpleCurrentDate());
        

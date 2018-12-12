@@ -147,17 +147,29 @@ public class PoiTrackerDAO implements TrackerDAO
         cell = row.createCell(0, CellType.STRING);
         cell.setCellValue("Questionnary");
         cell.setCellStyle(style);
-        // Salary
+        // version
         cell = row.createCell(1, CellType.STRING);
         cell.setCellValue("Version");
         cell.setCellStyle(style);
-        // Grade
+        // date version
         cell = row.createCell(2, CellType.STRING);
-        cell.setCellValue("DateOfTrack");
+        cell.setCellValue("DateOfUpdate");
         cell.setCellStyle(style);
-        // Bonus
-        cell = row.createCell(3, CellType.STRING);
-        cell.setCellValue("SendToRws");
+        //screenshot
+         cell = row.createCell(3, CellType.STRING);
+        cell.setCellValue("Screenshot");
+        cell.setCellStyle(style);
+        // send
+        cell = row.createCell(4, CellType.STRING);
+        cell.setCellValue("SendToExt");
+        cell.setCellStyle(style);
+        //final 
+        cell = row.createCell(5, CellType.BOOLEAN);
+        cell.setCellValue("Final");
+        cell.setCellStyle(style);
+        //certified 
+        cell = row.createCell(5, CellType.BOOLEAN);
+        cell.setCellValue("Certified");
         cell.setCellStyle(style);
 
     }
@@ -188,4 +200,10 @@ public class PoiTrackerDAO implements TrackerDAO
 
     }
 
+    @Override
+    public boolean createTracker() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+   
 }

@@ -62,7 +62,7 @@ public class PoiModifTrackDAO implements ModifTrackDAO
             
         } catch ( IOException e)
         {
-            System.out.println("findAllRowTracker catch: "+ e.getMessage());
+            System.out.println("findAllModifTracker catch: "+ e.getMessage());
         } catch (InvalidFormatException ex)
         {
             Logger.getLogger(PoiRowTrackerDAO.class.getName()).log(Level.SEVERE, null, ex);
