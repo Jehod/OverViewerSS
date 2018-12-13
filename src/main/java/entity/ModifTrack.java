@@ -14,6 +14,7 @@ import java.io.Serializable;
 public interface ModifTrack extends Serializable
         
 {
+    String getFormulaire();
     String getDate();
     String getContributor();
     String getVersion();

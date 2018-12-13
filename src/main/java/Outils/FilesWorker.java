@@ -131,6 +131,13 @@ public class FilesWorker {
         return file.exists();
     }
 
+    /**
+     * list les fichiers du dossier pointé par le path, par la forme du debut et la forme de fin
+     * @param path   path pour ciblé le dossier a traiter
+     * @param fiStart   String du debut trié par startsWith
+     * @param fiExt String dde fin trié par endsWith
+     * @return    retourne une liste de string de chaque fichier trouvé
+     */
     public static List ListerFilesByExtAndStart(String path, String fiStart, String fiExt) {
         File f = new File(path);
         List list = new ArrayList();

@@ -7,16 +7,57 @@ package entity;
 
 import java.io.Serializable;
 
-/**
+/**le rowTracker est une ligne dans le fichier de track. 
+ * 
  *
  * @author nik
  */
 public interface RowTracker extends Serializable
 {
-    
+    /**
+     * le formulaire concerné
+     * @return 
+     */
     String getFormulaire();
-    String getLangue();
+    
+  
+    
+    /**
+     * le numero de version concernée
+     * @return 
+     */
     String getVersion();
+    
+    /**
+     * la date de la version concernée
+     * @return 
+     */
+    String getDateVers();
+    
+  /**
+   * trace si le screenshot est fait. daté si ok, none si pas fait
+   * @return 
+   */
+    String getScreenDone();
+    
+    /**
+     * trace si cette version a été envoyé au traducteur. daté si ok, none si pas fait
+     * @return 
+     */
+    String getSendtoExt();
+    
+    /**
+     * trace si la version est la finalisée. daté si ok, none si pas fait
+     * @return 
+     */
+    String getFinalized();
+    
+    /**
+     * trace si certifiée. daté si ok , none si pas fait
+     * @return 
+     */
+    String getCertified();
+    
     
     
     

@@ -6,10 +6,7 @@
 package metier;
 
 import DAO.LabelFileDAO;
-import DAO.PoiModifTrackDAO;
-import DAO.PoiRowTrackerDAO;
 import DAO.PoiTrackerDAO;
-import Outils.FilesWorker;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +16,6 @@ import java.util.List;
  */
 public class OverViewerSS {
 
-    String langue;
     final String path;
     final String pathLabels;
 
@@ -29,32 +25,20 @@ public class OverViewerSS {
     }
 
     public void overview() {
-        List<String> listLang = new ArrayList();
 
+        //on liste les dossiers de langues
+        List<String> listLang = new ArrayList();
         LabelFileDAO lbf = new LabelFileDAO(path + pathLabels);
         listLang = lbf.getAllLabelsFiles();
 
+        //pour chaque dossier de langue
         for (String dir : listLang) {
-
-            //on list les excels de label presents 
-            List<String> listXls = new ArrayList<>();
-            listXls = FilesWorker.ListerFilesByExtAndStart(path + pathLabels + dir.toString(), "Label", ".xlsx");
-            PoiRowTrackerDAO prtk = new PoiRowTrackerDAO(path + pathLabels + dir + "\\Tracker_" + dir + ".xlsx");
+            PoiTrackerDAO ptk = new PoiTrackerDAO(path + pathLabels + dir );
             
-            for (String xls : listXls) {
-                PoiModifTrackDAO pmtk = new PoiModifTrackDAO(path + pathLabels + dir + "\\"+xls);
-                 System.out.println("pmtk: "+pmtk.toString());
-                
-
-            }
+            ptk.svgTracker(ptk.createTrackerFromLabel(dir));
 
         }
 
-        //
-        //System.out.println("liste recuperer par la DAO: \r"+ prtk.findAllRowTracker().get(0).toString()+ "\r"+prtk.findAllRowTracker().get(1).toString());
-        //
-        //
-        //PoiTrackerDAO ptk = new PoiTrackerDAO(path + pathLabels + langue + "\\Tracker_" + langue + ".xlsx");
-        //ptk.addTracker(ptk.getLastTracker());
     }
+
 }

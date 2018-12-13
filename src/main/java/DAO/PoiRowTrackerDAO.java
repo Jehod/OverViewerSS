@@ -72,7 +72,7 @@ public class PoiRowTrackerDAO implements RowTrackerDAO {
         final SimpleRowTracker rtk = new SimpleRowTracker();
 
         final String langue = row.getCell(0).getStringCellValue();
-        rtk.setLangue(langue);
+      //  rtk.setLangue(langue);
         final String formulaire = row.getCell(1).getStringCellValue();
         rtk.setFormulaire(formulaire);
         final String version = row.getCell(2).getStringCellValue();

@@ -6,7 +6,6 @@
 package entity;
 
 import java.util.ArrayList;
-import java.util.logging.Logger;
 
 /**
  *
@@ -66,5 +65,6 @@ public class SimpleTracker implements Tracker
     {
         return date;
     }
-    
+
+  
 }

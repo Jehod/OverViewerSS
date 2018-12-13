@@ -5,20 +5,22 @@
  */
 package entity;
 
-/**
+/** le modifTrack represente une ligne de tracage dans le xls de label
+ * un fichier a donc un modifTrack par version qu'il a
  *
  * @author nik
  */
 public class SimpleModifTrack implements ModifTrack
 {
-    
+    private String formulaire;
     private String date;
     private String contributor;
     private String version;
     private String action;
 
-    public SimpleModifTrack(String date, String contributor, String version, String action)
+    public SimpleModifTrack(String formulaire, String date, String contributor, String version, String action)
     {
+        this.formulaire = formulaire;
         this.date = date;
         this.contributor = contributor;
         this.version = version;
@@ -28,10 +30,14 @@ public class SimpleModifTrack implements ModifTrack
     public SimpleModifTrack()
     {
     }
-    
-    
 
     
+    
+    public void setFormulaire(String formulaire) {
+        this.formulaire = formulaire;
+    }
+    
+
     
     public void setAction(String action)
     {
@@ -75,13 +81,18 @@ public class SimpleModifTrack implements ModifTrack
     @Override
     public String toString()
     {
-        return "ligne: date: "+date+" contributor: "+contributor+" version: "+version+" action: "+action;
+        return "ligne: formulaire: "+ formulaire+ "date: "+date+" contributor: "+contributor+" version: "+version+" action: "+action;
     }
 
     @Override
     public String getAction()
     {
         return action;
+    }
+
+    @Override
+    public String getFormulaire() {
+       return formulaire;
     }
     
     

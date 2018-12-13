@@ -5,8 +5,11 @@
  */
 package DAO;
 
+import entity.SimpleModifTrack;
+import entity.SimpleRowTracker;
 import entity.SimpleTracker;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -49,10 +52,33 @@ public interface TrackerDAO extends Serializable
   String getLastTrackerName();
   
   /**
-   * creer un tracker vide, avec une sheet vide
+   * creer un tracker des xls de la langue pointée dans le dossier du label
+   * @param dir le nom du dossier sous form **_**
    * @return 
    */
-  boolean createTracker();
-   
+  SimpleTracker createTrackerFromLabel(String dir);
+  
+  /**
+   * transforme un modifTrack de label en ligne pour le tracker
+   * @param smtk  le modifTrack a traiter
+   * @return  le rowTracker pour le tracker
+   */
+  SimpleRowTracker modifTrackToRowTracker(SimpleModifTrack smtk);
+  
+  
+
+  
+  /**cree un tracker avec toutes les row donné en param
+   * 
+   * @param allsrtk
+   * @return 
+   */
+  SimpleTracker createTracker(ArrayList<SimpleRowTracker> allsrtk);
     
+  /**
+   * creer le fichier xls correspondant au tracker donné
+   * @param stk
+   * @return true si reussi
+   */
+  boolean svgTracker(SimpleTracker stk);
 }
