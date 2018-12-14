@@ -14,12 +14,12 @@ import java.util.List;
  *
  * @author nrochas
  */
-public class OverViewerSS {
+public class OverView {
 
     final String path;
     final String pathLabels;
 
-    public OverViewerSS(String path, String pathLabels) {
+    public OverView(String path, String pathLabels) {
         this.path = path;
         this.pathLabels = pathLabels;
     }

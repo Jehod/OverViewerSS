@@ -28,19 +28,24 @@ public class OverViewerSS {
      */
     public static void main(String[] args) throws IOException {
         
-        //Overviewer ov = new metier.Overviewer();
-       
         
-        String path ="D:\\project\\CAIN457M2302";
+       
+        // donner le chemin absolu pour le test
+        
+        //path pour tester sur ordi perso
+        String path ="F:\\Kayentis\\Projets\\CAIN457M2302";
         String pathLabels ="\\Settings\\Labels\\";
+        
+        //path pour tester sur ordi pro
+        //String path ="D:\\project\\CAIN457M2302";
+        //String pathLabels ="\\Settings\\Labels\\";
        
     
         
         //lancer le tracker
-        metier.OverViewerSS ov = new metier.OverViewerSS(path, pathLabels);
+        metier.OverView ov = new metier.OverView(path, pathLabels);
         ov.overview();
-        //ov.tracker("./");
-       //Outils.XlsManager.createXLSTracker("EN_US",new DateManager().getSimpleCurrentDate());
+        
        
     }
     

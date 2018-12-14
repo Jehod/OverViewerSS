@@ -66,5 +66,11 @@ public class SimpleTracker implements Tracker
         return date;
     }
 
+    @Override
+    public String toString()
+    {
+        return "nombre de RowTracker: "+allRowTracker.size()+" name: "+name+" date: "+date;
+    }
+
   
 }

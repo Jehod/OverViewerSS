@@ -33,7 +33,7 @@ public class FilesWorker {
         File f = new File(path);
         List list;// = new ArrayList();
 
-        FilenameFilter filter = (File dir, String name) -> (name.startsWith(filtre));
+        FilenameFilter filter = (File dir, String name) -> (name.toLowerCase().startsWith(filtre));
 
         System.out.println("Fichiers commencant par: " + filtre);
         String[] noms = f.list(filter);
@@ -54,7 +54,7 @@ public class FilesWorker {
         File f = new File(path);
         List list;// = new ArrayList();
 
-        FilenameFilter filter = (File dir, String name) -> (name.endsWith(filtre));
+        FilenameFilter filter = (File dir, String name) -> (name.toLowerCase().endsWith(filtre));
 
         String[] noms = f.list(filter);
         list = Arrays.asList(noms);
@@ -74,7 +74,7 @@ public class FilesWorker {
         File f = new File(path);
         List list = new ArrayList();
 
-        FilenameFilter filter = (File dir, String name) -> (name.matches(form));
+        FilenameFilter filter = (File dir, String name) -> (name.toLowerCase().matches(form));
         System.out.println("dossiers de forme:" + form);
         String[] noms = f.list(filter);
         list = Arrays.asList(noms);
@@ -142,7 +142,8 @@ public class FilesWorker {
         File f = new File(path);
         List list = new ArrayList();
 
-        FilenameFilter filter = (File dir, String name) -> (name.endsWith(fiExt));
+        //on ajoute lowerCase because le .xlsx est parfois ecrit .XLSX
+        FilenameFilter filter = (File dir, String name) -> (name.toLowerCase().endsWith(fiExt));
 
         String[] noms = f.list(filter);
         for (String nom : noms) {

@@ -25,33 +25,40 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
  *
  * @author nik
  */
-public class PoiModifTrackDAO implements ModifTrackDAO {
+public class PoiModifTrackDAO implements ModifTrackDAO
+{
 
     private String fileName;
+    private String formulaire;
 
-    public PoiModifTrackDAO(String fileName) {
+    public PoiModifTrackDAO(String fileName)
+    {
         super();
         this.fileName = fileName;
+        formulaire = recupNomForm(this.fileName);
+
     }
 
     @Override
-    public List<SimpleModifTrack> findAllModifTrack() {
+    public List<SimpleModifTrack> findAllModifTrack()
+    {
         final File file = new File(fileName);
         final List<SimpleModifTrack> allRow = new ArrayList<SimpleModifTrack>();
 
-        try {
+        try
+        {
             final Workbook wb = WorkbookFactory.create(file);
             final Sheet sheet = wb.getSheetAt(0);
 
             int index = 1;
             Row row = sheet.getRow(index++);
 
-            
             // on teste l'existence de la ligne, puis l'existence de la cellule puis le remplissage de la cellule et enfin son type 
             // Attention en POI les lignes et les cellules n'existent pas sans type et feront planté si on tente d'y acceder 
-            while (row != null && row.getCell(0) != null && row.getCell(0).getCellTypeEnum() != CellType.BLANK && row.getCell(0).getCellTypeEnum() == CellType.STRING) {
+            while (row != null && row.getCell(0) != null && row.getCell(0).getCellTypeEnum() != CellType.BLANK && row.getCell(0).getCellTypeEnum() == CellType.STRING)
+            {
 
-                final SimpleModifTrack mtk = rowToModifTrack(row);
+                final SimpleModifTrack mtk = rowToModifTrack(row, formulaire);
 
                 allRow.add(mtk);
 
@@ -59,12 +66,15 @@ public class PoiModifTrackDAO implements ModifTrackDAO {
 
             }
 
-        } catch (IOException e) {
+        } catch (IOException e)
+        {
             System.out.println("findAllModifTracker catch: " + e.getMessage());
-        } catch (InvalidFormatException ex) {
+        } catch (InvalidFormatException ex)
+        {
             System.out.println("catch finallModifTacker2 : " + ex.getMessage());
             Logger.getLogger(PoiRowTrackerDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (EncryptedDocumentException ex) {
+        } catch (EncryptedDocumentException ex)
+        {
             System.out.println("catch finallModifTacker3 : " + ex.getMessage());
             Logger.getLogger(PoiRowTrackerDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -72,11 +82,38 @@ public class PoiModifTrackDAO implements ModifTrackDAO {
         return allRow;
     }
 
-    private SimpleModifTrack rowToModifTrack(Row row) {
+    private SimpleModifTrack rowToModifTrack(Row row, String formulaire)
+    {
         final SimpleModifTrack rtk = new SimpleModifTrack();
+        String date = "88/88/2019";
 
-        final String date = new DateManager().getSimpleDate(row.getCell(3).getDateCellValue());
+        rtk.setFormulaire(formulaire);
+
+        if (null == row.getCell(3).getCellTypeEnum())
+        {
+            date = "99/99/2019";
+        } else
+        {
+            switch (row.getCell(3).getCellTypeEnum())
+            {
+                case NUMERIC:
+                {
+                    date = new DateManager().getSimpleDate(row.getCell(3).getDateCellValue());
+
+                    break;
+                }
+                case STRING:
+                {
+                    date = new DateManager().getConvertDate(row.getCell(3).getStringCellValue());
+                    break;
+                }
+                default:
+                    date = "99/99/2019";
+                    break;
+            }
+        }
         rtk.setDate(date);
+
         final String contributor = row.getCell(1).getStringCellValue();
         rtk.setContributor(contributor);
         final String version = row.getCell(0).getStringCellValue();
@@ -88,11 +125,13 @@ public class PoiModifTrackDAO implements ModifTrackDAO {
     }
 
     @Override
-    public SimpleModifTrack getLastModifTrack() {
+    public SimpleModifTrack getLastModifTrack()
+    {
         final File file = new File(fileName);
         SimpleModifTrack mtk = null;
 
-        try {
+        try
+        {
             final Workbook wb = WorkbookFactory.create(file);
             final Sheet sheet = wb.getSheetAt(0);
 
@@ -100,40 +139,72 @@ public class PoiModifTrackDAO implements ModifTrackDAO {
             Row row = sheet.getRow(index++);
 
             // test l'existence de la ligne, puis de la cell, puis sont type
-            while (row != null && row.getCell(0) != null && row.getCell(0).getCellTypeEnum() == CellType.STRING) {
+            while (row != null && row.getCell(0) != null && row.getCell(0).getCellTypeEnum() == CellType.STRING)
+            {
 
-                mtk = rowToModifTrack(row);
+                mtk = rowToModifTrack(row, formulaire);
 
                 row = sheet.getRow(index++);
             }
 
-        } catch (IOException e) {
+        } catch (IOException e)
+        {
             System.out.println("findAllRowTracker catch: " + e.getMessage());
-        } catch (InvalidFormatException | EncryptedDocumentException ex) {
-            System.out.println("mutlicatch getlastmidtr: "+ ex.getLocalizedMessage());
+        } catch (InvalidFormatException | EncryptedDocumentException ex)
+        {
+            System.out.println("mutlicatch getlastmidtr: " + ex.getLocalizedMessage());
         }
 
         return mtk;
     }
 
     @Override
-    public String getLastVersion() {
+    public String getLastVersion()
+    {
         return getLastModifTrack().getVersion();
     }
 
     @Override
-    public String getLastDate() {
+    public String getLastDate()
+    {
         return getLastModifTrack().getDate();
     }
 
     @Override
-    public String getLastContributor() {
+    public String getLastContributor()
+    {
         return getLastModifTrack().getContributor();
     }
 
     @Override
-    public String getLastAction() {
+    public String getLastAction()
+    {
         return getLastModifTrack().getAction();
+    }
+
+    /**
+     * triture le path pour en tirer le nom du questionnaire contenu dans le nom
+     * du fichier excel
+     *
+     * @param fileName le path
+     * @return le nom du qestionnaire
+     */
+    private String recupNomForm(String fileName)
+    {
+        String formulaire = "erreur";
+        String[] split;
+        if (fileName.contains("Label"))
+        {
+            split = fileName.split("Label_");
+            formulaire = split[1].substring(0, split[1].length() - 11);
+        } else if (fileName.contains("Labels"))
+        {
+            split = fileName.split("Labels_");
+            formulaire = split[1].substring(0, split[1].length() - 11);
+        }
+
+        return formulaire;
+
     }
 
 }
