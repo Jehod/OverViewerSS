@@ -9,13 +9,7 @@ package com.JehodFactory.overviewerss;
  *
  * @author nik
  */
-import DAO.LabelFileDAO;
-import DAO.PoiModifTrackDAO;
-import DAO.PoiRowTrackerDAO;
-import DAO.PoiTrackerDAO;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *

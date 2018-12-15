@@ -54,5 +54,13 @@ public class SimpleStudyTracker implements StudyTracker
     {
        return screenshotsPath;
     }
+
+    @Override
+    public String toString()
+    {
+        return "Number of Trackers: "+allTrackers.size()+ " Path: "+studyPath+" LabelPath: "+labelsPath+" ScreenShotPath: "+screenshotsPath ;
+    }
+    
+    
     
 }

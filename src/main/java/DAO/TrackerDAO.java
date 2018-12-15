@@ -16,22 +16,15 @@ import java.util.List;
  *
  * @author nik
  */
-public interface TrackerDAO extends Serializable
+public interface TrackerDAO 
 {
    /**
     * retourne toute les sheet du tracker (reellement utile?)
     * @return 
     */ 
    List<SimpleTracker> readAllTracker(); 
-   
-   
-   
-   /**
-    * ajoute une sheet tracker au Tracker excel
-    * @param tck
-    * @return boolean proof
-    */
-   Boolean addTracker(SimpleTracker tck);
+      
+
    
    /**
     * renvoie le tracker le plus recent du tracker (utile? les methodes prennent deja par defaut le plus recent)

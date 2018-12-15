@@ -11,13 +11,9 @@ import entity.SimpleModifTrack;
 import entity.SimpleRowTracker;
 import entity.SimpleTracker;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -50,6 +46,7 @@ public class PoiTrackerDAO implements TrackerDAO
      */
     public PoiTrackerDAO(String fileName)
     {
+        super();
         this.fileName = fileName;
 
     }
@@ -60,66 +57,7 @@ public class PoiTrackerDAO implements TrackerDAO
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public Boolean addTracker(SimpleTracker tck)
-    {
-        boolean bob = false;
-        String date = new Outils.DateManager().getSimpleCurrentDate();
-
-        final File fileTemp = new File("HR_HR/TrackerTemp.xlsx");
-        if (fileTemp.exists())
-        {
-            fileTemp.delete();
-        }
-
-        final File file = new File(fileName);
-
-        Workbook wb = null;
-        try
-        {
-            wb = WorkbookFactory.create(file);
-            final Sheet sheet = wb.createSheet("Track_" + date);
-            createTitle(wb, sheet);
-
-            int i = 1;
-            for (SimpleRowTracker rtk : tck.getAllRowTracker())
-            {
-                System.out.println("dans la boucle: " + rtk.toString());
-                Row row = sheet.createRow(i);
-                row.createCell(0).setCellValue(rtk.getFormulaire());
-                row.createCell(1).setCellValue(rtk.getVersion());
-                i++;
-            }
-            bob = true;
-
-        } catch (IOException ex)
-        {
-
-            Logger.getLogger(PoiTrackerDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InvalidFormatException ex)
-        {
-            Logger.getLogger(PoiTrackerDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (EncryptedDocumentException ex)
-        {
-            Logger.getLogger(PoiTrackerDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        try
-        {
-            final FileOutputStream fos = new FileOutputStream(fileTemp);
-            wb.write(fos);
-            fos.close();
-        } catch (FileNotFoundException ex)
-        {
-            Logger.getLogger(PoiTrackerDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex)
-        {
-            Logger.getLogger(PoiTrackerDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        return bob;
-
-    }
+   
 
     @Override
     public SimpleTracker getLastTracker()
@@ -140,7 +78,7 @@ public class PoiTrackerDAO implements TrackerDAO
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public void createTitle(Workbook wb, Sheet sheet)
+    public void createTitleTracker(Workbook wb, Sheet sheet)
     {
         if (wb != null || sheet != null)
         {
@@ -316,7 +254,7 @@ public class PoiTrackerDAO implements TrackerDAO
         }
 
         // creer les cellules
-        createTitle(wb, sheet);
+        createTitleTracker(wb, sheet);
 
         Row rows;
         int i = 1;
@@ -329,7 +267,7 @@ public class PoiTrackerDAO implements TrackerDAO
 
         try
         {
-            file = new File(fileName + "\\tracker.xlsx");
+            file = new File(fileName + "\\TRACKER.xlsx");
             FileOutputStream outFile = new FileOutputStream(file);
             wb.write(outFile);
             //outFile.close();

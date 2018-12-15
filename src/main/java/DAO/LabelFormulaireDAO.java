@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author nik
  */
-public interface LabelFormulaireDAO extends Serializable
+public interface LabelFormulaireDAO 
 {
     List<SimpleModifTrack> findAllModifTrack();
     String getLastVersion();

@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author nrochas
  */
-public interface LabelsFilesDAO extends Serializable{
+public interface LabelsFilesDAO{
 
 List<String> getAllLabelsFiles();
 
