@@ -14,83 +14,27 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.CellType;
-import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import style.StylePoi;
 
 /**
  *
  * @author nik
  */
-public class PoiStudyTracker implements StudyTrackerDAO
+public class PoiStudyTrackerDAO implements StudyTrackerDAO
 {
     private String fileName;
     
 
-    public PoiStudyTracker(String fileName)
+    public PoiStudyTrackerDAO(String fileName)
     {
         super();
         this.fileName = fileName;
     }
     
-    /**
-     *  creer le header pour le xlsx de studyTracker 
-     * @param wb
-     * @param sheet 
-     */
-     public void createTitleStudyTracker(Workbook wb, Sheet sheet)
-    {
-        if (wb != null || sheet != null)
-        {
-            Cell cell;
-            Row row;
-            Font font = wb.createFont();
-            font.setBold(true);
-            CellStyle style = wb.createCellStyle();
-            style.setFont(font);
-            int rownum = 0;
-
-            row = sheet.createRow(rownum);
-
-           // EmpName
-            cell = row.createCell(0, CellType.STRING);
-            cell.setCellValue("Questionnary");
-            cell.setCellStyle(style);
-            // version
-            cell = row.createCell(1, CellType.STRING);
-            cell.setCellValue("Version");
-            cell.setCellStyle(style);
-            // date version
-            cell = row.createCell(2, CellType.STRING);
-            cell.setCellValue("DateOfUpdate");
-            cell.setCellStyle(style);
-            //screenshot
-            cell = row.createCell(3, CellType.STRING);
-            cell.setCellValue("ScreenDone");
-            cell.setCellStyle(style);
-            // send
-            cell = row.createCell(4, CellType.STRING);
-            cell.setCellValue("SendToExt");
-            cell.setCellStyle(style);
-            //final 
-            cell = row.createCell(5, CellType.STRING);
-            cell.setCellValue("Final");
-            cell.setCellStyle(style);
-            //certified 
-            cell = row.createCell(6, CellType.STRING);
-            cell.setCellValue("Certified");
-            cell.setCellStyle(style);
-        } else
-        {
-            System.out.println("le create title ne peut marcher car le workbook ou la sheet est nul");
-        }
-
-    }
     
 
     @Override
@@ -130,15 +74,22 @@ public class PoiStudyTracker implements StudyTrackerDAO
             System.out.println("catch du svgTracker " + ex.getLocalizedMessage());
         }
 
-        // creer les cellules
-        createTitleStudyTracker(wb, sheet);
+        // creer les cellules du titre
+        style.StylePoi style = new StylePoi(wb, sheet);
+        style.createTitle("STUDYTRACKER");
+        //createTitleStudyTracker(wb, sheet);
 
         Row rows;
         int i = 1;
         for (SimpleTracker track : sst.getAllTrackers())
         {
-            rows = sheet.createRow(i);
-            addTrackerLanguage(rows,track.getName());
+            //rows = sheet.createRow(i);
+            //addTrackerLanguage(rows,);
+            style.createBlocTitle(i,track.getName());
+            i++;
+            
+            //rows = sheet.createRow(i);
+            style.createHeader(i);
             i++;
             for (SimpleRowTracker row : track.getAllRowTracker())
             {
@@ -150,6 +101,9 @@ public class PoiStudyTracker implements StudyTrackerDAO
             }
  
         }
+        
+        //apply decoration
+        style.pairStyle();
 
         try
         {

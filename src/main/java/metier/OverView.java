@@ -6,7 +6,7 @@
 package metier;
 
 import DAO.LabelFileDAO;
-import DAO.PoiStudyTracker;
+import DAO.PoiStudyTrackerDAO;
 import DAO.PoiTrackerDAO;
 import entity.SimpleStudyTracker;
 import entity.SimpleTracker;
@@ -26,7 +26,11 @@ public class OverView {
         this.path = path;
         this.pathLabels = pathLabels;
     }
-
+    
+    /**
+     * methode pour creer les trackers par langue et le studyTracker
+     * il instancie les DAO et parcourt les fichiers de langue
+     */
     public void overview() {
 
         //on liste les dossiers de langues
@@ -46,7 +50,7 @@ public class OverView {
         
         //on creer le studytracker avec tout ce qu'on a recuperé
         SimpleStudyTracker sst = new SimpleStudyTracker((ArrayList<SimpleTracker>) listTrackers, path, pathLabels, path);
-        PoiStudyTracker pstk = new PoiStudyTracker(path+pathLabels);
+        PoiStudyTrackerDAO pstk = new PoiStudyTrackerDAO(path+pathLabels);
         pstk.svgStudyTracker(sst);
 
     }

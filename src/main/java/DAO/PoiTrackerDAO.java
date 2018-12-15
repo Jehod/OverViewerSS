@@ -29,6 +29,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import style.StylePoi;
 
 /**
  *
@@ -254,7 +255,10 @@ public class PoiTrackerDAO implements TrackerDAO
         }
 
         // creer les cellules
-        createTitleTracker(wb, sheet);
+        style.StylePoi style = new StylePoi(wb, sheet);
+        style.createHeader(0);
+        
+//createTitleTracker(wb, sheet);
 
         Row rows;
         int i = 1;
@@ -264,6 +268,9 @@ public class PoiTrackerDAO implements TrackerDAO
             addRowTracker(row, rows);
             i++;
         }
+        
+        //apply decoration
+        style.pairStyle();
 
         try
         {
