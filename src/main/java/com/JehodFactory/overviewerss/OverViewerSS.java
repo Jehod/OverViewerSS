@@ -27,12 +27,15 @@ public class OverViewerSS {
         // donner le chemin absolu pour le test
         
         //path pour tester sur ordi perso
+       /*
         String path ="F:\\Kayentis\\Projets\\CAIN457M2302";
         String pathLabels ="\\Settings\\Labels\\";
-        
+        */
+       
+       
         //path pour tester sur ordi pro
-        //String path ="D:\\project\\CAIN457M2302";
-        //String pathLabels ="\\Settings\\Labels\\";
+        String path ="D:\\project\\CAIN457M2301";
+        String pathLabels ="\\Settings\\Labels\\";
        
     
         
