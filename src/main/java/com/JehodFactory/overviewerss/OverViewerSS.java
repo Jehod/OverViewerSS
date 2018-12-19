@@ -10,6 +10,8 @@ package com.JehodFactory.overviewerss;
  * @author nik
  */
 import java.io.IOException;
+import style.GraphicCharter;
+import view.FenMain;
 
 /**
  *
@@ -22,7 +24,7 @@ public class OverViewerSS {
      */
     public static void main(String[] args) throws IOException {
         
-        
+        GraphicCharter gc=  GraphicCharter.getInstance();
        
         // donner le chemin absolu pour le test
         
@@ -37,8 +39,12 @@ public class OverViewerSS {
     
         
         //lancer le tracker
-        metier.OverView ov = new metier.OverView(path, pathLabels);
-        ov.overview();
+       // metier.OverView ov = new metier.OverView(path, pathLabels);
+        //ov.overview();
+        
+        //via la fenetre
+        FenMain ff = new FenMain();
+       
         
        
     }

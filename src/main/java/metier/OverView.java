@@ -12,6 +12,7 @@ import entity.SimpleStudyTracker;
 import entity.SimpleTracker;
 import java.util.ArrayList;
 import java.util.List;
+import view.FenEnd;
 
 /**
  *
@@ -52,6 +53,9 @@ public class OverView {
         SimpleStudyTracker sst = new SimpleStudyTracker((ArrayList<SimpleTracker>) listTrackers, path, pathLabels, path);
         PoiStudyTrackerDAO pstk = new PoiStudyTrackerDAO(path+pathLabels);
         pstk.svgStudyTracker(sst);
+        
+        FenEnd fe = new FenEnd();
+        fe.setVisible(true);
 
     }
 
