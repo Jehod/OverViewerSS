@@ -49,6 +49,7 @@ public class FenMain extends JFrame
         Labtitle2 = new javax.swing.JLabel();
         pathLabelTxtField = new javax.swing.JTextField();
         butLaunch = new ButtonGenerik();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -83,6 +84,11 @@ public class FenMain extends JFrame
             }
         });
 
+        jLabel1.setFont(style.GraphicCharter.fontCorps);
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Apres le lancement, attendre l'apparition de la fenetre de fin.");
+        jLabel1.setToolTipText("Si elle apparait pas dans les 30 sec ce que ca a dû planter");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -102,6 +108,7 @@ public class FenMain extends JFrame
                         .addGap(155, 155, 155)
                         .addComponent(butLaunch)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -117,7 +124,8 @@ public class FenMain extends JFrame
                 .addComponent(pathLabelTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(butLaunch)
-                .addGap(0, 56, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE))
         );
 
         pack();
@@ -162,6 +170,7 @@ public class FenMain extends JFrame
     private javax.swing.JLabel Labinvite;
     private javax.swing.JLabel Labtitle2;
     private javax.swing.JButton butLaunch;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel labelTitre;
     private javax.swing.JTextField pathLabelTxtField;
     private javax.swing.JTextField txtFieldPath;
