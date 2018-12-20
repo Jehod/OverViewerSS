@@ -6,6 +6,8 @@
 package view;
 
 import java.awt.Dimension;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -27,7 +29,7 @@ public class FenMain extends JFrame
         initComponents();
 
         this.setLocation(dim.width / 2 - this.getWidth() / 2, dim.height / 2 - this.getHeight() / 2);
-        this.setSize(600, 400);
+        this.setSize(478, 400);
         this.setVisible(true);
         pathLabelTxtField.setText("/Settings/Labels");
 
@@ -55,12 +57,12 @@ public class FenMain extends JFrame
 
         labelTitre.setFont(style.GraphicCharter.titre1);
         labelTitre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelTitre.setText("Version Tracker");
+        labelTitre.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Zone-gd-Lionne-3.jpg"))); // NOI18N
         labelTitre.setToolTipText("");
 
         Labinvite.setFont(style.GraphicCharter.titre2);
         Labinvite.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Labinvite.setText("Copy local and absolute path of file wich contains file 'Settings'");
+        Labinvite.setText("Copy absolute path of file wich contains file 'Settings'");
         Labinvite.setToolTipText("");
 
         txtFieldPath.setFont(style.GraphicCharter.fontCorps);
@@ -93,28 +95,31 @@ public class FenMain extends JFrame
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labelTitre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(Labinvite, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
-            .addComponent(Labtitle2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(95, 95, 95)
+                        .addGap(130, 130, 130)
                         .addComponent(txtFieldPath, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(93, 93, 93)
+                        .addGap(126, 126, 126)
                         .addComponent(pathLabelTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(155, 155, 155)
+                        .addGap(186, 186, 186)
                         .addComponent(butLaunch)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(Labtitle2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(Labinvite, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(labelTitre, javax.swing.GroupLayout.PREFERRED_SIZE, 461, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(labelTitre, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(51, 51, 51)
+                .addComponent(labelTitre, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Labinvite, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtFieldPath, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -122,10 +127,10 @@ public class FenMain extends JFrame
                 .addComponent(Labtitle2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pathLabelTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(butLaunch)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE))
+                .addGap(25, 25, 25)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -138,15 +143,18 @@ public class FenMain extends JFrame
 
         if (txtFieldPath.getText() == null || pathLabelTxtField.getText() == null || txtFieldPath.getText().trim().equals("") || txtFieldPath.getText().trim().equals(""))
         {
-            JOptionPane.showMessageDialog(null, "Remplissez les champs svp", "warning", ERROR);
+            JOptionPane.showMessageDialog(null, "Remplissez tout les champs svp", "Error Fill Field", JOptionPane.ERROR_MESSAGE, new ImageIcon("C:\\Users\\nik\\Documents\\NetBeansProjects\\OverViewerSS\\src\\main\\resources\\rugissment.png"));
+        } else if (txtFieldPath.getText().endsWith("/") || !pathLabelTxtField.getText().startsWith("/"))
+        {
+            JOptionPane.showMessageDialog(null, "le path ne doit pas finir par un slash et le path labels doit commencer par un slash", "Error Fill Field", JOptionPane.ERROR_MESSAGE, new ImageIcon("C:\\Users\\nik\\Documents\\NetBeansProjects\\OverViewerSS\\src\\main\\resources\\rugissment.png"));
         } else
         {
             path = txtFieldPath.getText();
             pathLabels = pathLabelTxtField.getText();
 
             int dialogButton = JOptionPane.YES_NO_OPTION;
-            int dialogResult = JOptionPane.showConfirmDialog(null, "Confirmez l'adresse saisie:" + path + pathLabels, "confirmation",dialogButton);
-            
+            int dialogResult = JOptionPane.showConfirmDialog(null, "Confirmez l'adresse saisie:" + path + pathLabels, "confirmation", dialogButton);
+
             if (dialogResult == JOptionPane.YES_OPTION)
             {
                 this.dispose();

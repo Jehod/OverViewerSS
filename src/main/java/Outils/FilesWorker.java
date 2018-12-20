@@ -77,6 +77,7 @@ public class FilesWorker {
         FilenameFilter filter = (File dir, String name) -> (name.toLowerCase().matches(form));
         System.out.println("dossiers de forme:" + form);
         String[] noms = f.list(filter);
+        if (noms != null){
         list = Arrays.asList(noms);
 
         String str = "";
@@ -85,7 +86,7 @@ public class FilesWorker {
             str = str + " " + list.get(i);
         }
         System.out.println(str);
-
+        }
         return list;
     }
 /**
