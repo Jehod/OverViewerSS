@@ -158,6 +158,8 @@ public class FenMain extends JFrame
             if (dialogResult == JOptionPane.YES_OPTION)
             {
                 this.dispose();
+                FenProgress fenp = new FenProgress();
+                fenp.setVisible(true);
                 metier.OverView ov = new metier.OverView(path, pathLabels + "\\");
                 ov.overview();
             } else

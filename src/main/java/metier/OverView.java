@@ -15,6 +15,7 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import view.FenEnd;
+import view.FenProgress;
 
 /**
  *
@@ -38,12 +39,17 @@ public class OverView
      */
     public void overview()
     {
+          
+        
 
         //on liste les dossiers de langues
         List<String> listLang = new ArrayList();
         LabelFileDAO lbf = new LabelFileDAO(path + pathLabels);
+        
         listLang = lbf.getAllLabelsFiles();
         List<SimpleTracker> listTrackers = new ArrayList<>();
+        
+               
 
         //on alerte si pas de dossier de langue
         if (listLang.size() == 0)

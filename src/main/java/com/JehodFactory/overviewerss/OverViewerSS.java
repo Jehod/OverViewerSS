@@ -10,6 +10,7 @@ package com.JehodFactory.overviewerss;
  * @author nik
  */
 import java.io.IOException;
+import java.util.logging.Logger;
 import style.GraphicCharter;
 import view.FenMain;
 
@@ -18,6 +19,9 @@ import view.FenMain;
  * @author nrochas
  */
 public class OverViewerSS {
+
+    private static final Logger LOG = Logger.getLogger(OverViewerSS.class.getName());
+    
 
     /**
      * @param args the command line arguments

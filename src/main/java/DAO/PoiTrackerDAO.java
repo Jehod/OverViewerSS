@@ -47,7 +47,7 @@ public class PoiTrackerDAO implements TrackerDAO
      */
     public PoiTrackerDAO(String fileName)
     {
-        super();
+        
         this.fileName = fileName;
 
     }
