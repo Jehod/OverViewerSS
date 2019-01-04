@@ -16,6 +16,7 @@ public interface Style
     void pairStyle();
     void blocStyle();
     void createTitle(String title);
+    void colorCell(); 
     
     
 }

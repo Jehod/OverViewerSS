@@ -270,7 +270,9 @@ public class PoiTrackerDAO implements TrackerDAO
         }
         
         //apply decoration
+        System.out.println("apply decoration");
         style.pairStyle();
+        style.colorCell();
 
         try
         {
