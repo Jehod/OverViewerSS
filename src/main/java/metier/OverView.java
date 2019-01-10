@@ -61,8 +61,9 @@ public class OverView {
                 //ajout de la verif de screenshot
                 if (new File(path + pathLabels + "/" + dir).exists()) {
                     for (SimpleRowTracker rt : smt.getAllRowTracker()) {
-                        if (scf.checkExisting(dir, rt.getFormulaire(), rt.getVersion())) {
-                            rt.setScreenDone("ok");
+                        if (scf.checkExistingPDF(dir, rt.getFormulaire(), rt.getVersion()))  {
+                            //rt.setScreenDone("ok");
+                            rt.setScreenDone(scf.getDateLastModifPDF(dir, rt.getFormulaire(), rt.getVersion()));
                         }
                         if (rt.getVersion().endsWith("0.0")) {
                             rt.setFinalized("ok");

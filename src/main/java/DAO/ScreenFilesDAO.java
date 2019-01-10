@@ -5,7 +5,9 @@
  */
 package DAO;
 
+import Outils.DateManager;
 import java.io.File;
+import java.util.Date;
 
 /**
  *
@@ -20,16 +22,32 @@ public class ScreenFilesDAO implements ScreenshotFilesDAO {
     }
 
     @Override
-    public boolean checkExisting(String langue,String formulaire, String version) {
+    public boolean checkExistingPDF(String langue,String formulaire, String version) {
         boolean bob = false;
+        String date = "None";
 
         if (new File(fileName+"/"+langue+"/"+formulaire+"_"+langue+"_v"+version+".pdf").exists()) {
             bob = true;
+            
             System.out.println("+++++++++ "+fileName+"/"+langue+"/"+formulaire+"_"+langue+"_v"+version+".pdf"+ " a ete trouve++++");
         }
 
         return bob;
 
+    }
+
+    @Override
+    public String getDateLastModifPDF(String langue, String formulaire, String version) {
+        String date = "None";
+        File file = new File(fileName+"/"+langue+"/"+formulaire+"_"+langue+"_v"+version+".pdf");
+
+        if (file.exists()) {
+            
+            date =  new DateManager().getSimpleDate(new Date(file.lastModified()));
+            System.out.println("+++++++++ "+fileName+"/"+langue+"/"+formulaire+"_"+langue+"_v"+version+".pdf"+ " a ete trouve++++");
+        }
+
+        return date;
     }
 
 }
