@@ -22,7 +22,7 @@ import java.util.logging.Logger;
 public class FilesWorker {
 
     /**
-     * list des fichiers par le debut du nom avec un filtre endsWith
+     * list des fichiers par le debut du nom avec un filtre starWith
      *
      * @param path path vers le dossier a lister
      * @param filtre string se trouvant en debut des fichiers a lister
@@ -77,24 +77,26 @@ public class FilesWorker {
         FilenameFilter filter = (File dir, String name) -> (name.toLowerCase().matches(form));
         System.out.println("dossiers de forme:" + form);
         String[] noms = f.list(filter);
-        if (noms != null){
-        list = Arrays.asList(noms);
+        if (noms != null) {
+            list = Arrays.asList(noms);
 
-        String str = "";
+            String str = "";
 
-        for (int i = 0; list != null && i < list.size(); i++) {
-            str = str + " " + list.get(i);
-        }
-        System.out.println(str);
+            for (int i = 0; list != null && i < list.size(); i++) {
+                str = str + " " + list.get(i);
+            }
+            System.out.println(str);
         }
         return list;
     }
-/**
- * va ecrire le fichier cible dans le fichier file. 
- * @param file
- * @param cible
- * @return 
- */
+
+    /**
+     * va ecrire le fichier cible dans le fichier file.
+     *
+     * @param file
+     * @param cible
+     * @return
+     */
     public static boolean editFiles(String file, File cible) {
         boolean bob = false;
 
@@ -133,11 +135,13 @@ public class FilesWorker {
     }
 
     /**
-     * list les fichiers du dossier pointé par le path, par la forme du debut et la forme de fin
-     * @param path   path pour ciblé le dossier a traiter
-     * @param fiStart   String du debut trié par startsWith
+     * list les fichiers du dossier pointé par le path, par la forme du debut et
+     * la forme de fin
+     *
+     * @param path path pour ciblé le dossier a traiter
+     * @param fiStart String du debut trié par startsWith
      * @param fiExt String dde fin trié par endsWith
-     * @return    retourne une liste de string de chaque fichier trouvé
+     * @return retourne une liste de string de chaque fichier trouvé
      */
     public static List ListerFilesByExtAndStart(String path, String fiStart, String fiExt) {
         File f = new File(path);
@@ -153,6 +157,37 @@ public class FilesWorker {
             }
 
         }
+
+        System.out.println("list de" + list.toString());
+        return list;
+    }
+
+    /**
+     * list les fichiers d'une extention ext et contenant la chaine de caractere cible
+     * @param path le chemin du dossier cilbe
+     * @param cible la chaine de caractrre recherché (le nom du fichier est lowercasé donc mettre la cible en minuscule)
+     * @param ext l'extention des fichiers que l'on cherche
+     * @return  la liste des fichiers
+     */
+    public static List ListerFilesByContainsAndExt(String path, String cible, String ext) {
+        
+        File f = new File(path);
+        List list = new ArrayList();
+
+        //on ajoute lowerCase because le .xlsx est parfois ecrit .XLSX, idem pour .PDF
+        FilenameFilter filter = (File dir, String name) -> (name.toLowerCase().endsWith(ext));
+
+        String[] noms = f.list(filter);
+        
+        if (noms != null){
+        for (String nom : noms) {
+            
+            if (nom.toLowerCase().contains(cible)) {
+               
+                list.add(nom);
+            }
+
+        }}
 
         System.out.println("list de" + list.toString());
         return list;

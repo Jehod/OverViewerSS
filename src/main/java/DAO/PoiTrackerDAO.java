@@ -160,6 +160,7 @@ public class PoiTrackerDAO implements TrackerDAO
 
         SimpleTracker stk = new SimpleTracker();
         List<SimpleRowTracker> allMdT = new ArrayList<SimpleRowTracker>();
+        Boolean findTrain = false;
 
         //on list les excels de label presents 
         List<String> listXls = new ArrayList<>();
@@ -171,6 +172,9 @@ public class PoiTrackerDAO implements TrackerDAO
         for (String xls : listXls)
         {
             PoiModifTrackDAO pmtk = new PoiModifTrackDAO(fileName + "\\" + xls);
+            
+            //on note l'existence d'un training.
+            if (xls.toLowerCase().contains("train")) findTrain = true;
 
             SimpleModifTrack smtk;
             smtk = pmtk.getLastModifTrack();
@@ -183,6 +187,12 @@ public class PoiTrackerDAO implements TrackerDAO
              */
             System.out.println("xls traité: " + xls.toString() + " size: " + listXls.size());
         }
+        
+        //on ajoute un train si il ne l'a pas trouvé
+        if (!findTrain)
+        {   SimpleModifTrack smtk;
+            smtk = new SimpleModifTrack("Training",new DateManager().getSimpleCurrentDate(), "Kayentis", "1.0.0", "Auto-creation");
+            allMdT.add(modifTrackToRowTracker(smtk));}
 
         stk = createTracker((ArrayList<SimpleRowTracker>) allMdT);
 

@@ -6,7 +6,6 @@
 package DAO;
 
 import entity.SimpleModifTrack;
-import java.io.Serializable;
 import java.util.List;
 
 /**

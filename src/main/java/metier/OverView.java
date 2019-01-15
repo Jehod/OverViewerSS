@@ -24,11 +24,11 @@ import view.FenEnd;
  * @author nrochas
  */
 public class OverView {
-    
+
     final String path;
     final String pathLabels;
     final String pathScreenshot = "\\Scripts\\Screenshots";
-    
+
     public OverView(String path, String pathLabels) {
         this.path = path;
         this.pathLabels = pathLabels;
@@ -61,10 +61,22 @@ public class OverView {
                 //ajout de la verif de screenshot
                 if (new File(path + pathLabels + "/" + dir).exists()) {
                     for (SimpleRowTracker rt : smt.getAllRowTracker()) {
-                        if (scf.checkExistingPDF(dir, rt.getFormulaire(), rt.getVersion()))  {
-                            //rt.setScreenDone("ok");
-                            rt.setScreenDone(scf.getDateLastModifPDF(dir, rt.getFormulaire(), rt.getVersion()));
+
+                        switch (rt.getFormulaire()) {
+                            case "Training":
+                                rt.setScreenDone(scf.searchTrainingPDF(dir, rt.getFormulaire(), rt.getVersion()));
+                                break;
+                            case "PARAM":
+                                rt.setScreenDone("Done");
+                                break;
+                            default:
+                                if (scf.checkExistingPDF(dir, rt.getFormulaire(), rt.getVersion())) {
+                                    rt.setScreenDone(scf.getDateLastModifPDF(dir, rt.getFormulaire(), rt.getVersion()));
+                                }
                         }
+                        /* if (rt.getFormulaire().equals("Training")) {
+                            rt.setScreenDone(scf.searchTrainingPDF(dir, rt.getFormulaire(), rt.getVersion()));
+                        }*/
                         if (rt.getVersion().endsWith("0.0")) {
                             rt.setFinalized("ok");
                         }
@@ -72,17 +84,17 @@ public class OverView {
                 }
                 listTrackers.add(smt);
                 ptk.svgTracker(smt);
-                
+
             }
 
             //on creer le studytracker avec tout ce qu'on a recuperé
             SimpleStudyTracker sst = new SimpleStudyTracker((ArrayList<SimpleTracker>) listTrackers, path, pathLabels, path);
             PoiStudyTrackerDAO pstk = new PoiStudyTrackerDAO(path + pathLabels);
             pstk.svgStudyTracker(sst);
-            
+
             FenEnd fe = new FenEnd();
             fe.setVisible(true);
         }
     }
-    
+
 }
