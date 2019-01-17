@@ -9,7 +9,6 @@ import Outils.DateManager;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
  *
@@ -34,6 +33,8 @@ public class ScreenFilesDAO implements ScreenshotFilesDAO {
             bob = true;
 
             System.out.println("+++++++++ " + fileName + "/" + langue + "/" + formulaire + "_" + langue + "_v" + version + ".pdf" + " a ete trouve++++");
+        } else {
+            System.out.println("+++++++++ " + fileName + "/" + langue + "/" + formulaire + "_" + langue + "_v" + version + ".pdf" + " InTROUVABLE++++");
         }
 
         return bob;
@@ -55,11 +56,13 @@ public class ScreenFilesDAO implements ScreenshotFilesDAO {
     }
 
     /**
-     * methode un peu alambiqué pour trouver le formulaire de training et de ce fichier en tirer la date de creation
+     * methode un peu alambiqué pour trouver le formulaire de training et de ce
+     * fichier en tirer la date de creation
+     *
      * @param langue
      * @param formulaire
      * @param version
-     * @return 
+     * @return
      */
     public String searchTrainingPDF(String langue, String formulaire, String version) {
         String date = "None";
@@ -70,10 +73,9 @@ public class ScreenFilesDAO implements ScreenshotFilesDAO {
         if (!list.isEmpty()) {
 
             for (String str : list) {
-                
-                if( str.contains(version))
-                {
-                   file = new File(fileName+"/"+langue+"/"+str);
+
+                if (str.contains(version)) {
+                    file = new File(fileName + "/" + langue + "/" + str);
                 }
             }
         }
