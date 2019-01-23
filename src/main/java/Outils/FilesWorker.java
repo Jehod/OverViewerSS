@@ -31,7 +31,7 @@ public class FilesWorker {
      */
     public static List ListerFilesByStart(String path, String filtre) {
         File f = new File(path);
-        List list;// = new ArrayList();
+        List list = new ArrayList();
 
         FilenameFilter filter = (File dir, String name) -> (name.toLowerCase().startsWith(filtre));
 
@@ -52,13 +52,15 @@ public class FilesWorker {
      */
     public static List ListerFilesByExt(String path, String filtre) {
         File f = new File(path);
-        List list;// = new ArrayList();
+        List list  = new ArrayList();
 
         FilenameFilter filter = (File dir, String name) -> (name.toLowerCase().endsWith(filtre));
 
         String[] noms = f.list(filter);
-        list = Arrays.asList(noms);
-        System.out.println("list de" + filtre + list.toString());
+        if (noms != null) {
+            list = Arrays.asList(noms);
+            System.out.println("list de" + filtre + list.toString());
+        }
         return list;
     }
 
@@ -163,14 +165,17 @@ public class FilesWorker {
     }
 
     /**
-     * list les fichiers d'une extention ext et contenant la chaine de caractere cible
+     * list les fichiers d'une extention ext et contenant la chaine de caractere
+     * cible
+     *
      * @param path le chemin du dossier cilbe
-     * @param cible la chaine de caractrre recherché (le nom du fichier est lowercasé donc mettre la cible en minuscule)
+     * @param cible la chaine de caractrre recherché (le nom du fichier est
+     * lowercasé donc mettre la cible en minuscule)
      * @param ext l'extention des fichiers que l'on cherche
-     * @return  la liste des fichiers
+     * @return la liste des fichiers
      */
     public static List ListerFilesByContainsAndExt(String path, String cible, String ext) {
-        
+
         File f = new File(path);
         List list = new ArrayList();
 
@@ -178,16 +183,17 @@ public class FilesWorker {
         FilenameFilter filter = (File dir, String name) -> (name.toLowerCase().endsWith(ext));
 
         String[] noms = f.list(filter);
-        
-        if (noms != null){
-        for (String nom : noms) {
-            
-            if (nom.toLowerCase().contains(cible)) {
-               
-                list.add(nom);
-            }
 
-        }}
+        if (noms != null) {
+            for (String nom : noms) {
+
+                if (nom.toLowerCase().contains(cible)) {
+
+                    list.add(nom);
+                }
+
+            }
+        }
 
         System.out.println("list de" + list.toString());
         return list;

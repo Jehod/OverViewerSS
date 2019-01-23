@@ -69,6 +69,8 @@ public class OverView {
                             case "PARAM":
                                 rt.setScreenDone("Done");
                                 break;
+                            case "PFT":
+                                rt.setScreenDone("Done");
                             default:
                                 if (scf.checkExistingPDF(dir, rt.getFormulaire(), rt.getVersion())) {
                                     rt.setScreenDone(scf.getDateLastModifPDF(dir, rt.getFormulaire(), rt.getVersion()));

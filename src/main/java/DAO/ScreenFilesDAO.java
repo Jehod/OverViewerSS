@@ -9,6 +9,8 @@ import Outils.DateManager;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import org.apache.xmlbeans.impl.common.NameUtil;
 
 /**
  *
@@ -33,6 +35,8 @@ public class ScreenFilesDAO implements ScreenshotFilesDAO {
             bob = true;
 
             System.out.println("+++++++++ " + fileName + "/" + langue + "/" + formulaire + "_" + langue + "_v" + version + ".pdf" + " a ete trouve++++");
+        } else if (bob == false) {
+            bob = compareQuest(langue, formulaire, version);
         } else {
             System.out.println("+++++++++ " + fileName + "/" + langue + "/" + formulaire + "_" + langue + "_v" + version + ".pdf" + " InTROUVABLE++++");
         }
@@ -43,7 +47,7 @@ public class ScreenFilesDAO implements ScreenshotFilesDAO {
 
     @Override
     public String getDateLastModifPDF(String langue, String formulaire, String version) {
-        String date = "None";
+        String date = "no date";
         File file = new File(fileName + "/" + langue + "/" + formulaire + "_" + langue + "_v" + version + ".pdf");
 
         if (file.exists()) {
@@ -84,6 +88,38 @@ public class ScreenFilesDAO implements ScreenshotFilesDAO {
         }
 
         return date;
+    }
+
+    private boolean compareQuest(String langue, String formulaire, String version) {
+        boolean bob = false;
+        String questCible = standardise(formulaire);
+        List<String> list = new ArrayList();
+        list = Outils.FilesWorker.ListerFilesByExt(fileName + "/" + langue, ".pdf");
+
+        for (String str : list) {
+            System.out.println("list ++++++++ : " + str);
+            String quest;
+            String[] tab = str.split(langue);
+            quest = tab[0];
+            quest = standardise(quest);
+            System.out.println("quest1 "+quest +" questcible "+questCible);
+            if (quest.contains(questCible)) {
+                bob = true;
+            }
+
+        }
+
+        return bob;
+    }
+
+    private String standardise(String formulaire) {
+        String std;
+        std = formulaire.replace("_", "");
+        std = std.replace("-", "");
+        std = std.toLowerCase();
+
+        System.out.println("standardize : " + std);
+        return std;
     }
 
 }
