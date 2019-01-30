@@ -55,7 +55,7 @@ public class PoiStudyTrackerDAO implements StudyTrackerDAO
        boolean bob = false;
         Workbook wb = null;
         Sheet sheet = null;
-        
+        String date = new DateManager().getSimpleCurrentDate();
         File file =null;
 
         //creer le workbook et la sheet
@@ -66,7 +66,7 @@ public class PoiStudyTrackerDAO implements StudyTrackerDAO
             wb = new XSSFWorkbook();
 //wb = WorkbookFactory.create(file);
            
-            sheet = wb.createSheet("STUDYTRACKER" + "_" + new DateManager().getSimpleCurrentDate());
+            sheet = wb.createSheet("STUDYTRACKER" + "_" + date);
             
 
         } catch (Exception ex)
@@ -107,7 +107,7 @@ public class PoiStudyTrackerDAO implements StudyTrackerDAO
 
         try
         {
-            file = new File(fileName + "\\STUDYTRACKER.xlsx");
+            file = new File(fileName + "\\STUDYTRACKER "+date+".xlsx");
             FileOutputStream outFile = new FileOutputStream(file);
             wb.write(outFile);
             //outFile.close();
