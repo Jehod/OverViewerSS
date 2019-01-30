@@ -29,10 +29,13 @@ public class OverView {
     final String path;
     final String pathLabels;
     final String pathScreenshot = "\\Scripts\\Screenshots";
+    
 
     public OverView(String path, String pathLabels) {
         this.path = path;
         this.pathLabels = pathLabels;
+       
+                
     }
 
     /**

@@ -37,7 +37,15 @@ public class OverViewerSS {
         String path ="F:\\Kayentis\\Projets\\CAIN457M2302";
         String pathLabels ="\\Settings\\Labels\\";
         */
-       
+         
+        
+        //http://jsonviewer.stack.hu/ 
+        // pour visualiser les json
+        Params param = new Params();
+        
+        
+
+     
        
         //path pour tester sur ordi pro
         String path ="D:\\project\\CAIN457M2301";
