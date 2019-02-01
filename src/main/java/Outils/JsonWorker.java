@@ -28,16 +28,21 @@ public class JsonWorker
     private InputStream input = null;
     private Scanner scanner;
     private JSONObject jo;
-    
-    //https://www.cyril-rabat.fr/articles/index.php?article=50
 
+    //https://www.cyril-rabat.fr/articles/index.php?article=50
+      //http://jsonviewer.stack.hu/ 
+        // pour visualiser les json
+    
+    
     public JsonWorker(String file)
     {
         this.jo = readJsonFromFile(file);
     }
 
     /**
-     * renvoie une liste des noms dans le tableau de l'element cible (premier niveau)
+     * renvoie une liste des noms dans le tableau de l'element cible (premier
+     * niveau)
+     *
      * @param element element a lister
      * @return list des elements par leur nom
      */
@@ -49,41 +54,105 @@ public class JsonWorker
         if (jo != null)
         {
             tab = jo.getJSONArray(element);
-            System.out.println("liste de: " + tab.length()+" "+ element +" trouvé");
+            System.out.println("liste de: " + tab.length() + " " + element + " trouvé");
         }
 
         for (Iterator it = tab.iterator(); it.hasNext();)
         {
             JSONObject next = (JSONObject) it.next();
             list.add(next.get("name"));
-            
+
         }
-        System.out.println("list: "+list.toString());
+        System.out.println("list: " + list.toString());
 
         return list;
     }
 
     /**
-     * return la valeur derriere le noeud element ne marche que pour les valeurs
-     * strings unique
+     * return la valeur d'une study et suivant leur nom (unique pour les
+     * strings)
      *
-     * @param element le noeud cible
+     * @param studyName le nom de l'etude
+     * @param cible le nom de l'attribut cible
      * @return la value
      */
-    public String getValueString(String element)
+    public String getValueCibleOfStudy(String studyName, String cible)
     {
         String str = "vide";
+
+        JSONArray tab = null;
+
+        if (jo != null)
+        {
+            tab = jo.getJSONArray("studies");
+
+        }
+
+        for (Iterator it = tab.iterator(); it.hasNext();)
+        {
+            JSONObject next = (JSONObject) it.next();
+
+            if (next.get("name").equals(studyName))
+            {
+                if (next.has(cible))
+                {
+                    str = (String) next.get(cible);
+                }
+            }
+
+        }
 
         return str;
     }
 
     /**
-     * lit un fichier Json et le transforme en jsonObject
+     * return la valeur d'une study et suivant leur nom (unique pour les
+     * strings)
      *
-     * @param path le chemin du fichier json a parser
-     * @return un jsonObject
+     * @param studyName le nom de l'etude
+     * @param cible le nom de l'attribut cible
+     * @return la value
      */
-    private JSONObject readJsonFromFile(String path)
+    public ArrayList getListcibleOfStudy(String studyName, String cible)
+    {
+        ArrayList list = new ArrayList<>();
+        JSONArray tabCible = null;
+        JSONArray tab = null;
+
+        if (jo != null)
+        {
+            tab = jo.getJSONArray("studies");
+        }
+
+        for (Iterator it = tab.iterator(); it.hasNext();)
+        {
+            JSONObject next = (JSONObject) it.next();
+
+            if (next.get("name").equals(studyName))
+            {
+                if (next.has(cible))
+                {
+                    tabCible =  next.getJSONArray(cible);
+                }
+            }
+
+        }
+        for (Object ob : tabCible)
+        {
+            list.add(ob);
+        }
+
+
+    return list ;
+}
+
+/**
+ * lit un fichier Json et le transforme en jsonObject
+ *
+ * @param path le chemin du fichier json a parser
+ * @return un jsonObject
+ */
+private JSONObject readJsonFromFile(String path)
     {
         String json = new String();
 
@@ -96,7 +165,10 @@ public class JsonWorker
         } catch (FileNotFoundException ex)
         {
             System.out.println("jsonworker inputstream: " + ex.getMessage());
-            Logger.getLogger(JsonWorker.class.getName()).log(Level.SEVERE, null, ex);
+            Logger
+
+.getLogger(JsonWorker.class
+.getName()).log(Level.SEVERE, null, ex);
         }
 
         // Récupération de la chaîne JSON depuis le fichier
@@ -115,7 +187,10 @@ public class JsonWorker
         } catch (IOException ex)
         {
             System.out.println("fermeture du json: " + ex.getMessage());
-            Logger.getLogger(JsonWorker.class.getName()).log(Level.SEVERE, null, ex);
+            Logger
+
+.getLogger(JsonWorker.class
+.getName()).log(Level.SEVERE, null, ex);
         }
 
         jo = new JSONObject(json);
