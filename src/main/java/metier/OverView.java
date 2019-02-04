@@ -18,6 +18,7 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import view.FenEnd;
+import view.FenProgress;
 
 /**
  *
@@ -28,23 +29,32 @@ public class OverView {
     final String path;
     final String pathLabels;
     final String pathScreenshot = "\\Scripts\\Screenshots";
+    
 
     public OverView(String path, String pathLabels) {
         this.path = path;
         this.pathLabels = pathLabels;
+       
+                
     }
 
     /**
      * methode pour creer les trackers par langue et le studyTracker il
      * instancie les DAO et parcourt les fichiers de langue
      */
-    public void overview() {
+    public void overview()
+    {
+          
+        
 
         //on liste les dossiers de langues
         List<String> listLang = new ArrayList();
         LabelFileDAO lbf = new LabelFileDAO(path + pathLabels);
+        
         listLang = lbf.getAllLabelsFiles();
         List<SimpleTracker> listTrackers = new ArrayList<>();
+        
+               
 
         //on pointe le dossier de screenshot
         ScreenFilesDAO scf = new ScreenFilesDAO(path + pathScreenshot);

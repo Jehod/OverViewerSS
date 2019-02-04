@@ -10,14 +10,19 @@ package com.JehodFactory.overviewerss;
  * @author nik
  */
 import java.io.IOException;
+import java.util.logging.Logger;
 import style.GraphicCharter;
 import view.FenMain;
+import view.FenSelectStudy;
 
 /**
  *
  * @author nrochas
  */
 public class OverViewerSS {
+
+    private static final Logger LOG = Logger.getLogger(OverViewerSS.class.getName());
+    
 
     /**
      * @param args the command line arguments
@@ -33,7 +38,14 @@ public class OverViewerSS {
         String path ="F:\\Kayentis\\Projets\\CAIN457M2302";
         String pathLabels ="\\Settings\\Labels\\";
         */
-       
+         
+        
+      
+        Params param = new Params();
+        
+        
+
+     
        
         //path pour tester sur ordi pro
         String path ="D:\\project\\CAIN457M2301";
@@ -46,8 +58,9 @@ public class OverViewerSS {
         //ov.overview();
         
         //via la fenetre
-        FenMain ff = new FenMain();
-       
+        //FenMain ff = new FenMain();
+        FenSelectStudy fsl = new FenSelectStudy();
+                
         
        
     }

@@ -19,8 +19,11 @@ public class GraphicCharter
     public static Color colorFront;
     public static Font fontCorps;
     public static Font fontButton;
+    
+    //titre3 est le + petit
     public static Font titre3;
     public static Font titre2;
+    //titre 1 est le plus grand
     public static Font titre1;
     public static Font fontCorpsReduit;
 

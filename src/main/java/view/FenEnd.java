@@ -5,6 +5,8 @@
  */
 package view;
 
+import java.awt.Dimension;
+
 /**
  *
  * @author nik
@@ -17,7 +19,12 @@ public class FenEnd extends javax.swing.JFrame
      */
     public FenEnd()
     {
-        initComponents();
+      Dimension dim = this.getToolkit().getScreenSize();
+        
+       initComponents();
+      
+        this.setLocation(dim.width/2 - this.getWidth()/2, dim.height/2 - this.getHeight()/2);
+        
     }
 
     /**
