@@ -5,9 +5,6 @@
  */
 package view;
 
-import com.JehodFactory.overviewerss.Params;
-import java.awt.Dimension;
-import model.ComboModel;
 import style.GraphicCharter;
 
 /**
@@ -22,13 +19,7 @@ public class FenSelectStudy extends FenGenerik
      */
     public FenSelectStudy()
     {
-        Dimension dim = this.getToolkit().getScreenSize();
-
         initComponents();
-
-        this.setLocation(dim.width / 2 - this.getWidth() / 2, dim.height / 2 - this.getHeight() / 2);
-        this.setSize(478, 400);
-        this.setVisible(true);
     }
 
     /**
@@ -44,8 +35,7 @@ public class FenSelectStudy extends FenGenerik
         jLabel1 = new javax.swing.JLabel();
         comboStudy = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
-        butCreateStudy1 = new ButtonGenerik();
-        butCreateStudy2 = new ButtonGenerik();
+        butCreateStudy = new ButtonGenerik();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -56,39 +46,31 @@ public class FenSelectStudy extends FenGenerik
         comboStudy.setFont(GraphicCharter.titre3
         );
         comboStudy.setMaximumRowCount(10);
-        comboStudy.setModel(new ComboModel());
+        comboStudy.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel2.setFont(GraphicCharter.titre2);
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Select a study:");
         jLabel2.setToolTipText("");
 
-        butCreateStudy1.setText("Go with");
-        butCreateStudy1.setToolTipText("");
-        butCreateStudy1.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                butCreateStudy1ActionPerformed(evt);
-            }
-        });
-
-        butCreateStudy2.setText("Create New Study");
-        butCreateStudy2.setToolTipText("");
+        butCreateStudy.setText("Create New Study");
+        butCreateStudy.setToolTipText("");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(163, 163, 163)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(comboStudy, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(butCreateStudy1, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
-                    .addComponent(butCreateStudy2, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE))
-                .addContainerGap(173, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(127, 127, 127)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(comboStudy, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(138, 138, 138)
+                        .addComponent(butCreateStudy)))
+                .addContainerGap(131, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -98,28 +80,19 @@ public class FenSelectStudy extends FenGenerik
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(comboStudy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
-                .addComponent(butCreateStudy1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
-                .addComponent(butCreateStudy2)
-                .addGap(118, 118, 118))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
+                .addComponent(butCreateStudy)
+                .addGap(67, 67, 67))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void butCreateStudy1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_butCreateStudy1ActionPerformed
-    {//GEN-HEADEREND:event_butCreateStudy1ActionPerformed
-        
-        Params.getInstance().accedeStudy((String) comboStudy.getSelectedItem());
-    }//GEN-LAST:event_butCreateStudy1ActionPerformed
-
    
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton butCreateStudy1;
-    private javax.swing.JButton butCreateStudy2;
+    private javax.swing.JButton butCreateStudy;
     private javax.swing.JComboBox<String> comboStudy;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

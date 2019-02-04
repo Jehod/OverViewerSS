@@ -6,7 +6,6 @@
 package com.JehodFactory.overviewerss;
 
 import Outils.JsonWorker;
-import entity.SimpleStudyParam;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -26,8 +25,12 @@ public class Params
     
     //les données du fichier de settings
     public String studyName;
-    public ArrayList<String> listStudy;
-    public SimpleStudyParam studyParam;
+    public String pathLabels;
+    public String pathScreens;
+    public String trad;
+    public String path;
+    public ArrayList<String> listPath;
+    public HashMap<String,String> map;
     
         
     
@@ -48,44 +51,16 @@ public class Params
         private static final Params INSTANCE = new Params();
     }
     
-    /**
-     * methode d'initialisation pour travailler le fichier json
-     */
       private void init()
     {   
       
         jw = new JsonWorker(bin+settings);
-        listStudy = jw.getJsonTableau("studies");
+        jw.getJsonTableau("studies");
         
+        
+ 
     }
       
-    /**
-     * une fois l'etude connue, va creer le param specific de celle ci
-     * elle appelle le constructeur du studyparam en donnant les attributs pris de le settings json
-     * @param studyName l'etude choisie
-     */  
-    public void accedeStudy(String studyName)
-    {
-        this.studyName = studyName;
-        
-        String path = (String) jw.getListcibleOfStudy(studyName, "path").get(0);
-        String trad = jw.getValueCibleOfStudy(studyName, "trad");
-        String pathLabels = jw.getValueCibleOfStudy(studyName,"pathLabels" );
-        String pathScreens = jw.getValueCibleOfStudy(studyName,"pathScreens" );
-        
-        
-        this.studyParam = new SimpleStudyParam(path, trad, pathLabels, pathScreens, new HashMap<>());
-        
-        System.out.println("test+++++++"+jw.getValueCibleOfStudy("CAIN457M2302","name"));
-        System.out.println("test+++++++"+jw.getValueCibleOfStudy("test2","trad"));
-        
-        System.out.println("test+++"+jw.getListcibleOfStudy("CAIN457M2302", "path"));
-    }
-
-    public void setStudyName(String studyName)
-    {
-        this.studyName = studyName;
-    }
     
     
 }

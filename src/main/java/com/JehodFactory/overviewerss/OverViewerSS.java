@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.util.logging.Logger;
 import style.GraphicCharter;
 import view.FenMain;
-import view.FenSelectStudy;
 
 /**
  *
@@ -40,7 +39,8 @@ public class OverViewerSS {
         */
          
         
-      
+        //http://jsonviewer.stack.hu/ 
+        // pour visualiser les json
         Params param = new Params();
         
         
@@ -58,9 +58,8 @@ public class OverViewerSS {
         //ov.overview();
         
         //via la fenetre
-        //FenMain ff = new FenMain();
-        FenSelectStudy fsl = new FenSelectStudy();
-                
+        FenMain ff = new FenMain();
+       
         
        
     }

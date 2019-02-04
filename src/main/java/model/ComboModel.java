@@ -5,25 +5,21 @@
  */
 package model;
 
-import com.JehodFactory.overviewerss.Params;
 import java.util.ArrayList;
 import javax.swing.AbstractListModel;
-import javax.swing.ComboBoxModel;
-import javax.swing.event.ListDataListener;
 
 /**
  *
  * @author nik
  */
-public class ComboModel implements ComboBoxModel 
+public class ComboModel extends AbstractListModel
 {
 
     private ArrayList<String> list;
-    private String studyName;
 
-    public ComboModel()
+    public ComboModel(ArrayList<String> list)
     {
-        this.list = Params.getInstance().listStudy;
+        this.list = list;
     }
     
     
@@ -38,31 +34,6 @@ public class ComboModel implements ComboBoxModel
     public String getElementAt(int index)
     {
         return list.get(index);
-    }
-
-    @Override
-    public void setSelectedItem(Object anItem)
-    {
-        studyName = (String) anItem;
-        
-    }
-
-    @Override
-    public Object getSelectedItem()
-    {
-        return studyName;
-    }
-
-    @Override
-    public void addListDataListener(ListDataListener l)
-    {
-        
-    }
-
-    @Override
-    public void removeListDataListener(ListDataListener l)
-    {
-       
     }
     
 }
