@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.logging.Logger;
 import style.GraphicCharter;
 import view.FenMain;
+import view.FenSelectStudy;
 
 /**
  *
@@ -59,6 +60,7 @@ public class OverViewerSS {
         
         //via la fenetre
         FenMain ff = new FenMain();
+        FenSelectStudy fsl = new FenSelectStudy();
        
         
        
