@@ -146,7 +146,8 @@ public class FenMain extends JFrame
             JOptionPane.showMessageDialog(null, "Remplissez tout les champs svp", "Error Fill Field", JOptionPane.ERROR_MESSAGE, new ImageIcon("C:\\Users\\nik\\Documents\\NetBeansProjects\\OverViewerSS\\src\\main\\resources\\rugissment.png"));
         } else if (txtFieldPath.getText().endsWith("/") || !pathLabelTxtField.getText().startsWith("/"))
         {
-            JOptionPane.showMessageDialog(null, "le path ne doit pas finir par un slash et le path labels doit commencer par un slash", "Error Fill Field", JOptionPane.ERROR_MESSAGE, new ImageIcon("C:\\Users\\nik\\Documents\\NetBeansProjects\\OverViewerSS\\src\\main\\resources\\rugissment.png"));
+            JOptionPane.showMessageDialog(null, "le path ne doit pas finir par un slash et le path labels doit commencer par un slash", "Error Fill Field", JOptionPane.ERROR_MESSAGE, 
+                    new ImageIcon("C:\\Users\\nik\\Documents\\NetBeansProjects\\OverViewerSS\\src\\main\\resources\\rugissment.png"));
         } else
         {
             path = txtFieldPath.getText();

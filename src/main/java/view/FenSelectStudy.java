@@ -6,7 +6,12 @@
 package view;
 
 import com.JehodFactory.overviewerss.Params;
+import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.util.ArrayList;
+import javax.swing.Icon;
+import javax.swing.JOptionPane;
 import model.ComboModel;
 import style.GraphicCharter;
 
@@ -16,6 +21,8 @@ import style.GraphicCharter;
  */
 public class FenSelectStudy extends FenGenerik
 {
+    
+     ArrayList<String> list = Params.getInstance().listStudy;
 
     /**
      * Creates new form FenSelectStudy
@@ -38,8 +45,7 @@ public class FenSelectStudy extends FenGenerik
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
         comboStudy = new javax.swing.JComboBox<>();
@@ -56,7 +62,7 @@ public class FenSelectStudy extends FenGenerik
         comboStudy.setFont(GraphicCharter.titre3
         );
         comboStudy.setMaximumRowCount(10);
-        comboStudy.setModel(new ComboModel());
+        comboStudy.setModel(new ComboModel(list));
 
         jLabel2.setFont(GraphicCharter.titre2);
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -65,10 +71,8 @@ public class FenSelectStudy extends FenGenerik
 
         butCreateStudy1.setText("Go with");
         butCreateStudy1.setToolTipText("");
-        butCreateStudy1.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        butCreateStudy1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 butCreateStudy1ActionPerformed(evt);
             }
         });
@@ -110,8 +114,15 @@ public class FenSelectStudy extends FenGenerik
 
     private void butCreateStudy1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_butCreateStudy1ActionPerformed
     {//GEN-HEADEREND:event_butCreateStudy1ActionPerformed
+        if (comboStudy.getSelectedItem() != null)
+        {
+            Params.getInstance().accedeStudy((String) comboStudy.getSelectedItem());
+            FenStudy fens = new FenStudy();
+        }else
+        {
+            JOptionPane.showMessageDialog(null, "Select a study", "Error Fill ComboBox", JOptionPane.ERROR_MESSAGE, null);
+        }
         
-        Params.getInstance().accedeStudy((String) comboStudy.getSelectedItem());
     }//GEN-LAST:event_butCreateStudy1ActionPerformed
 
    

@@ -24,10 +24,15 @@ public class Params
   private JsonWorker jw; 
    
     
-    //les données du fichier de settings
+    //les données selectionnées
     public String studyName;
+    public String studyPath;
+    
+    //les données du fichier de settings
     public ArrayList<String> listStudy;
     public SimpleStudyParam studyParam;
+    
+    
     
         
     
@@ -68,13 +73,17 @@ public class Params
     {
         this.studyName = studyName;
         
-        String path = (String) jw.getListcibleOfStudy(studyName, "path").get(0);
+        studyPath = (String) jw.getListcibleOfStudy(studyName, "path").get(0);
+        
+        
+        ArrayList<String> listPath = jw.getListcibleOfStudy(studyName, "path");
+        
         String trad = jw.getValueCibleOfStudy(studyName, "trad");
         String pathLabels = jw.getValueCibleOfStudy(studyName,"pathLabels" );
         String pathScreens = jw.getValueCibleOfStudy(studyName,"pathScreens" );
+        String tabModel = jw.getValueCibleOfStudy(studyName, "Tablet");
         
-        
-        this.studyParam = new SimpleStudyParam(path, trad, pathLabels, pathScreens, new HashMap<>());
+        this.studyParam = new SimpleStudyParam(listPath, trad, pathLabels, pathScreens,tabModel, new HashMap<>());
         
         System.out.println("test+++++++"+jw.getValueCibleOfStudy("CAIN457M2302","name"));
         System.out.println("test+++++++"+jw.getValueCibleOfStudy("test2","trad"));

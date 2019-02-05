@@ -6,9 +6,12 @@
 package DAO;
 
 import Outils.DateManager;
+import com.JehodFactory.overviewerss.Params;
+import entity.SimpleStudyParam;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -18,10 +21,15 @@ import java.util.List;
 public class ScreenFilesDAO implements ScreenshotFilesDAO {
 
     private String fileName;
-    DateManager dateM = new DateManager();
+    private String studyName;
+    private HashMap map;
+    private SimpleStudyParam ssp;
+    
+    private DateManager dateM = new DateManager();
 
     public ScreenFilesDAO(String fileName) {
-        this.fileName = fileName;
+        ssp = Params.getInstance().studyParam;
+        this.fileName = Params.getInstance().studyPath+ssp.getPathScreens();
     }
 
     @Override

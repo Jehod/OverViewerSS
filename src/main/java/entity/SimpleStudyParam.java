@@ -5,6 +5,7 @@
  */
 package entity;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -13,21 +14,26 @@ import java.util.HashMap;
  */
 public class SimpleStudyParam implements StudyParam
 {
+    //valeur par defaut pour eviter les champs vides
+    private final String def = "Not Found";
     
-    private String studyPath;
-    private String trad;
-    private String pathLabels;
-    private String PathScreens;
-    private HashMap<String,String> map;
+    private ArrayList<String> listStudyPath = null;
+    private String trad= def;
+    private String pathLabels= def;
+    private String pathScreens=def;
+    private HashMap<String,String> map =null;
+    private String tabModel=def;
     
 
-    public SimpleStudyParam(String studyPath, String trad, String pathLabels, String PathScreens, HashMap<String, String> map)
+    public SimpleStudyParam(ArrayList<String> studyPath, String trad, String pathLabels, String pathScreens, String tabModel, HashMap<String, String> map)
     {
-        this.studyPath = studyPath;
+        this.listStudyPath = studyPath;
         this.trad = trad;
         this.pathLabels = pathLabels;
-        this.PathScreens = PathScreens;
+        this.pathScreens = pathScreens;
         this.map = map;
+        this.tabModel = tabModel;
+        
     }
     
    
@@ -44,18 +50,50 @@ public class SimpleStudyParam implements StudyParam
         return map;
     }
 
-    
+    @Override
+    public String getPathScreens() {
+       return pathScreens;
+    }
 
+    @Override
+    public String getPathLabels() {
+        return pathLabels;
+    }
+
+    @Override
+    public String getTabModel() {
+        return tabModel;
+    }
+
+    @Override
+    public ArrayList<String> getListStudyPath() {
+        return listStudyPath;
+    }
+
+    public void setListStudyPath(ArrayList<String> listStudyPath) {
+        this.listStudyPath = listStudyPath;
+    }
+
+    public void setTrad(String trad) {
+        this.trad = trad;
+    }
+
+    public void setPathLabels(String pathLabels) {
+        this.pathLabels = pathLabels;
+    }
+
+    public void setPathScreens(String pathScreens) {
+        this.pathScreens = pathScreens;
+    }
+
+    public void setMap(HashMap<String, String> map) {
+        this.map = map;
+    }
+
+    public void setTabModel(String tabModel) {
+        this.tabModel = tabModel;
+    }
+
+    
    
-
-    @Override
-    public String getPath() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public String getFdefOfExcel(String excel) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
 }

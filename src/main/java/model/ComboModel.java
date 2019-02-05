@@ -21,9 +21,9 @@ public class ComboModel implements ComboBoxModel
     private ArrayList<String> list;
     private String studyName;
 
-    public ComboModel()
+    public ComboModel(ArrayList<String> list)
     {
-        this.list = Params.getInstance().listStudy;
+        this.list = list;
     }
     
     
