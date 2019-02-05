@@ -40,8 +40,7 @@ public class OverViewerSS {
         */
          
         
-        //http://jsonviewer.stack.hu/ 
-        // pour visualiser les json
+      
         Params param = new Params();
         
         
@@ -59,9 +58,9 @@ public class OverViewerSS {
         //ov.overview();
         
         //via la fenetre
-        FenMain ff = new FenMain();
+        //FenMain ff = new FenMain();
         FenSelectStudy fsl = new FenSelectStudy();
-       
+                
         
        
     }
