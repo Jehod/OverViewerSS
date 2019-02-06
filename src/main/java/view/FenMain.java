@@ -5,6 +5,7 @@
  */
 package view;
 
+import view.generikForms.ButtonGenerik;
 import java.awt.Dimension;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -143,11 +144,11 @@ public class FenMain extends JFrame
 
         if (txtFieldPath.getText() == null || pathLabelTxtField.getText() == null || txtFieldPath.getText().trim().equals("") || txtFieldPath.getText().trim().equals(""))
         {
-            JOptionPane.showMessageDialog(null, "Remplissez tout les champs svp", "Error Fill Field", JOptionPane.ERROR_MESSAGE, new ImageIcon("C:\\Users\\nik\\Documents\\NetBeansProjects\\OverViewerSS\\src\\main\\resources\\rugissment.png"));
+            JOptionPane.showMessageDialog(null, "Remplissez tout les champs svp", "Error Fill Field", JOptionPane.ERROR_MESSAGE, new ImageIcon("/rugissment.png"));
         } else if (txtFieldPath.getText().endsWith("/") || !pathLabelTxtField.getText().startsWith("/"))
         {
             JOptionPane.showMessageDialog(null, "le path ne doit pas finir par un slash et le path labels doit commencer par un slash", "Error Fill Field", JOptionPane.ERROR_MESSAGE, 
-                    new ImageIcon("C:\\Users\\nik\\Documents\\NetBeansProjects\\OverViewerSS\\src\\main\\resources\\rugissment.png"));
+                    new ImageIcon("/rugissment.png"));
         } else
         {
             path = txtFieldPath.getText();

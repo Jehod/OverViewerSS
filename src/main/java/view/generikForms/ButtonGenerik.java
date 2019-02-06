@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view;
+package view.generikForms;
 
+import javax.swing.Icon;
 import javax.swing.JButton;
 
 /**
@@ -13,6 +14,7 @@ import javax.swing.JButton;
  */
 public class ButtonGenerik extends JButton
 {
+
 
     public ButtonGenerik()
     {

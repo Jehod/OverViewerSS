@@ -5,12 +5,11 @@
  */
 package view;
 
+import view.generikForms.FenGenerik;
+import view.generikForms.ButtonGenerik;
 import com.JehodFactory.overviewerss.Params;
-import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.util.ArrayList;
-import javax.swing.Icon;
 import javax.swing.JOptionPane;
 import model.ComboModel;
 import style.GraphicCharter;

@@ -5,6 +5,8 @@
  */
 package view;
 
+import view.generikForms.FenGenerik;
+
 /**
  *
  * @author nik
