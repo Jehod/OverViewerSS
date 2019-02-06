@@ -11,6 +11,8 @@ import com.JehodFactory.overviewerss.Params;
 import entity.SimpleStudyParam;
 import java.awt.Dimension;
 import java.util.ArrayList;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import model.ComboModel;
 import style.GraphicCharter;
 import view.generikForms.ButtonRefresh;
@@ -19,22 +21,29 @@ import view.generikForms.ButtonRefresh;
  *
  * @author nrochas
  */
-public class FenStudy extends FenGenerik {
+public class FenStudy extends FenGenerik
+{
 
+    String pathLabels;
+    String studyPath;
+    String pathScreens;
     String studyName = Params.getInstance().studyName;
     SimpleStudyParam ssp = Params.getInstance().studyParam;
     ArrayList<String> list = ssp.getListStudyPath();
+
     /**
      * Creates new form FenStudy
      */
-    public FenStudy() {
-       Dimension dim = this.getToolkit().getScreenSize();
+    public FenStudy()
+    {
+        Dimension dim = this.getToolkit().getScreenSize();
 
         initComponents();
 
         this.setLocation(dim.width / 2 - this.getWidth() / 2, dim.height / 2 - this.getHeight() / 2);
         this.setSize(478, 400);
         this.setVisible(true);
+        jlc.setVisible(false);
     }
 
     /**
@@ -44,22 +53,26 @@ public class FenStudy extends FenGenerik {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
+        jFileChooser1 = new javax.swing.JFileChooser();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        TxtFieldTabModel = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        TxtFieldPathLabels = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        TxtFieldPathScreen = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        TxtFieldTrad = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        comboStudy = new javax.swing.JComboBox<>();
+        comboStudyPath = new javax.swing.JComboBox<>();
         butSVG = new ButtonGenerik();
         butLaunch = new ButtonGenerik();
-        butRefresh = new ButtonRefresh();
+        butrefresh = new ButtonRefresh();
+        butAddPath = new ButtonGenerik();
+        jlc = new javax.swing.JFileChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -72,136 +85,249 @@ public class FenStudy extends FenGenerik {
         jLabel2.setText("Tablet Models: ");
         jLabel2.setToolTipText("");
 
-        jTextField1.setFont(GraphicCharter.titre3);
-        jTextField1.setText(ssp.getTabModel());
+        TxtFieldTabModel.setFont(GraphicCharter.titre3);
+        TxtFieldTabModel.setText(ssp.getTabModel());
 
         jLabel3.setFont(GraphicCharter.titre3);
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel3.setText("PathLabels: ");
 
-        jTextField2.setFont(GraphicCharter.titre3);
-        jTextField2.setText(ssp.getPathLabels());
+        TxtFieldPathLabels.setFont(GraphicCharter.titre3);
+        TxtFieldPathLabels.setText(ssp.getPathLabels());
 
         jLabel4.setFont(GraphicCharter.titre3);
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel4.setText("PathScreens: ");
 
-        jTextField3.setFont(GraphicCharter.titre3);
-        jTextField3.setText(ssp.getPathScreens());
+        TxtFieldPathScreen.setFont(GraphicCharter.titre3);
+        TxtFieldPathScreen.setText(ssp.getPathScreens());
 
         jLabel5.setFont(GraphicCharter.titre3);
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel5.setText("Traductor:");
 
-        jTextField4.setFont(GraphicCharter.titre3);
-        jTextField4.setText(ssp.getTrad());
+        TxtFieldTrad.setFont(GraphicCharter.titre3);
+        TxtFieldTrad.setText(ssp.getTrad());
 
         jLabel6.setFont(GraphicCharter.titre3);
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel6.setText("Select Path:");
 
-        comboStudy.setFont(GraphicCharter.titre3
+        comboStudyPath.setFont(GraphicCharter.titre3
         );
-        comboStudy.setMaximumRowCount(10);
-        comboStudy.setModel(new ComboModel(list));
+        comboStudyPath.setMaximumRowCount(10);
+        comboStudyPath.setModel(new ComboModel(list));
 
         butSVG.setText("Save Change");
 
         butLaunch.setText("Launch Track");
+        butLaunch.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                butLaunchActionPerformed(evt);
+            }
+        });
 
-        butRefresh.setText("");
+        butrefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/refresh.png"))); // NOI18N
+        butrefresh.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                butrefreshActionPerformed(evt);
+            }
+        });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(butRefresh)
-                .addGap(48, 48, 48)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(comboStudy, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
+        butAddPath.setText("Add Path");
+        butAddPath.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                butAddPathActionPerformed(evt);
+            }
+        });
+
+        jlc.setApproveButtonText("Select");
+        jlc.setApproveButtonToolTipText("");
+        jlc.setCurrentDirectory(new java.io.File("C:\\"));
+            jlc.setDialogTitle("");
+            jlc.setFileSelectionMode(javax.swing.JFileChooser.DIRECTORIES_ONLY);
+            jlc.addActionListener(new java.awt.event.ActionListener()
+            {
+                public void actionPerformed(java.awt.event.ActionEvent evt)
+                {
+                    jlcActionPerformed(evt);
+                }
+            });
+
+            javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+            getContentPane().setLayout(layout);
+            layout.setHorizontalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(butrefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(butSVG)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(butLaunch))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(TxtFieldTrad, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(TxtFieldPathScreen, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(TxtFieldPathLabels, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(TxtFieldTabModel, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(butAddPath)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(comboStudyPath, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                    .addGap(18, 18, 18)
+                    .addComponent(jlc, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(21, 21, 21))
+            );
+            layout.setVerticalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createSequentialGroup()
-                                    .addComponent(butSVG)
-                                    .addGap(0, 0, Short.MAX_VALUE)))
+                                    .addGap(2, 2, 2)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addContainerGap()
+                                    .addComponent(butrefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGap(26, 26, 26)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel6)
+                                .addComponent(comboStudyPath, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(butAddPath)
+                            .addGap(8, 8, 8)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel3)
+                                .addComponent(TxtFieldPathLabels, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(butLaunch)))))
-                .addGap(57, 57, 57))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel6)
-                    .addComponent(comboStudy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(40, 40, 40)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(butSVG)
-                    .addComponent(butLaunch)
-                    .addComponent(butRefresh))
-                .addContainerGap())
-        );
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel4)
+                                .addComponent(TxtFieldPathScreen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel5)
+                                .addComponent(TxtFieldTrad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel2)
+                                .addComponent(TxtFieldTabModel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(42, 42, 42)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(butSVG)
+                                .addComponent(butLaunch))
+                            .addGap(0, 98, Short.MAX_VALUE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(2, 2, 2)
+                            .addComponent(jlc, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                    .addContainerGap())
+            );
 
-        pack();
-    }// </editor-fold>//GEN-END:initComponents
+            pack();
+        }// </editor-fold>//GEN-END:initComponents
 
-  
-    
+    private void butrefreshActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_butrefreshActionPerformed
+    {//GEN-HEADEREND:event_butrefreshActionPerformed
+        FenStudy fs = new FenStudy();
+        this.dispose();
+    }//GEN-LAST:event_butrefreshActionPerformed
+
+    private void butLaunchActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_butLaunchActionPerformed
+    {//GEN-HEADEREND:event_butLaunchActionPerformed
+        pathLabels = TxtFieldPathLabels.getText();
+        pathScreens = TxtFieldPathScreen.getText();
+        studyPath = (String) comboStudyPath.getSelectedItem();
+
+        if (pathLabels == null || pathScreens == null || pathLabels.equals("") || pathScreens.equals(""))
+        {
+            JOptionPane.showMessageDialog(null, "Please dont left an empty field", "Missing fields", JOptionPane.ERROR_MESSAGE);
+        } else if (studyPath == null || studyPath.equals(""))
+        {
+            JOptionPane.showMessageDialog(null, "Please select a path for the study", "No selection", JOptionPane.ERROR_MESSAGE);
+        } else
+        {
+
+            int dialogButton = JOptionPane.YES_NO_OPTION;
+            int dialogResult = JOptionPane.showConfirmDialog(null, "Confirm complete path:" + studyPath + pathLabels, "confirmation", dialogButton);
+
+            if (dialogResult == JOptionPane.YES_OPTION)
+            {
+                this.dispose();
+                FenProgress fenp = new FenProgress();
+                fenp.setVisible(true);
+                metier.OverView ov = new metier.OverView(studyPath, pathLabels + "\\");
+                ov.overview();
+            }
+        }
+
+    }//GEN-LAST:event_butLaunchActionPerformed
+
+    private void butAddPathActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_butAddPathActionPerformed
+    {//GEN-HEADEREND:event_butAddPathActionPerformed
+        String select;
+        jlc.setVisible(true);
+        this.setSize(1000, 400);
+        int retour = jlc.showOpenDialog(this);
+        if (retour == JFileChooser.APPROVE_OPTION)
+        {
+            select = jlc.getSelectedFile().getAbsolutePath();
+            System.out.println("select: " + select);
+            this.setSize(500,400);
+            list.add(select);
+            comboStudyPath.setSelectedItem(select);
+        }
+    }//GEN-LAST:event_butAddPathActionPerformed
+
+    private void jlcActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jlcActionPerformed
+    {//GEN-HEADEREND:event_jlcActionPerformed
+       
+
+    }//GEN-LAST:event_jlcActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField TxtFieldPathLabels;
+    private javax.swing.JTextField TxtFieldPathScreen;
+    private javax.swing.JTextField TxtFieldTabModel;
+    private javax.swing.JTextField TxtFieldTrad;
+    private javax.swing.JButton butAddPath;
     private javax.swing.JButton butLaunch;
-    private javax.swing.JButton butRefresh;
     private javax.swing.JButton butSVG;
-    private javax.swing.JComboBox<String> comboStudy;
+    private javax.swing.JButton butrefresh;
+    private javax.swing.JComboBox<String> comboStudyPath;
+    private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JFileChooser jlc;
     // End of variables declaration//GEN-END:variables
 }

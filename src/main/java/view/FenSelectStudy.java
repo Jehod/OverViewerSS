@@ -117,6 +117,7 @@ public class FenSelectStudy extends FenGenerik
         {
             Params.getInstance().accedeStudy((String) comboStudy.getSelectedItem());
             FenStudy fens = new FenStudy();
+            this.setVisible(false);
         }else
         {
             JOptionPane.showMessageDialog(null, "Select a study", "Error Fill ComboBox", JOptionPane.ERROR_MESSAGE, null);

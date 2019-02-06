@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <NonVisualComponents>
+    <Component class="javax.swing.JFileChooser" name="jFileChooser1">
+    </Component>
+  </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
   </Properties>
@@ -23,89 +27,114 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jLabel1" max="32767" attributes="0"/>
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="butRefresh" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Component id="jLabel6" min="-2" pref="100" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="comboStudy" max="32767" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="jLabel1" min="-2" pref="305" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="butrefresh" min="-2" pref="27" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Component id="butSVG" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="butLaunch" min="-2" max="-2" attributes="0"/>
+                      </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jLabel5" max="32767" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jTextField4" min="-2" pref="199" max="-2" attributes="0"/>
+                          <Component id="TxtFieldTrad" min="-2" pref="199" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jLabel4" max="32767" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jTextField3" min="-2" pref="199" max="-2" attributes="0"/>
+                          <Component id="TxtFieldPathScreen" min="-2" pref="199" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jLabel3" min="-2" pref="100" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jTextField2" min="-2" pref="199" max="-2" attributes="0"/>
+                          <Component id="TxtFieldPathLabels" min="-2" pref="199" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
+                          <Component id="jLabel2" max="32767" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="TxtFieldTabModel" min="-2" pref="199" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="jLabel6" min="-2" pref="100" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel2" max="32767" attributes="0"/>
                               <Group type="102" attributes="0">
-                                  <Component id="butSVG" min="-2" max="-2" attributes="0"/>
+                                  <Component id="butAddPath" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
-                          </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="jTextField1" min="-2" pref="199" max="-2" attributes="0"/>
-                              <Component id="butLaunch" min="-2" max="-2" attributes="0"/>
+                              <Component id="comboStudyPath" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="jlc" min="-2" pref="492" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <Component id="jLabel1" min="-2" pref="25" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                  <Component id="comboStudy" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jTextField2" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jTextField3" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jTextField4" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+          <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                  <Component id="jTextField1" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                              <Component id="jLabel1" min="-2" pref="25" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="butrefresh" min="-2" pref="27" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="comboStudyPath" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="butAddPath" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="TxtFieldPathLabels" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="TxtFieldPathScreen" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="TxtFieldTrad" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="TxtFieldTabModel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="butSVG" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="butLaunch" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="0" pref="98" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                      <Component id="jlc" pref="0" max="32767" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="butSVG" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="butLaunch" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="butRefresh" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -132,7 +161,7 @@
         <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField1">
+    <Component class="javax.swing.JTextField" name="TxtFieldTabModel">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="GraphicCharter.titre3" type="code"/>
@@ -151,7 +180,7 @@
         <Property name="text" type="java.lang.String" value="PathLabels: "/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField2">
+    <Component class="javax.swing.JTextField" name="TxtFieldPathLabels">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="GraphicCharter.titre3" type="code"/>
@@ -170,7 +199,7 @@
         <Property name="text" type="java.lang.String" value="PathScreens: "/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField3">
+    <Component class="javax.swing.JTextField" name="TxtFieldPathScreen">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="GraphicCharter.titre3" type="code"/>
@@ -189,7 +218,7 @@
         <Property name="text" type="java.lang.String" value="Traductor:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField4">
+    <Component class="javax.swing.JTextField" name="TxtFieldTrad">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="GraphicCharter.titre3" type="code"/>
@@ -208,7 +237,7 @@
         <Property name="text" type="java.lang.String" value="Select Path:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="comboStudy">
+    <Component class="javax.swing.JComboBox" name="comboStudyPath">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="GraphicCharter.titre3&#xd;&#xa;" type="code"/>
@@ -234,19 +263,51 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Launch Track"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="butLaunchActionPerformed"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new ButtonGenerik()"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JButton" name="butRefresh">
+    <Component class="javax.swing.JButton" name="butrefresh">
       <Properties>
-        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="&quot;&quot;" type="code"/>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/refresh.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="butrefreshActionPerformed"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new ButtonRefresh()"/>
+        <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="FenStudy_butrefresh"/>
       </AuxValues>
+    </Component>
+    <Component class="javax.swing.JButton" name="butAddPath">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Add Path"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="butAddPathActionPerformed"/>
+      </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new ButtonGenerik()"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JFileChooser" name="jlc">
+      <Properties>
+        <Property name="approveButtonText" type="java.lang.String" value="Select"/>
+        <Property name="approveButtonToolTipText" type="java.lang.String" value=""/>
+        <Property name="currentDirectory" type="java.io.File" editor="org.netbeans.beaninfo.editors.FileEditor">
+          <SerializedValue value="-84,-19,0,5,115,114,0,12,106,97,118,97,46,105,111,46,70,105,108,101,4,45,-92,69,14,13,-28,-1,3,0,1,76,0,4,112,97,116,104,116,0,18,76,106,97,118,97,47,108,97,110,103,47,83,116,114,105,110,103,59,120,112,116,0,3,67,58,92,119,2,0,92,120"/>
+        </Property>
+        <Property name="dialogTitle" type="java.lang.String" value=""/>
+        <Property name="fileSelectionMode" type="int" value="1"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jlcActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
