@@ -12,7 +12,7 @@ import java.util.HashMap;
  *
  * @author nik
  */
-public class SimpleStudyParam implements StudyParam
+public class SimpleStudyParam implements StudyParams
 {
     //valeur par defaut pour eviter les champs vides
     private final String def = "Not Found";
