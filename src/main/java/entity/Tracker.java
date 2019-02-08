@@ -8,7 +8,7 @@ package entity;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-/**
+/**objet presentant le tracker qui est une par langue et reprenant tout les modiftrack ( une par questionnaire present dans cette langue)
  *
  * @author nik
  */

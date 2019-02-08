@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- *
+ *object representant le fichier de lable d'un questionnaire 
  * @author nik
  */
 public interface LabelFormulaire extends Serializable    

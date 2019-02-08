@@ -22,7 +22,8 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 /**
- *
+ *le modif track est l'image d'une ligne du cartouche de suivi de l'excel label
+ * Nous utilisons que la derniere ligne du chartouche, c'est a dire la plus recente.
  * @author nik
  */
 public class PoiModifTrackDAO implements ModifTrackDAO {

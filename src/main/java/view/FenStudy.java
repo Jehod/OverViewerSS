@@ -292,13 +292,13 @@ public class FenStudy extends FenGenerik
     {//GEN-HEADEREND:event_butAddPathActionPerformed
         String select;
         jlc.setVisible(true);
-        this.setSize(1000, 400);
+        //this.setSize(1000, 400);
         int retour = jlc.showOpenDialog(this);
         if (retour == JFileChooser.APPROVE_OPTION)
         {
             select = jlc.getSelectedFile().getAbsolutePath();
             System.out.println("select: " + select);
-            this.setSize(500,400);
+            //this.setSize(500,400);
             list.add(select);
             comboStudyPath.setSelectedItem(select);
         }

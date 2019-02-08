@@ -8,7 +8,7 @@ package entity;
 import java.io.Serializable;
 
 /**
- *
+ *objet qui represente une ligne du cartouche de suivi du label du questionnaire
  * @author nik
  */
 public interface ModifTrack extends Serializable

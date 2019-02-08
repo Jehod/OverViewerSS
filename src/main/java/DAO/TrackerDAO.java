@@ -16,7 +16,7 @@ import java.util.List;
  *
  * @author nik
  */
-public interface TrackerDAO 
+public interface TrackerDAO extends Serializable
 {
    /**
     * retourne toute les sheet du tracker (reellement utile?)

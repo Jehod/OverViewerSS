@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-/**
+/**objet reprenant toutes les infos relative a l'etude ( tiré du Json de config)
  *
  * @author nrochas
  */

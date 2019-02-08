@@ -8,7 +8,7 @@ package entity;
 import java.io.Serializable;
 import java.util.List;
 
-/**
+/**objet representant le studytracker, qui a l'agregat de tout les trackers
  *
  * @author nik
  */
