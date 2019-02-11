@@ -78,12 +78,14 @@ public class Params
         
         ArrayList<String> listPath = jw.getListcibleOfStudy(studyName, "path");
         
-        String trad = jw.getValueCibleOfStudy(studyName, "trad");
+        String trad = jw.getValueCibleOfStudy(studyName, "Trad");
         String pathLabels = jw.getValueCibleOfStudy(studyName,"pathLabels" );
         String pathScreens = jw.getValueCibleOfStudy(studyName,"pathScreens" );
         String tabModel = jw.getValueCibleOfStudy(studyName, "Tablet");
+        String pathCertifs = jw.getValueCibleOfStudy(studyName, "pathCertifs");
+        Boolean font = jw.getBooleanCibleOfStudy(studyName, "Font");
         
-        this.studyParam = new SimpleStudyParam(listPath, trad, pathLabels, pathScreens,tabModel, new HashMap<>());
+        this.studyParam = new SimpleStudyParam(listPath, trad, pathLabels, pathScreens,pathCertifs, tabModel,font, new HashMap<>());
         
         System.out.println("test+++++++"+jw.getValueCibleOfStudy("CAIN457M2302","name"));
         System.out.println("test+++++++"+jw.getValueCibleOfStudy("test2","trad"));

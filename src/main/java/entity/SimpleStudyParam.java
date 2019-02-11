@@ -23,9 +23,14 @@ public class SimpleStudyParam implements StudyParams
     private String pathScreens=def;
     private HashMap<String,String> map =null;
     private String tabModel=def;
+    private String pathCertifs = def;
+    private boolean fontSamsung = true;
     
 
-    public SimpleStudyParam(ArrayList<String> studyPath, String trad, String pathLabels, String pathScreens, String tabModel, HashMap<String, String> map)
+    public SimpleStudyParam(ArrayList<String> studyPath, String trad, 
+            String pathLabels, String pathScreens, String pathCertifs,
+            String tabModel,Boolean fontSamsung,
+            HashMap<String, String> map)
     {
         this.listStudyPath = studyPath;
         this.trad = trad;
@@ -33,6 +38,8 @@ public class SimpleStudyParam implements StudyParams
         this.pathScreens = pathScreens;
         this.map = map;
         this.tabModel = tabModel;
+        this.pathCertifs = pathCertifs;
+        this.fontSamsung = fontSamsung;
         
     }
     
@@ -92,6 +99,24 @@ public class SimpleStudyParam implements StudyParams
 
     public void setTabModel(String tabModel) {
         this.tabModel = tabModel;
+    }
+
+    @Override
+    public String getPathCertifs() {
+        return pathCertifs;
+    }
+
+    @Override
+    public boolean getFontSamsung() {
+       return fontSamsung;
+    }
+
+    public void setPathCertifs(String pathCertifs) {
+        this.pathCertifs = pathCertifs;
+    }
+
+    public void setFontSamsung(boolean fontSamsung) {
+        this.fontSamsung = fontSamsung;
     }
 
     

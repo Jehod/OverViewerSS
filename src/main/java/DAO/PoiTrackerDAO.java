@@ -11,7 +11,6 @@ import entity.SimpleModifTrack;
 import entity.SimpleRowTracker;
 import entity.SimpleTracker;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -35,9 +34,8 @@ import style.StylePoi;
  *
  * @author nik
  */
-public class PoiTrackerDAO implements TrackerDAO
-{
-
+public class PoiTrackerDAO implements TrackerDAO {
+    
     final private String fileName;
 
     /**
@@ -45,119 +43,58 @@ public class PoiTrackerDAO implements TrackerDAO
      * @param fileName
      *
      */
-    public PoiTrackerDAO(String fileName)
-    {
+    public PoiTrackerDAO(String fileName) {
         
         this.fileName = fileName;
-
+        
     }
-
+    
     @Override
-    public List<SimpleTracker> readAllTracker()
-    {
+    public List<SimpleTracker> readAllTracker() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-   
-
+    
     @Override
-    public SimpleTracker getLastTracker()
-    {
+    public SimpleTracker getLastTracker() {
         SimpleTracker tck = new SimpleTracker();
-
+        
         PoiRowTrackerDAO prtk = new PoiRowTrackerDAO(fileName);
         tck.setAllRowTracker((ArrayList<SimpleRowTracker>) prtk.findAllRowTracker());
         tck.setName(getLastTrackerName());
         tck.setDate("TestDate");
-
+        
         return tck;
     }
-
+    
     @Override
-    public String getLastTrackerDate()
-    {
+    public String getLastTrackerDate() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    public void createTitleTracker(Workbook wb, Sheet sheet)
-    {
-        if (wb != null || sheet != null)
-        {
-            Cell cell;
-            Row row;
-            Font font = wb.createFont();
-            font.setBold(true);
-            CellStyle style = wb.createCellStyle();
-            style.setFont(font);
-            int rownum = 0;
-
-            row = sheet.createRow(rownum);
-
-            // EmpName
-            cell = row.createCell(0, CellType.STRING);
-            cell.setCellValue("Questionnary");
-            cell.setCellStyle(style);
-            // version
-            cell = row.createCell(1, CellType.STRING);
-            cell.setCellValue("Version");
-            cell.setCellStyle(style);
-            // date version
-            cell = row.createCell(2, CellType.STRING);
-            cell.setCellValue("DateOfUpdate");
-            cell.setCellStyle(style);
-            //screenshot
-            cell = row.createCell(3, CellType.STRING);
-            cell.setCellValue("ScreenDone");
-            cell.setCellStyle(style);
-            // send
-            cell = row.createCell(4, CellType.STRING);
-            cell.setCellValue("SendToExt");
-            cell.setCellStyle(style);
-            //final 
-            cell = row.createCell(5, CellType.STRING);
-            cell.setCellValue("Final");
-            cell.setCellStyle(style);
-            //certified 
-            cell = row.createCell(6, CellType.STRING);
-            cell.setCellValue("Certified");
-            cell.setCellStyle(style);
-        } else
-        {
-            System.out.println("le create title ne peut marcher car le workbook ou la sheet est nul");
-        }
-
-    }
-
+    
     @Override
-    public String getLastTrackerName()
-    {
+    public String getLastTrackerName() {
         final File file = new File(fileName);
         Workbook wb;
         Sheet sheet = null;
-        try
-        {
+        try {
             wb = WorkbookFactory.create(file);
             sheet = wb.getSheetAt(0);
-
-        } catch (IOException ex)
-        {
+            
+        } catch (IOException ex) {
             Logger.getLogger(PoiTrackerDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InvalidFormatException ex)
-        {
+        } catch (InvalidFormatException ex) {
             Logger.getLogger(PoiTrackerDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (EncryptedDocumentException ex)
-        {
+        } catch (EncryptedDocumentException ex) {
             Logger.getLogger(PoiTrackerDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
         return sheet.getSheetName();
-
+        
     }
-
+    
     @Override
-    public SimpleTracker createTrackerFromLabel(String dir)
-    {
-
+    public SimpleTracker createTrackerFromLabel(String dir) {
+        
         SimpleTracker stk = new SimpleTracker();
         List<SimpleRowTracker> allMdT = new ArrayList<SimpleRowTracker>();
         Boolean findTrain = false;
@@ -169,13 +106,14 @@ public class PoiTrackerDAO implements TrackerDAO
         // PoiRowTrackerDAO prtk = new PoiRowTrackerDAO(path + pathLabels + dir + "\\Tracker_" + dir + ".xlsx");
 
         //pour chaque xls de label
-        for (String xls : listXls)
-        {
+        for (String xls : listXls) {
             PoiModifTrackDAO pmtk = new PoiModifTrackDAO(fileName + "\\" + xls);
-            
-            //on note l'existence d'un training.
-            if (xls.toLowerCase().contains("train")) findTrain = true;
 
+            //on note l'existence d'un training.
+            if (xls.toLowerCase().contains("train")) {
+                findTrain = true;
+            }
+            
             SimpleModifTrack smtk;
             smtk = pmtk.getLastModifTrack();
             allMdT.add(modifTrackToRowTracker(smtk));
@@ -187,117 +125,110 @@ public class PoiTrackerDAO implements TrackerDAO
              */
             System.out.println("xls traité: " + xls.toString() + " size: " + listXls.size());
         }
-        
+
         //on ajoute un train si il ne l'a pas trouvé
-        if (!findTrain)
-        {   SimpleModifTrack smtk;
-            smtk = new SimpleModifTrack("Training",new DateManager().getSimpleCurrentDate(), "Kayentis", "1.0.0", "Auto-creation");
-            allMdT.add(modifTrackToRowTracker(smtk));}
-
+        if (!findTrain) {
+            SimpleModifTrack smtk;
+            smtk = new SimpleModifTrack("Training", new DateManager().getSimpleCurrentDate(), "Kayentis", "1.0.0", "Auto-creation");
+            allMdT.add(modifTrackToRowTracker(smtk));
+        }
+        
         stk = createTracker((ArrayList<SimpleRowTracker>) allMdT);
-
+        
         return stk;
     }
-
+    
     @Override
-    public SimpleRowTracker modifTrackToRowTracker(SimpleModifTrack smtk)
-    {
+    public SimpleRowTracker modifTrackToRowTracker(SimpleModifTrack smtk) {
         SimpleRowTracker srtk = new SimpleRowTracker(smtk.getVersion(), smtk.getFormulaire(), smtk.getDate());
-        System.out.println("RowTracker: "+srtk.toString());
-
+        System.out.println("RowTracker: " + srtk.toString());
+        
         return srtk;
     }
 
     /**
      *
-     * @param srtk
-     * @param sheet
-     * @param row
+     * @param lang langue du tracker ne sert que dans le studytracker
+     * @param srtk la rowtracker
+     * @param row  la ligne cible
      */
-    public void addRowTracker(SimpleRowTracker srtk, Row row)
-    {
-
-        row.createCell(0).setCellValue(srtk.getFormulaire());;
-        row.createCell(1).setCellValue(srtk.getVersion());
-        row.createCell(2).setCellValue(srtk.getDateVers());
-        row.createCell(3).setCellValue(srtk.getScreenDone());
-        row.createCell(4).setCellValue(srtk.getSendtoExt());
-        row.createCell(5).setCellValue(srtk.getFinalized());
-        row.createCell(6).setCellValue(srtk.getCertified());
-
+    public void addRowTracker(String lang, SimpleRowTracker srtk, Row row) {
+        int colNum = 0;
+        if (lang != null) {
+            row.createCell(0).setCellValue(lang);
+            colNum ++ ;
+        }
+        
+        row.createCell(colNum).setCellValue(srtk.getFormulaire());
+        row.createCell(colNum + 1).setCellValue(srtk.getVersion());
+        row.createCell(colNum + 2).setCellValue(srtk.getDateVers());
+        row.createCell(colNum + 3).setCellValue(srtk.getScreenDone());
+        row.createCell(colNum + 4).setCellValue(srtk.getCertified());
+        
     }
-
+    
     @Override
-    public SimpleTracker createTracker(ArrayList<SimpleRowTracker> allMdT)
-    {
+    public SimpleTracker createTracker(ArrayList<SimpleRowTracker> allMdT) {
         SimpleTracker stk = new SimpleTracker();
-
+        
         stk.setDate(new DateManager().getSimpleCurrentDate());
         stk.setName(fileName.substring(fileName.length() - 5, fileName.length()));
         stk.setAllRowTracker(allMdT);
-
+        
         return stk;
     }
-
+    
     @Override
-    public boolean svgTracker(SimpleTracker stk)
-    {
+    public boolean svgTracker(SimpleTracker stk) {
         boolean bob = false;
         Workbook wb = null;
         Sheet sheet = null;
         
-        File file =null;
+        File file = null;
 
         //creer le workbook et la sheet
-        try
-        {
+        try {
             
-            System.out.println("trace: "+stk.toString());
+            System.out.println("trace: " + stk.toString());
             wb = new XSSFWorkbook();
 //wb = WorkbookFactory.create(file);
-           
+            
             sheet = wb.createSheet(stk.getName() + "_" + stk.getDate());
             
-
-        } catch (Exception ex)
-        {
+        } catch (Exception ex) {
             System.out.println("catch du svgTracker " + ex.getLocalizedMessage());
         }
 
         // creer les cellules
         style.StylePoi style = new StylePoi(wb, sheet);
-        style.createHeader(0);
-        
-//createTitleTracker(wb, sheet);
+        style.createHeader(0, 0);
 
+//createTitleTracker(wb, sheet);
         Row rows;
         int i = 1;
-        for (SimpleRowTracker row : stk.getAllRowTracker())
-        {
+        for (SimpleRowTracker row : stk.getAllRowTracker()) {
             rows = sheet.createRow(i);
-            addRowTracker(row, rows);
+            addRowTracker(null,row, rows);
             i++;
         }
-        
+
         //apply decoration
         System.out.println("apply decoration");
         style.pairStyle();
         style.colorCell();
-
-        try
-        {
+        
+        try {
             file = new File(fileName + "\\TRACKER.xlsx");
             FileOutputStream outFile = new FileOutputStream(file);
             wb.write(outFile);
             //outFile.close();
             bob = true;
-        } catch (Exception ex)
-        {
+        } catch (Exception ex) {
             Logger.getLogger(PoiTrackerDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
         return bob;
-
+        
     }
-
+    
 }

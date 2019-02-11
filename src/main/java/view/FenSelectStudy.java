@@ -78,6 +78,11 @@ public class FenSelectStudy extends FenGenerik
 
         butCreateStudy2.setText("Create New Study");
         butCreateStudy2.setToolTipText("");
+        butCreateStudy2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                butCreateStudy2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -124,6 +129,11 @@ public class FenSelectStudy extends FenGenerik
         }
         
     }//GEN-LAST:event_butCreateStudy1ActionPerformed
+
+    private void butCreateStudy2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butCreateStudy2ActionPerformed
+        FenCreatStudy fcs = new FenCreatStudy();
+        this.setVisible(false);
+    }//GEN-LAST:event_butCreateStudy2ActionPerformed
 
    
     

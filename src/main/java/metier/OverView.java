@@ -89,9 +89,7 @@ public class OverView {
                         /* if (rt.getFormulaire().equals("Training")) {
                             rt.setScreenDone(scf.searchTrainingPDF(dir, rt.getFormulaire(), rt.getVersion()));
                         }*/
-                        if (rt.getVersion().endsWith("0.0")) {
-                            rt.setFinalized("ok");
-                        }
+                        
                     }
                 }
                 listTrackers.add(smt);

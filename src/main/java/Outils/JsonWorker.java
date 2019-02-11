@@ -53,7 +53,7 @@ public class JsonWorker {
 
         for (Iterator it = tab.iterator(); it.hasNext();) {
             JSONObject next = (JSONObject) it.next();
-            list.add(next.get("name"));
+            list.add(next.get("Name"));
 
         }
         System.out.println("list: " + list.toString());
@@ -82,7 +82,7 @@ public class JsonWorker {
         for (Iterator it = tab.iterator(); it.hasNext();) {
             JSONObject next = (JSONObject) it.next();
 
-            if (next.get("name").equals(studyName)) {
+            if (next.get("Name").equals(studyName)) {
                 if (next.has(cible)) {
                     str = (String) next.get(cible);
                 }
@@ -113,7 +113,7 @@ public class JsonWorker {
         for (Iterator it = tab.iterator(); it.hasNext();) {
             JSONObject next = (JSONObject) it.next();
 
-            if (next.get("name").equals(studyName)) {
+            if (next.get("Name").equals(studyName)) {
                 if (next.has(cible)) {
                     tabCible = next.getJSONArray(cible);
                 }
@@ -169,6 +169,30 @@ public class JsonWorker {
         jo = new JSONObject(json);
 
         return jo;
+    }
+
+    public Boolean getBooleanCibleOfStudy(String studyName, String cible) {
+       Boolean bob = false;
+
+        JSONArray tab = null;
+
+        if (jo != null) {
+            tab = jo.getJSONArray("studies");
+
+        }
+
+        for (Iterator it = tab.iterator(); it.hasNext();) {
+            JSONObject next = (JSONObject) it.next();
+
+            if (next.get("Name").equals(studyName)) {
+                if (next.has(cible)) {
+                    bob = (Boolean) next.get(cible);
+                }
+            }
+
+        }
+
+        return bob;
     }
 
 }

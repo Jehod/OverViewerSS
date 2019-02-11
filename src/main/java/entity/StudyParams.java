@@ -28,5 +28,7 @@ interface StudyParams extends Serializable{
     
     public ArrayList<String> getListStudyPath() ;
     
+    public String getPathCertifs();
     
+    public boolean getFontSamsung();
 }

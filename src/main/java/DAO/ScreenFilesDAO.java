@@ -5,8 +5,8 @@
  */
 package DAO;
 
-import Outils.DateManager;
 import com.JehodFactory.overviewerss.Params;
+import Outils.DateManager;
 import entity.SimpleStudyParam;
 import java.io.File;
 import java.util.ArrayList;

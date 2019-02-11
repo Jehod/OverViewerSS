@@ -40,17 +40,7 @@ public interface RowTracker extends Serializable
    */
     String getScreenDone();
     
-    /**
-     * trace si cette version a été envoyé au traducteur. daté si ok, none si pas fait
-     * @return 
-     */
-    String getSendtoExt();
-    
-    /**
-     * trace si la version est la finalisée. daté si ok, none si pas fait
-     * @return 
-     */
-    String getFinalized();
+  
     
     /**
      * trace si certifiée. daté si ok , none si pas fait

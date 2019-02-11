@@ -23,18 +23,18 @@ import org.apache.poi.ss.util.CellRangeAddress;
  * @author nik
  */
 public class StylePoi implements Style {
-
+    
     final Workbook wb;
     final Sheet sheet;
-
+    
     public StylePoi(Workbook wb, Sheet sheet) {
         super();
         this.wb = wb;
         this.sheet = sheet;
     }
-
+    
     @Override
-    public void createHeader(int index) {
+    public void createHeader(int index, int decalage) {
         if (wb != null || sheet != null) {
             Cell cell;
             Row row;
@@ -45,46 +45,46 @@ public class StylePoi implements Style {
             style.setFillForegroundColor(IndexedColors.LIGHT_CORNFLOWER_BLUE.getIndex());
             style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
             int rownum = index;
-
+            
             row = sheet.createRow(rownum);
+            int colNum = decalage;
+
+            //langue (uniquement pour le studytracker d'ou le decallage de colonne)
+            if (colNum != 0) {
+                cell = row.createCell(colNum, CellType.STRING);
+                cell.setCellValue("Langue");
+                cell.setCellStyle(style);
+            }
 
             // EmpName
-            cell = row.createCell(0, CellType.STRING);
+            cell = row.createCell(colNum, CellType.STRING);
             cell.setCellValue("Questionnary");
             cell.setCellStyle(style);
             // version
-            cell = row.createCell(1, CellType.STRING);
+            cell = row.createCell(colNum + 1, CellType.STRING);
             cell.setCellValue("Version");
             cell.setCellStyle(style);
             // date version
-            cell = row.createCell(2, CellType.STRING);
+            cell = row.createCell(colNum + 2, CellType.STRING);
             cell.setCellValue("DateOfUpdate");
             cell.setCellStyle(style);
             //screenshot
-            cell = row.createCell(3, CellType.STRING);
+            cell = row.createCell(colNum + 3, CellType.STRING);
             cell.setCellValue("ScreenDone");
             cell.setCellStyle(style);
-            // send
-            cell = row.createCell(4, CellType.STRING);
-            cell.setCellValue("SendToExt");
-            cell.setCellStyle(style);
-            //final 
-            cell = row.createCell(5, CellType.STRING);
-            cell.setCellValue("Final");
-            cell.setCellStyle(style);
             //certified 
-            cell = row.createCell(6, CellType.STRING);
+            cell = row.createCell(colNum + 4, CellType.STRING);
             cell.setCellValue("Certified");
             cell.setCellStyle(style);
-
+            
             setAutoSizeCol(index);
-
+            
         } else {
             System.out.println("le create title ne peut marcher car le workbook ou la sheet est nul");
         }
-
+        
     }
-
+    
     @Override
     public void pairStyle() {
         // Style
@@ -92,10 +92,10 @@ public class StylePoi implements Style {
         final CellStyle pairStyle = wb.createCellStyle();
         pairStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
         pairStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-
+        
         Row row;
         int i = 1;
-
+        
         row = sheet.getRow(i);
         while (row != null) {
             row = sheet.getRow(i);
@@ -113,16 +113,16 @@ public class StylePoi implements Style {
             i++;
         }
     }
-
+    
     @Override
     public void blocStyle() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
     @Override
     public void createBlocTitle(int index, String title) {
         final CellStyle style = wb.createCellStyle();
-
+        
         Font font = wb.createFont();
         font.setBold(true);
         font.setFontHeight((short) 260);
@@ -132,11 +132,16 @@ public class StylePoi implements Style {
         style.setAlignment(HorizontalAlignment.CENTER);
         Row row = sheet.createRow(index);
         Cell cell = row.createCell(0);
-        sheet.addMergedRegion(new CellRangeAddress(index, index, 0, 6));
+        // sheet.addMergedRegion(new CellRangeAddress(index, index, 1, 5));
         cell.setCellValue(title);
         cell.setCellStyle(style);
+        for (int i = 1; i < 6; i++) {
+            Cell cel = row.createCell(i);
+            cel.setCellStyle(style);
+            
+        }
     }
-
+    
     @Override
     public void createTitle(String title) {
         final CellStyle style = wb.createCellStyle();
@@ -148,19 +153,19 @@ public class StylePoi implements Style {
         style.setFont(font);
         style.setAlignment(HorizontalAlignment.CENTER);
         Row row = sheet.createRow(0);
-        Cell cell = row.createCell(0);
-        sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 6));
+        Cell cell = row.createCell(1);
+        sheet.addMergedRegion(new CellRangeAddress(0, 0, 1, 5));
         cell.setCellValue(title);
         cell.setCellStyle(style);
     }
-
+    
     public void setAutoSizeCol(int index) {
         for (int i = 0; i < sheet.getRow(index).getLastCellNum(); i++) {
             sheet.autoSizeColumn(i);
         }
-
+        
     }
-
+    
     @Override
     public void colorCell() {
         // Style
@@ -168,24 +173,22 @@ public class StylePoi implements Style {
         final CellStyle OkStyle = wb.createCellStyle();
         OkStyle.setFillForegroundColor(IndexedColors.SEA_GREEN.getIndex());
         OkStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-
+        
         final CellStyle NoneStyle = wb.createCellStyle();
         NoneStyle.setFillForegroundColor(IndexedColors.LEMON_CHIFFON.getIndex());
         NoneStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-
-       
+        
         Row row;
         Row rowHead = sheet.getRow(0);
         int i = 1;
-
+        
         row = sheet.getRow(i);
         while (row != null) {
             row = sheet.getRow(i);
-           
 
             // Coloriage des cell dans les colonnes qui nous interresse
             //attention a protéger contre les lignes vides 
-            if (row != null ) {
+            if (row != null) {
                 //on colorie les cellules ok en couleur ok et les cellues none en style none.
 
                 if (row.getCell(3) != null && row.getCell(3).getStringCellValue().equals("None")) {
@@ -194,11 +197,10 @@ public class StylePoi implements Style {
                     row.getCell(3).setCellStyle(OkStyle);
                 }
                 
-
                 i++;
             }
         }
-
+        
     }
-
+    
 }

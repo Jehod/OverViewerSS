@@ -18,8 +18,6 @@ public class SimpleRowTracker implements RowTracker {
     private String formulaire;
     private String dateVers;
     private String screenDone;
-    private String sendToExt;
-    private String finalized;
     private String certified;
 
     /**
@@ -33,14 +31,12 @@ public class SimpleRowTracker implements RowTracker {
      * @param finalized
      * @param certified 
      */
-    public SimpleRowTracker( String version, String formulaire, String dateVers, String screenDone, String sendToExt, String finalized, String certified) {
+    public SimpleRowTracker( String version, String formulaire, String dateVers, String screenDone, String certified) {
         
         this.version = version;
         this.formulaire = formulaire;
         this.dateVers = dateVers;
         this.screenDone = screenDone;
-        this.sendToExt = sendToExt;
-        this.finalized = finalized;
         this.certified = certified;
     }
 
@@ -50,8 +46,6 @@ public class SimpleRowTracker implements RowTracker {
         formulaire = "VoidRowTracker";
         dateVers = "00/00/00";
         screenDone = traceNone;
-        sendToExt = traceNone;
-        finalized = traceNone;
         certified = traceNone;
     }
 
@@ -61,8 +55,6 @@ public class SimpleRowTracker implements RowTracker {
         this.formulaire = formulaire;
         this.dateVers = date;
         screenDone = traceNone;
-        sendToExt = traceNone;
-        finalized = traceNone;
         certified = traceNone;
     }
 
@@ -83,13 +75,6 @@ public class SimpleRowTracker implements RowTracker {
         this.screenDone = screenDone;
     }
 
-    public void setSendToExt(String sendToExt) {
-        this.sendToExt = sendToExt;
-    }
-
-    public void setFinalized(String finalized) {
-        this.finalized = finalized;
-    }
 
     public void setCertified(String certified) {
         this.certified = certified;
@@ -109,8 +94,7 @@ public class SimpleRowTracker implements RowTracker {
     @Override
     public String toString() {
         return  " formulaire: " + formulaire + " version: " + version
-                +" dateversion: "+dateVers+" screenDone?: "+screenDone+" sendToExt?: "+sendToExt
-                +" finalized?: "+finalized+" certified?: "+certified;
+                +" dateversion: "+dateVers+" screenDone?: "+screenDone+" certified?: "+certified;
     }
 
     @Override
@@ -123,15 +107,6 @@ public class SimpleRowTracker implements RowTracker {
         return screenDone;
     }
 
-    @Override
-    public String getSendtoExt() {
-        return sendToExt;
-    }
-
-    @Override
-    public String getFinalized() {
-        return finalized;
-    }
 
     @Override
     public String getCertified() {

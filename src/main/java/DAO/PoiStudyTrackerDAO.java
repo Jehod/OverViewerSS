@@ -86,16 +86,17 @@ public class PoiStudyTrackerDAO implements StudyTrackerDAO
             //rows = sheet.createRow(i);
             //addTrackerLanguage(rows,);
             style.createBlocTitle(i,track.getName());
+            String lang = track.getName();
             i++;
             
             //rows = sheet.createRow(i);
-            style.createHeader(i);
+            style.createHeader(i,1);
             i++;
             for (SimpleRowTracker row : track.getAllRowTracker())
             {
                 PoiTrackerDAO ptk = new PoiTrackerDAO(fileName);
                 rows = sheet.createRow(i);
-                ptk.addRowTracker(row, rows);
+                ptk.addRowTracker(lang, row, rows);
                 i++;
                 
             }
