@@ -29,7 +29,7 @@
               <EmptySpace min="-2" pref="163" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="comboStudy" max="32767" attributes="0"/>
-                  <Component id="butCreateStudy1" pref="142" max="32767" attributes="0"/>
+                  <Component id="butGoWith" pref="142" max="32767" attributes="0"/>
                   <Component id="butCreateStudy2" pref="142" max="32767" attributes="0"/>
               </Group>
               <EmptySpace pref="173" max="32767" attributes="0"/>
@@ -45,7 +45,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="comboStudy" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="53" max="32767" attributes="0"/>
-              <Component id="butCreateStudy1" min="-2" max="-2" attributes="0"/>
+              <Component id="butGoWith" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="52" max="32767" attributes="0"/>
               <Component id="butCreateStudy2" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="118" max="-2" attributes="0"/>
@@ -87,13 +87,13 @@
         <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="butCreateStudy1">
+    <Component class="javax.swing.JButton" name="butGoWith">
       <Properties>
         <Property name="text" type="java.lang.String" value="Go with"/>
         <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="butCreateStudy1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="butGoWithActionPerformed"/>
       </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new ButtonGenerik()"/>

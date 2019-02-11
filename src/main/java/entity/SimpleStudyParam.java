@@ -5,6 +5,7 @@
  */
 package entity;
 
+import Outils.Check;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -32,13 +33,14 @@ public class SimpleStudyParam implements StudyParams
             String tabModel,Boolean fontSamsung,
             HashMap<String, String> map)
     {
+        
         this.listStudyPath = studyPath;
-        this.trad = trad;
-        this.pathLabels = pathLabels;
-        this.pathScreens = pathScreens;
+        if (Check.isGood(trad)) this.trad = trad;
+        if (Check.isGood(pathLabels)) this.pathLabels = pathLabels;
+        if (Check.isGood(pathScreens))this.pathScreens = pathScreens;
         this.map = map;
-        this.tabModel = tabModel;
-        this.pathCertifs = pathCertifs;
+        if (Check.isGood(tabModel)) this.tabModel = tabModel;
+        if (Check.isGood(pathCertifs))this.pathCertifs = pathCertifs;
         this.fontSamsung = fontSamsung;
         
     }

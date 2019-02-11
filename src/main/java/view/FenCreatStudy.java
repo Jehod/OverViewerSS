@@ -5,10 +5,12 @@
  */
 package view;
 
-import DAO.JsonStudyParams;
+import DAO.JsonStudyParamsDAO;
 import Outils.Check;
+import com.JehodFactory.overviewerss.Params;
 import java.awt.Dimension;
 import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import javax.swing.JRadioButton;
 import style.GraphicCharter;
 import view.generikForms.ButtonGenerik;
@@ -212,6 +214,9 @@ public class FenCreatStudy extends FenGenerik {
     }// </editor-fold>//GEN-END:initComponents
 
     private void butcreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butcreateActionPerformed
+
+        Boolean bob;
+
         String name = txtfstudyname.getText().trim().toUpperCase();
         String trad = txtfTrad.getText().trim().toUpperCase();
         String tablet = txtfTAblet.getText().trim().toUpperCase();
@@ -220,51 +225,28 @@ public class FenCreatStudy extends FenGenerik {
         String pathC = txtfsPcertif.getText().trim();
         Boolean font = cBxFont.isSelected();
 
+        if (Outils.Check.isGood(name) && Check.isGood(trad) && Check.isGood(tablet)
+                && Check.isGood(pathL) && Check.isGood(pathS) && Check.isGood(pathC)) {
+            JsonStudyParamsDAO jsp = new JsonStudyParamsDAO();
+            bob = jsp.createStudy(name, trad, tablet, font, pathL, pathC, pathC);
+            
+            if (bob) {
+                
+                Params.getInstance().setStudyName(name);
+                Params.getInstance().accedeStudy(name);
+                FenStudy fen = new FenStudy();
+                this.setVisible(false);
+                
+            } else {
+                JOptionPane.showMessageDialog(null, "Probleme lors de l'enregistrement de la study", "Error", ERROR_MESSAGE);
+            }
 
-        if (Outils.Check.isGood(name) && Check.isGood(trad) && Check.isGood(tablet) 
-                && Check.isGood(pathL) && Check.isGood(pathS)&&Check.isGood(pathC) ) {
-            JsonStudyParams jsp = new JsonStudyParams();
-            jsp.createStudy(name, trad, tablet, font, pathL, pathC, pathC);
-        
-        }else
-        {JOptionPane.showMessageDialog(null, "Veuillez remplir tout les champs", "Error", ERROR);}
+        } else {
+            JOptionPane.showMessageDialog(null, "Veuillez remplir tout les champs", "Error", ERROR_MESSAGE);
+        }
 
     }//GEN-LAST:event_butcreateActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FenCreatStudy.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FenCreatStudy.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FenCreatStudy.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FenCreatStudy.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FenCreatStudy().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel LabTitre;

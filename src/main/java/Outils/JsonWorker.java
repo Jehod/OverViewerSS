@@ -8,14 +8,17 @@ package Outils;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -27,12 +30,16 @@ public class JsonWorker {
     private InputStream input = null;
     private Scanner scanner;
     private JSONObject jo;
+    private FileWriter fw = null;
+    private String fileConfig;
 
     //https://www.cyril-rabat.fr/articles/index.php?article=50
     //http://jsonviewer.stack.hu/ 
     // pour visualiser les json
     public JsonWorker(String file) {
+        fileConfig = file;
         this.jo = readJsonFromFile(file);
+
     }
 
     /**
@@ -120,8 +127,10 @@ public class JsonWorker {
             }
 
         }
-        for (Object ob : tabCible) {
-            list.add(ob);
+        if (tabCible != null) {
+            for (Object ob : tabCible) {
+                list.add(ob);
+            }
         }
 
         return list;
@@ -171,8 +180,16 @@ public class JsonWorker {
         return jo;
     }
 
+    /**
+     * recupere une entrée booleenne du nom de la cible dans la study de
+     * studyName
+     *
+     * @param studyName
+     * @param cible
+     * @return
+     */
     public Boolean getBooleanCibleOfStudy(String studyName, String cible) {
-       Boolean bob = false;
+        Boolean bob = false;
 
         JSONArray tab = null;
 
@@ -189,9 +206,111 @@ public class JsonWorker {
                     bob = (Boolean) next.get(cible);
                 }
             }
+        }
+
+        return bob;
+    }
+
+    /**
+     * creer une entrée dans le fichier de json avec le nom de l'etude et rien
+     * d'autre
+     *
+     * @param studyName
+     * @return
+     */
+    public boolean setNewStudyName(String studyName) {
+
+        boolean bob = false;
+
+        if (Check.isGood(studyName)) {
+
+            try {
+                //obj.put("studies",  "{"+studyName+"}");
+                jo.append("studies", new JSONObject().put("Name", studyName));
+                bob = true;
+            } catch (JSONException ex) {
+                bob = false;
+                System.out.println("error to put study name in Json " + ex.getLocalizedMessage());
+            }
+
+            bob = writeOnJson();
+        }
+        return bob;
+    }
+
+    /**
+     * va remplir l'objet etude visée avec les parametres données
+     *
+     * @param studyName
+     * @param trad
+     * @param tabModel
+     * @param fontSamsung
+     * @param listStudyPath
+     * @param pathLabels
+     * @param pathScreens
+     * @param pathCertifs
+     * @param map
+     */
+    public boolean fillStudy(String studyName, String trad, String tabModel, boolean fontSamsung,
+            ArrayList<String> listStudyPath, String pathLabels, String pathScreens, String pathCertifs, HashMap<String, String> map) {
+
+        boolean bob = false;
+        JSONArray tab = null;
+
+        if (jo != null) {
+            tab = jo.getJSONArray("studies");
 
         }
 
+        for (Iterator it = tab.iterator(); it.hasNext();) {
+            JSONObject next = (JSONObject) it.next();
+
+            if (next.get("Name").equals(studyName)) {
+
+                next.put("Trad", trad);
+                next.put("Tablet", tabModel);
+                next.put("Font", fontSamsung);
+                next.put("path", listStudyPath);
+                next.put("pathLabels", pathLabels);
+                next.put("pathScreens", pathScreens);
+                next.put("pathCertif", pathCertifs);
+                next.put("map", map);
+
+                bob = true;
+            }
+            bob = writeOnJson();
+        }
+        return bob;
+    }
+
+    /**
+     * ecrit tout l'objet dans le json
+     *
+     * @return
+     */
+    private boolean writeOnJson() {
+        boolean bob = true;
+        try {
+            fw = new FileWriter(fileConfig);
+        } catch (IOException ex) {
+            bob = false;
+            System.out.println("creat fileWriter " + ex.getLocalizedMessage());
+        }
+        try {
+            jo.write(fw);
+            fw.flush();
+        } catch (IOException ex) {
+            bob = false;
+            System.out.println("svg de la file " + ex.getLocalizedMessage());
+        }
+        try {
+            fw.close();
+        } catch (Exception ex) {
+            bob = false;
+            System.out.println("close " + ex.getLocalizedMessage());
+        }
+
+        System.out.println("Ecriture du Json reussi");
         return bob;
     }
 

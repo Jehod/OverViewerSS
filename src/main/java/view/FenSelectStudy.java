@@ -49,7 +49,7 @@ public class FenSelectStudy extends FenGenerik
         jLabel1 = new javax.swing.JLabel();
         comboStudy = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
-        butCreateStudy1 = new ButtonGenerik();
+        butGoWith = new ButtonGenerik();
         butCreateStudy2 = new ButtonGenerik();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -68,11 +68,11 @@ public class FenSelectStudy extends FenGenerik
         jLabel2.setText("Select a study:");
         jLabel2.setToolTipText("");
 
-        butCreateStudy1.setText("Go with");
-        butCreateStudy1.setToolTipText("");
-        butCreateStudy1.addActionListener(new java.awt.event.ActionListener() {
+        butGoWith.setText("Go with");
+        butGoWith.setToolTipText("");
+        butGoWith.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                butCreateStudy1ActionPerformed(evt);
+                butGoWithActionPerformed(evt);
             }
         });
 
@@ -94,7 +94,7 @@ public class FenSelectStudy extends FenGenerik
                 .addGap(163, 163, 163)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(comboStudy, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(butCreateStudy1, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
+                    .addComponent(butGoWith, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
                     .addComponent(butCreateStudy2, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE))
                 .addContainerGap(173, Short.MAX_VALUE))
         );
@@ -107,7 +107,7 @@ public class FenSelectStudy extends FenGenerik
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(comboStudy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
-                .addComponent(butCreateStudy1)
+                .addComponent(butGoWith)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
                 .addComponent(butCreateStudy2)
                 .addGap(118, 118, 118))
@@ -116,8 +116,8 @@ public class FenSelectStudy extends FenGenerik
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void butCreateStudy1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_butCreateStudy1ActionPerformed
-    {//GEN-HEADEREND:event_butCreateStudy1ActionPerformed
+    private void butGoWithActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_butGoWithActionPerformed
+    {//GEN-HEADEREND:event_butGoWithActionPerformed
         if (comboStudy.getSelectedItem() != null)
         {
             Params.getInstance().accedeStudy((String) comboStudy.getSelectedItem());
@@ -128,7 +128,7 @@ public class FenSelectStudy extends FenGenerik
             JOptionPane.showMessageDialog(null, "Select a study", "Error Fill ComboBox", JOptionPane.ERROR_MESSAGE, null);
         }
         
-    }//GEN-LAST:event_butCreateStudy1ActionPerformed
+    }//GEN-LAST:event_butGoWithActionPerformed
 
     private void butCreateStudy2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butCreateStudy2ActionPerformed
         FenCreatStudy fcs = new FenCreatStudy();
@@ -139,8 +139,8 @@ public class FenSelectStudy extends FenGenerik
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton butCreateStudy1;
     private javax.swing.JButton butCreateStudy2;
+    private javax.swing.JButton butGoWith;
     private javax.swing.JComboBox<String> comboStudy;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

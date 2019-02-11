@@ -5,6 +5,8 @@
  */
 package DAO;
 
+import com.JehodFactory.overviewerss.Params;
+import entity.SimpleStudyParam;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -12,11 +14,17 @@ import java.util.HashMap;
  *
  * @author nrochas
  */
-public class JsonStudyParams implements StudyParamsDAO{
+public class JsonStudyParamsDAO implements StudyParamsDAO {
 
     @Override
     public boolean createStudy(String name, String trad, String tablet, boolean font, String pathLabel, String pathScreens, String certif) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        boolean bob = false;
+
+        SimpleStudyParam ssp = new SimpleStudyParam(new ArrayList<>(), trad, pathLabel, pathScreens, certif, tablet, font, new HashMap<>());
+
+        bob = Params.getInstance().svgStudyParam(name, ssp);
+
+        return bob;
     }
 
     @Override
@@ -38,5 +46,7 @@ public class JsonStudyParams implements StudyParamsDAO{
     public boolean addlinkToMap(String studyName, String excel, String fdef) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
+   
+
 }
