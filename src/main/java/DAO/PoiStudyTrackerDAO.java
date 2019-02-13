@@ -11,6 +11,7 @@ import entity.SimpleStudyTracker;
 import entity.SimpleTracker;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -56,7 +57,7 @@ public class PoiStudyTrackerDAO implements StudyTrackerDAO
         Workbook wb = null;
         Sheet sheet = null;
         String date = new DateManager().getSimpleCurrentDate();
-        File file =null;
+        File file;
 
         //creer le workbook et la sheet
         try
@@ -106,18 +107,24 @@ public class PoiStudyTrackerDAO implements StudyTrackerDAO
         //apply decoration
         style.pairStyle();
 
+        String pathFile =fileName + "\\STUDYTRACKER "+date+".xlsx";
         try
         {
-            file = new File(fileName + "\\STUDYTRACKER "+date+".xlsx");
+            
+            file = new File(pathFile);
             FileOutputStream outFile = new FileOutputStream(file);
             wb.write(outFile);
             //outFile.close();
             bob = true;
-        } catch (Exception ex)
+        } catch (IOException ex)
         {
             Logger.getLogger(PoiTrackerDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
 
+        //exemple d'autocommit'
+       // Outils.SVNWorker.commitSVN("autoCommit","D:\\project\\CAIN457M2301\\Settings\\Labels\\TR_TR" );
+        
         return bob;
     }
 

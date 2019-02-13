@@ -5,12 +5,15 @@
  */
 package view;
 
+import DAO.JsonStudyParamsDAO;
+import Outils.Check;
 import view.generikForms.FenGenerik;
 import view.generikForms.ButtonGenerik;
 import com.JehodFactory.overviewerss.Params;
 import entity.SimpleStudyParam;
 import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.Iterator;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import model.ComboModel;
@@ -21,12 +24,15 @@ import view.generikForms.ButtonRefresh;
  *
  * @author nrochas
  */
-public class FenStudy extends FenGenerik
-{
+public class FenStudy extends FenGenerik {
 
-    String pathLabels;
     String studyPath;
+    String pathLabels;
+    String pathCertif;
     String pathScreens;
+    String trad;
+    String tabletModel;
+    boolean font = true;
     String studyName = Params.getInstance().studyName;
     SimpleStudyParam ssp = Params.getInstance().studyParam;
     ArrayList<String> list = ssp.getListStudyPath();
@@ -34,8 +40,7 @@ public class FenStudy extends FenGenerik
     /**
      * Creates new form FenStudy
      */
-    public FenStudy()
-    {
+    public FenStudy() {
         Dimension dim = this.getToolkit().getScreenSize();
 
         initComponents();
@@ -43,7 +48,7 @@ public class FenStudy extends FenGenerik
         this.setLocation(dim.width / 2 - this.getWidth() / 2, dim.height / 2 - this.getHeight() / 2);
         this.setSize(478, 400);
         this.setVisible(true);
-        jlc.setVisible(false);
+        butSelect.setVisible(false);
     }
 
     /**
@@ -53,8 +58,7 @@ public class FenStudy extends FenGenerik
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         jFileChooser1 = new javax.swing.JFileChooser();
         jLabel1 = new javax.swing.JLabel();
@@ -72,7 +76,7 @@ public class FenStudy extends FenGenerik
         butLaunch = new ButtonGenerik();
         butrefresh = new ButtonRefresh();
         butAddPath = new ButtonGenerik();
-        jlc = new javax.swing.JFileChooser();
+        butSelect = new javax.swing.JFileChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -81,37 +85,37 @@ public class FenStudy extends FenGenerik
         jLabel1.setText(studyName);
 
         jLabel2.setFont(GraphicCharter.titre3);
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel2.setText("Tablet Models: ");
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel2.setText("Tablet Models:  ");
         jLabel2.setToolTipText("");
 
         TxtFieldTabModel.setFont(GraphicCharter.titre3);
         TxtFieldTabModel.setText(ssp.getTabModel());
 
         jLabel3.setFont(GraphicCharter.titre3);
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel3.setText("PathLabels: ");
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel3.setText("PathLabels:  ");
 
         TxtFieldPathLabels.setFont(GraphicCharter.titre3);
         TxtFieldPathLabels.setText(ssp.getPathLabels());
 
         jLabel4.setFont(GraphicCharter.titre3);
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel4.setText("PathScreens: ");
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel4.setText("PathScreens:  ");
 
         TxtFieldPathScreen.setFont(GraphicCharter.titre3);
         TxtFieldPathScreen.setText(ssp.getPathScreens());
 
         jLabel5.setFont(GraphicCharter.titre3);
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel5.setText("Traductor:");
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel5.setText("Traductor:  ");
 
         TxtFieldTrad.setFont(GraphicCharter.titre3);
         TxtFieldTrad.setText(ssp.getTrad());
 
         jLabel6.setFont(GraphicCharter.titre3);
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel6.setText("Select Path:");
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel6.setText("Select Path:  ");
 
         comboStudyPath.setFont(GraphicCharter.titre3
         );
@@ -119,44 +123,42 @@ public class FenStudy extends FenGenerik
         comboStudyPath.setModel(new ComboModel(list));
 
         butSVG.setText("Save Change");
+        butSVG.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                butSVGActionPerformed(evt);
+            }
+        });
 
         butLaunch.setText("Launch Track");
-        butLaunch.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        butLaunch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 butLaunchActionPerformed(evt);
             }
         });
 
         butrefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/refresh.png"))); // NOI18N
-        butrefresh.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        butrefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 butrefreshActionPerformed(evt);
             }
         });
 
         butAddPath.setText("Add Path");
-        butAddPath.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        butAddPath.setToolTipText("Save after adding a new path");
+        butAddPath.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 butAddPathActionPerformed(evt);
             }
         });
 
-        jlc.setApproveButtonText("Select");
-        jlc.setApproveButtonToolTipText("");
-        jlc.setCurrentDirectory(new java.io.File("C:\\"));
-            jlc.setDialogTitle("");
-            jlc.setFileSelectionMode(javax.swing.JFileChooser.DIRECTORIES_ONLY);
-            jlc.addActionListener(new java.awt.event.ActionListener()
-            {
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
-                    jlcActionPerformed(evt);
+        butSelect.setApproveButtonText("Select");
+        butSelect.setApproveButtonToolTipText("");
+        butSelect.setCurrentDirectory(new java.io.File("C:\\"));
+            butSelect.setDialogTitle("");
+            butSelect.setFileSelectionMode(javax.swing.JFileChooser.DIRECTORIES_ONLY);
+            butSelect.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    butSelectActionPerformed(evt);
                 }
             });
 
@@ -201,7 +203,7 @@ public class FenStudy extends FenGenerik
                                         .addGap(0, 0, Short.MAX_VALUE))
                                     .addComponent(comboStudyPath, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                     .addGap(18, 18, 18)
-                    .addComponent(jlc, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(butSelect, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(21, 21, 21))
             );
             layout.setVerticalGroup(
@@ -245,7 +247,7 @@ public class FenStudy extends FenGenerik
                             .addGap(0, 98, Short.MAX_VALUE))
                         .addGroup(layout.createSequentialGroup()
                             .addGap(2, 2, 2)
-                            .addComponent(jlc, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                            .addComponent(butSelect, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                     .addContainerGap())
             );
 
@@ -260,24 +262,21 @@ public class FenStudy extends FenGenerik
 
     private void butLaunchActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_butLaunchActionPerformed
     {//GEN-HEADEREND:event_butLaunchActionPerformed
-        pathLabels = TxtFieldPathLabels.getText();
-        pathScreens = TxtFieldPathScreen.getText();
+
         studyPath = (String) comboStudyPath.getSelectedItem();
 
-        if (pathLabels == null || pathScreens == null || pathLabels.equals("") || pathScreens.equals(""))
-        {
+        if (!recupInfo()) {
             JOptionPane.showMessageDialog(null, "Please dont left an empty field", "Missing fields", JOptionPane.ERROR_MESSAGE);
-        } else if (studyPath == null || studyPath.equals(""))
-        {
+        } else if (!recupComboBox()) {
             JOptionPane.showMessageDialog(null, "Please select a path for the study", "No selection", JOptionPane.ERROR_MESSAGE);
-        } else
-        {
+        } else {
 
             int dialogButton = JOptionPane.YES_NO_OPTION;
             int dialogResult = JOptionPane.showConfirmDialog(null, "Confirm complete path:" + studyPath + pathLabels, "confirmation", dialogButton);
 
-            if (dialogResult == JOptionPane.YES_OPTION)
-            {
+            if (dialogResult == JOptionPane.YES_OPTION) {
+                Params.getInstance().setStudyPath(studyPath);
+                        
                 this.dispose();
                 FenProgress fenp = new FenProgress();
                 fenp.setVisible(true);
@@ -291,25 +290,67 @@ public class FenStudy extends FenGenerik
     private void butAddPathActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_butAddPathActionPerformed
     {//GEN-HEADEREND:event_butAddPathActionPerformed
         String select;
-        jlc.setVisible(true);
+        butSelect.setVisible(true);
         //this.setSize(1000, 400);
-        int retour = jlc.showOpenDialog(this);
-        if (retour == JFileChooser.APPROVE_OPTION)
-        {
-            select = jlc.getSelectedFile().getAbsolutePath();
+        int retour = butSelect.showOpenDialog(this);
+        if (retour == JFileChooser.APPROVE_OPTION) {
+            select = butSelect.getSelectedFile().getAbsolutePath();
             System.out.println("select: " + select);
             //this.setSize(500,400);
-            list.add(select);
+            if (!Check.checkIsIn(select, list))
+            {list.add(select);}
             comboStudyPath.setSelectedItem(select);
+            comboStudyPath.repaint();
         }
     }//GEN-LAST:event_butAddPathActionPerformed
 
-    private void jlcActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jlcActionPerformed
-    {//GEN-HEADEREND:event_jlcActionPerformed
-       
+    private void butSelectActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_butSelectActionPerformed
+    {//GEN-HEADEREND:event_butSelectActionPerformed
 
-    }//GEN-LAST:event_jlcActionPerformed
 
+    }//GEN-LAST:event_butSelectActionPerformed
+
+    private void butSVGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butSVGActionPerformed
+
+        ArrayList newlist;
+        newlist = new ArrayList();
+        JsonStudyParamsDAO jspd = new JsonStudyParamsDAO();;
+
+        if (!recupInfo()) {
+            JOptionPane.showMessageDialog(null, "Please dont left an empty field", "Missing fields", JOptionPane.ERROR_MESSAGE);
+        } else if (!recupComboBox()) {
+            JOptionPane.showMessageDialog(null, "Please select a path for the study", "No selection", JOptionPane.ERROR_MESSAGE);
+        } else {
+
+            //on ajoute le path selectioné de la liste en evitant les doublons eventuels
+            jspd.addStudyPath(studyName, studyPath);
+            System.out.println("mark2");
+
+            // jspd.modifStudy(studyName, trad, tabletModel, font, pathLabels, pathScreens, pathCertif);
+        }
+
+
+    }//GEN-LAST:event_butSVGActionPerformed
+
+    /**
+     * recup toutes les infos des champs, et les stock dans les attributs prévus
+     * et les check
+     */
+    private boolean recupInfo() {
+
+        pathLabels = TxtFieldPathLabels.getText();
+        pathScreens = TxtFieldPathScreen.getText();
+        trad = TxtFieldTrad.getText();
+        tabletModel = TxtFieldTabModel.getText();
+
+        return (Check.isGood(pathLabels) && Check.isGood(pathScreens) && Check.isGood(trad) && Check.isGood(tabletModel));
+    }
+
+    private boolean recupComboBox() {
+        studyPath = (String) comboStudyPath.getSelectedItem();
+
+        return (Check.isGood(studyPath));
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField TxtFieldPathLabels;
@@ -319,6 +360,7 @@ public class FenStudy extends FenGenerik
     private javax.swing.JButton butAddPath;
     private javax.swing.JButton butLaunch;
     private javax.swing.JButton butSVG;
+    private javax.swing.JFileChooser butSelect;
     private javax.swing.JButton butrefresh;
     private javax.swing.JComboBox<String> comboStudyPath;
     private javax.swing.JFileChooser jFileChooser1;
@@ -328,6 +370,5 @@ public class FenStudy extends FenGenerik
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JFileChooser jlc;
     // End of variables declaration//GEN-END:variables
 }

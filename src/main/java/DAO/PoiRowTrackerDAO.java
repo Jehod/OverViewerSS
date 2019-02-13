@@ -49,7 +49,12 @@ public class PoiRowTrackerDAO implements RowTrackerDAO {
 
                 while (row != null) {
                     final SimpleRowTracker rtk = rowToRowTracker(row);
-                    allRow.add(rtk);
+                    //on retire les lignes params et pft
+                    if (rtk.getFormulaire().contains("PARAM") || rtk.getFormulaire().equalsIgnoreCase("PFT")) {
+                        System.out.println("le param et le pft ne sont pas pris");
+                    } else {
+                        allRow.add(rtk);
+                    }
                     row = sheet.getRow(index++);
                 }
 
@@ -72,7 +77,7 @@ public class PoiRowTrackerDAO implements RowTrackerDAO {
         final SimpleRowTracker rtk = new SimpleRowTracker();
 
         final String langue = row.getCell(0).getStringCellValue();
-      //  rtk.setLangue(langue);
+        //  rtk.setLangue(langue);
         final String formulaire = row.getCell(1).getStringCellValue();
         rtk.setFormulaire(formulaire);
         final String version = row.getCell(2).getStringCellValue();

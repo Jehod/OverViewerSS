@@ -69,22 +69,20 @@ public class Params {
         this.studyName = studyName;
 
         //studyPath = (String) jw.getListcibleOfStudy(studyName, "path").get(0);
-
         ArrayList<String> listPath = jw.getListcibleOfStudy(studyName, "path");
 
         String trad = jw.getValueCibleOfStudy(studyName, "Trad");
         String pathLabels = jw.getValueCibleOfStudy(studyName, "pathLabels");
         String pathScreens = jw.getValueCibleOfStudy(studyName, "pathScreens");
         String tabModel = jw.getValueCibleOfStudy(studyName, "Tablet");
-        String pathCertifs = jw.getValueCibleOfStudy(studyName, "pathCertifs");
+        String pathCertifs = jw.getValueCibleOfStudy(studyName, "pathCertifs").replace("Ã©", "é");
         Boolean font = jw.getBooleanCibleOfStudy(studyName, "Font");
 
+        System.out.println("pathcertif "+ pathCertifs);
+        
         this.studyParam = new SimpleStudyParam(listPath, trad, pathLabels, pathScreens, pathCertifs, tabModel, font, new HashMap<>());
 
-        System.out.println("test+++++++" + jw.getValueCibleOfStudy("CAIN457M2302", "name"));
-        System.out.println("test+++++++" + jw.getValueCibleOfStudy("test2", "trad"));
-
-        System.out.println("test+++" + jw.getListcibleOfStudy("CAIN457M2302", "path"));
+      
     }
 
     public void setStudyName(String studyName) {
@@ -93,18 +91,43 @@ public class Params {
 
     public boolean svgStudyParam(String studyName, SimpleStudyParam ssp) {
         Boolean bob = false;
-       
 
         if (!Check.checkIsIn(studyName, listStudy)) {
-            
+
             bob = jw.setNewStudyName(studyName);
-            if (bob){
-           bob = jw.fillStudy(studyName, ssp.getTrad(), ssp.getTabModel(), ssp.getFontSamsung(),
-                   ssp.getListStudyPath(), ssp.getPathLabels(), ssp.getPathScreens(), ssp.getPathCertifs(), ssp.getMap());}
+            if (bob) {
+                bob = jw.fillStudy(studyName, ssp.getTrad(), ssp.getTabModel(), ssp.getFontSamsung(),
+                        ssp.getListStudyPath(), ssp.getPathLabels(), ssp.getPathScreens(), ssp.getPathCertifs(), ssp.getMap());
+            }
         } else {
             JOptionPane.showMessageDialog(null, "A study with same name already exist", "Error", ERROR);
         }
 
         return bob;
+
     }
+
+    /**
+     * envoie la list des path dans le json de la study
+     *
+     * @param studyName
+     * @param listPath
+     * @return 
+     */
+    public boolean svgListStudy(String studyName, ArrayList listPath) {
+        boolean bob = false;
+
+        if (studyName != null && listPath != null && !listPath.isEmpty()) {
+            
+            bob = jw.setListInStudy(studyName, listPath);
+        }
+
+        return bob;
+    }
+
+    public void setStudyPath(String studyPath) {
+        this.studyPath = studyPath;
+    }
+    
+    
 }

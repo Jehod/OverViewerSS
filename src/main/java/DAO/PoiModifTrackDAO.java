@@ -28,8 +28,8 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
  */
 public class PoiModifTrackDAO implements ModifTrackDAO {
 
-    private String fileName;
-    private String formulaire;
+    private final String fileName;
+    private final String formulaire;
 
     public PoiModifTrackDAO(String fileName) {
         super();

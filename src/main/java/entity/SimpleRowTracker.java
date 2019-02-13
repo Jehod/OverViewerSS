@@ -11,7 +11,7 @@ package entity;
  */
 public class SimpleRowTracker implements RowTracker {
 
-    final String traceNone = "None";
+    final String traceNone = "No";
 
 
     private String version;
@@ -27,8 +27,6 @@ public class SimpleRowTracker implements RowTracker {
      * @param formulaire
      * @param dateVers
      * @param screenDone
-     * @param sendToExt
-     * @param finalized
      * @param certified 
      */
     public SimpleRowTracker( String version, String formulaire, String dateVers, String screenDone, String certified) {

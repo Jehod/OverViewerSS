@@ -20,31 +20,40 @@ import java.util.List;
  */
 public class ScreenFilesDAO implements ScreenshotFilesDAO {
 
-    private String fileName;
+    private final String fileName;
     private String studyName;
     private HashMap map;
-    private SimpleStudyParam ssp;
+    private final SimpleStudyParam ssp;
     
-    private DateManager dateM = new DateManager();
+    private final DateManager dateM = new DateManager();
 
     public ScreenFilesDAO(String fileName) {
         ssp = Params.getInstance().studyParam;
-        this.fileName = Params.getInstance().studyPath+ssp.getPathScreens();
+        //this.fileName = Params.getInstance().studyPath +ssp.getPathScreens();
+       this.fileName = fileName+ssp.getPathScreens();
     }
 
     @Override
     public boolean checkExistingPDF(String langue, String formulaire, String version) {
         boolean bob = false;
-        String date = "None";
-        File file = new File(fileName + "/" + langue + "/" + formulaire + "_" + langue + "_v" + version + ".pdf");
+        
+        
+       // File file = new File(fileName + "/" + langue + "/" + formulaire + "_" + langue + "_v" + version + ".pdf");
+        //System.out.println("filename: "+fileName + "/" + langue + "/" + formulaire + "_" + langue + "_v" + version + ".pdf");
 
-        if (new File((fileName + "/" + langue + "/" + formulaire + "_" + langue + "_v" + version + ".pdf")).exists()) {
+        //File nfile = new File ("svn://svn.kayentis.fr:14000/Kayentis/Novartis/CAIN457M2301/trunk/Scripts/Screenshots/AF_ZA/DLQI_AF_ZA_v1.0.0.pdf");
+        
+        //utilisation de != null au lieu de .exists() qui ne marche pas sur svn
+        if (new File((fileName + "/" + langue + "/" + formulaire + "_" + langue + "_v" + version + ".pdf")) != null) {
             bob = true;
 
             System.out.println("+++++++++ " + fileName + "/" + langue + "/" + formulaire + "_" + langue + "_v" + version + ".pdf" + " a ete trouve++++");
-        } else if (bob == false) {
+        } 
+        //partie qui sera remplacé par le mapping
+        /*else if (bob == false) {
             bob = compareQuest(langue, formulaire, version);
-        } else {
+        } */
+        else {
             System.out.println("+++++++++ " + fileName + "/" + langue + "/" + formulaire + "_" + langue + "_v" + version + ".pdf" + " InTROUVABLE++++");
         }
 
@@ -76,7 +85,7 @@ public class ScreenFilesDAO implements ScreenshotFilesDAO {
      * @return
      */
     public String searchTrainingPDF(String langue, String formulaire, String version) {
-        String date = "None";
+        String date = "No";
         Boolean bob = false;
         File file = null;
         ArrayList<String> list = (ArrayList) Outils.FilesWorker.ListerFilesByContainsAndExt(fileName + "/" + langue, "train", ".pdf");

@@ -72,33 +72,29 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="labfont" min="-2" pref="140" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
-                                  <Component id="cBxFont" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="labfont" max="32767" attributes="0"/>
+                              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                              <Component id="cBxFont" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="129" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="labPalb" min="-2" pref="181" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="txtfPLabels" pref="225" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="labPScre" pref="181" max="32767" attributes="0"/>
+                                  <Component id="labCertif" max="32767" attributes="0"/>
                               </Group>
-                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="labPalb" min="-2" pref="155" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-                                      <Component id="txtfPLabels" pref="225" max="32767" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="labPScre" alignment="0" min="-2" pref="181" max="-2" attributes="0"/>
-                                          <Component id="labCertif" alignment="0" min="-2" pref="156" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="txtfsPscreen" pref="225" max="32767" attributes="0"/>
-                                          <Component id="txtfsPcertif" max="32767" attributes="0"/>
-                                      </Group>
-                                  </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="txtfsPscreen" pref="225" max="32767" attributes="0"/>
+                                  <Component id="txtfsPcertif" max="32767" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
@@ -108,7 +104,7 @@
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="txtfTrad" max="32767" attributes="0"/>
+                              <Component id="txtfTrad" pref="224" max="32767" attributes="0"/>
                               <Component id="txtfstudyname" max="32767" attributes="0"/>
                               <Component id="txtfTAblet" alignment="0" max="32767" attributes="0"/>
                           </Group>
@@ -164,8 +160,8 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="labname">
           <Properties>
-            <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Study Name:"/>
+            <Property name="horizontalAlignment" type="int" value="4"/>
+            <Property name="text" type="java.lang.String" value="Study Name:   "/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new LabelGenerik()"/>
@@ -173,8 +169,8 @@
         </Component>
         <Component class="javax.swing.JLabel" name="labtrad">
           <Properties>
-            <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Traductor:"/>
+            <Property name="horizontalAlignment" type="int" value="4"/>
+            <Property name="text" type="java.lang.String" value="Traductor:  "/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new LabelGenerik()"/>
@@ -182,8 +178,8 @@
         </Component>
         <Component class="javax.swing.JLabel" name="labPalb">
           <Properties>
-            <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Path Labels:"/>
+            <Property name="horizontalAlignment" type="int" value="4"/>
+            <Property name="text" type="java.lang.String" value="Path Labels:  "/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new LabelGenerik()"/>
@@ -191,8 +187,8 @@
         </Component>
         <Component class="javax.swing.JLabel" name="labfont">
           <Properties>
-            <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Font:"/>
+            <Property name="horizontalAlignment" type="int" value="4"/>
+            <Property name="text" type="java.lang.String" value="Font:  "/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new LabelGenerik()"/>
@@ -200,8 +196,8 @@
         </Component>
         <Component class="javax.swing.JLabel" name="labPScre">
           <Properties>
-            <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Path Screenshots:"/>
+            <Property name="horizontalAlignment" type="int" value="4"/>
+            <Property name="text" type="java.lang.String" value="Path Screenshots:  "/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new LabelGenerik()"/>
@@ -209,8 +205,8 @@
         </Component>
         <Component class="javax.swing.JLabel" name="labCertif">
           <Properties>
-            <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Path Certificats:"/>
+            <Property name="horizontalAlignment" type="int" value="4"/>
+            <Property name="text" type="java.lang.String" value="Path Certificats:  "/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new LabelGenerik()"/>
@@ -218,8 +214,8 @@
         </Component>
         <Component class="javax.swing.JLabel" name="labTabler1">
           <Properties>
-            <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Tablet Model:"/>
+            <Property name="horizontalAlignment" type="int" value="4"/>
+            <Property name="text" type="java.lang.String" value="Tablet Model:  "/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new LabelGenerik()"/>
@@ -256,6 +252,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="GraphicCharter.fontCorps" type="code"/>
             </Property>
+            <Property name="text" type="java.lang.String" value="/Settings/Labels/"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtfsPscreen">
@@ -263,6 +260,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="GraphicCharter.fontCorps" type="code"/>
             </Property>
+            <Property name="text" type="java.lang.String" value="/Scripts/Screenshots/"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtfsPcertif">
@@ -270,6 +268,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="GraphicCharter.fontCorps" type="code"/>
             </Property>
+            <Property name="text" type="java.lang.String" value="/"/>
           </Properties>
         </Component>
       </SubComponents>

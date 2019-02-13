@@ -5,10 +5,12 @@
  */
 package metier;
 
+import DAO.CertifFilesDAO;
 import DAO.LabelFileDAO;
 import DAO.PoiStudyTrackerDAO;
 import DAO.PoiTrackerDAO;
 import DAO.ScreenFilesDAO;
+import com.JehodFactory.overviewerss.Params;
 import entity.SimpleRowTracker;
 import entity.SimpleStudyTracker;
 import entity.SimpleTracker;
@@ -18,9 +20,9 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import view.FenEnd;
-import view.FenProgress;
 
 /**
+ * Classe maitresse qui conduit le workflow de l'appli
  *
  * @author nrochas
  */
@@ -29,35 +31,29 @@ public class OverView {
     final String path;
     final String pathLabels;
     final String pathScreenshot = "\\Scripts\\Screenshots";
-    
+    String pathCertifs = Params.getInstance().studyParam.getPathCertifs();
 
     public OverView(String path, String pathLabels) {
         this.path = path;
         this.pathLabels = pathLabels;
-       
-                
+
     }
 
     /**
      * methode pour creer les trackers par langue et le studyTracker il
      * instancie les DAO et parcourt les fichiers de langue
      */
-    public void overview()
-    {
-          
-        
+    public void overview() {
 
         //on liste les dossiers de langues
         List<String> listLang = new ArrayList();
         LabelFileDAO lbf = new LabelFileDAO(path + pathLabels);
-        
-        listLang = lbf.getAllLabelsFiles();
-        List<SimpleTracker> listTrackers = new ArrayList<>();
-        
-               
 
         //on pointe le dossier de screenshot
-        ScreenFilesDAO scf = new ScreenFilesDAO(path + pathScreenshot);
+        ScreenFilesDAO scf = new ScreenFilesDAO(path + pathScreenshot);//("svn://svn.kayentis.fr:14000/Kayentis/Novartis/CAIN457M2301/trunk");//(path + pathScreenshot);
+
+        listLang = lbf.getAllLabelsFiles();
+        List<SimpleTracker> listTrackers = new ArrayList<>();
 
         //on alerte si pas de dossier de langue
         if (listLang.isEmpty()) {
@@ -67,29 +63,34 @@ public class OverView {
             //pour chaque dossier de langue
             for (String dir : listLang) {
                 PoiTrackerDAO ptk = new PoiTrackerDAO(path + pathLabels + dir);
-                SimpleTracker smt = ptk.createTrackerFromLabel(dir);
-                //ajout de la verif de screenshot
-                if (new File(path + pathLabels + "/" + dir).exists()) {
-                    for (SimpleRowTracker rt : smt.getAllRowTracker()) {
 
-                        switch (rt.getFormulaire()) {
-                            case "Training":
-                                rt.setScreenDone(scf.searchTrainingPDF(dir, rt.getFormulaire(), rt.getVersion()));
-                                break;
-                            case "PARAM":
-                                rt.setScreenDone("Done");
-                                break;
-                            case "PFT":
-                                rt.setScreenDone("Done");
-                            default:
-                                if (scf.checkExistingPDF(dir, rt.getFormulaire(), rt.getVersion())) {
-                                    rt.setScreenDone(scf.getDateLastModifPDF(dir, rt.getFormulaire(), rt.getVersion()));
-                                }
-                        }
-                        /* if (rt.getFormulaire().equals("Training")) {
+                //on pointe l'url des certifs
+                CertifFilesDAO ctf = new CertifFilesDAO(pathCertifs, dir);
+
+                SimpleTracker smt = ptk.createTrackerFromLabel(dir);
+
+                //comme le rowtracker ont été créé depuis les labels il manque plusieurs infos
+                //on fait ici l'ajout de la verif de screenshot et de certif
+                if (new File(path + pathLabels + "/" + dir).exists()) {
+                    //pour chaque questionnaire de la langue
+                    for (SimpleRowTracker rt : smt.getAllRowTracker()) {
+                        System.out.println("pathcertif "+pathCertifs);
+                        System.out.println("patscreen "+ path+pathScreenshot);
+
+                        if (rt.getFormulaire().contains("Training")) {
                             rt.setScreenDone(scf.searchTrainingPDF(dir, rt.getFormulaire(), rt.getVersion()));
-                        }*/
-                        
+                        } else {
+
+                            if (scf.checkExistingPDF(dir, rt.getFormulaire(), rt.getVersion())) {
+
+                                rt.setScreenDone("Yes");//scf.getDateLastModifPDF(dir, rt.getFormulaire(), rt.getVersion()));
+                            }
+
+                            if (rt.getVersion().contains(".0.0") && rt.getScreenDone().equals("Yes") && ctf.checkCertif( rt.getFormulaire(), rt.getVersion())) {
+                                rt.setCertified("Yes");
+                            }
+                        }
+
                     }
                 }
                 listTrackers.add(smt);

@@ -42,10 +42,10 @@ public interface StudyParamsDAO extends Serializable{
     /**
      * ajoute un path a la liste des paths
      * @param studyName
-     * @param listPath
+     * @param path
      * @return 
      */
-    boolean addStudyPath (String studyName, ArrayList<String> listPath);
+    boolean addStudyPath (String studyName, String path);
     /**
      * initie la map qui fera le lien entre Fdef et excel
      * @param studyName

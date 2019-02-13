@@ -90,13 +90,16 @@ public class JsonWorker {
             JSONObject next = (JSONObject) it.next();
 
             if (next.get("Name").equals(studyName)) {
-                if (next.has(cible)) {
+                if (next.has(cible) && next.get(cible).getClass().getSimpleName().equals("String")) {
                     str = (String) next.get(cible);
+                } else {
+                    System.out.println("la cible n'est pas presente ou n'est pas de classe String ");
                 }
             }
 
         }
 
+        
         return str;
     }
 
@@ -121,8 +124,12 @@ public class JsonWorker {
             JSONObject next = (JSONObject) it.next();
 
             if (next.get("Name").equals(studyName)) {
-                if (next.has(cible)) {
+
+                if (next.has(cible) && next.get(cible).getClass().getSimpleName().equals("JSONArray")) {
+
                     tabCible = next.getJSONArray(cible);
+                } else {
+                    System.out.println("la cible n'est pas presente ou n'est pas de classe JSONArray  ");
                 }
             }
 
@@ -163,7 +170,7 @@ public class JsonWorker {
             json += scanner.nextLine();
         }
         scanner.close();
-        json = json.replaceAll("[\t ]", "");
+        //json = json.replaceAll("[\t ]", "");
 
         //fermeture du fichier
         try {
@@ -202,10 +209,14 @@ public class JsonWorker {
             JSONObject next = (JSONObject) it.next();
 
             if (next.get("Name").equals(studyName)) {
-                if (next.has(cible)) {
+                if (next.has(cible) && next.get(cible).getClass().getSimpleName().equals("Boolean")) {
+
                     bob = (Boolean) next.get(cible);
+                } else {
+                    System.out.println("la cible n'est pas presente ou n'est pas de classe JSONArray ");
                 }
             }
+
         }
 
         return bob;
@@ -273,7 +284,7 @@ public class JsonWorker {
                 next.put("path", listStudyPath);
                 next.put("pathLabels", pathLabels);
                 next.put("pathScreens", pathScreens);
-                next.put("pathCertif", pathCertifs);
+                next.put("pathCertifs", pathCertifs);
                 next.put("map", map);
 
                 bob = true;
@@ -281,6 +292,28 @@ public class JsonWorker {
             bob = writeOnJson();
         }
         return bob;
+    }
+
+    public boolean setListInStudy(String studyName, ArrayList listPath) {
+
+        JSONArray tab = null;
+
+        if (jo != null) {
+            tab = jo.getJSONArray("studies");
+
+        }
+
+        for (Iterator it = tab.iterator(); it.hasNext();) {
+            JSONObject next = (JSONObject) it.next();
+
+            if (next.get("Name").equals(studyName)) {
+
+                next.put("path", listPath);
+            }
+        }
+
+        return writeOnJson();
+
     }
 
     /**

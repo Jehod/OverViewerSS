@@ -26,7 +26,7 @@ public class ComboModel implements ComboBoxModel
         this.list = list;
     }
     
-    
+  
     
     @Override
     public int getSize()
