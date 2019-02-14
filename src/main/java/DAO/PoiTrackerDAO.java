@@ -109,7 +109,11 @@ public class PoiTrackerDAO implements TrackerDAO {
             //creation de la ligne
             SimpleModifTrack smtk;
             smtk = pmtk.getLastModifTrack();
-            allMdT.add(modifTrackToRowTracker(smtk));
+            if (smtk.getFormulaire().equals("PARAM") || smtk.getFormulaire().contains("PFT")) {
+                System.out.println("les pft et le param ne sont pas pris");
+            } else {
+                allMdT.add(modifTrackToRowTracker(smtk));
+            }
 
             System.out.println("xls traité: " + xls.toString() + " size: " + listXls.size());
         }

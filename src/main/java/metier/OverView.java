@@ -31,7 +31,8 @@ public class OverView {
     final String path;
     final String pathLabels;
     final String pathScreenshot = "\\Scripts\\Screenshots";
-    String pathCertifs = Params.getInstance().studyParam.getPathCertifs();
+    final String pathScreenshotSVN = "svn://svn.kayentis.fr:14000/Kayentis/Novartis/CAIN457M2301/trunk/Scripts/Screenshots";
+    final String pathCertifs = Params.getInstance().studyParam.getPathCertifs();
 
     public OverView(String path, String pathLabels) {
         this.path = path;
@@ -50,7 +51,7 @@ public class OverView {
         LabelFileDAO lbf = new LabelFileDAO(path + pathLabels);
 
         //on pointe le dossier de screenshot
-        ScreenFilesDAO scf = new ScreenFilesDAO(path + pathScreenshot);//("svn://svn.kayentis.fr:14000/Kayentis/Novartis/CAIN457M2301/trunk");//(path + pathScreenshot);
+       // ScreenFilesDAO scf = new ScreenFilesDAO(path + pathScreenshot);//("svn://svn.kayentis.fr:14000/Kayentis/Novartis/CAIN457M2301/trunk");//(path + pathScreenshot);
 
         listLang = lbf.getAllLabelsFiles();
         List<SimpleTracker> listTrackers = new ArrayList<>();
@@ -66,6 +67,8 @@ public class OverView {
 
                 //on pointe l'url des certifs
                 CertifFilesDAO ctf = new CertifFilesDAO(pathCertifs, dir);
+                //on pointe le dossier de screenshot
+                ScreenFilesDAO scf = new ScreenFilesDAO(pathScreenshotSVN, dir);//("svn://svn.kayentis.fr:14000/Kayentis/Novartis/CAIN457M2301/trunk");//(path + pathScreenshot);
 
                 SimpleTracker smt = ptk.createTrackerFromLabel(dir);
 

@@ -6,7 +6,6 @@
 package DAO;
 
 import Outils.SVNWorker;
-import java.io.File;
 import java.util.ArrayList;
 
 /**

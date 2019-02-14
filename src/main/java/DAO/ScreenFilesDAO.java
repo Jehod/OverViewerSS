@@ -7,6 +7,7 @@ package DAO;
 
 import com.JehodFactory.overviewerss.Params;
 import Outils.DateManager;
+import Outils.SVNWorker;
 import entity.SimpleStudyParam;
 import java.io.File;
 import java.util.ArrayList;
@@ -20,42 +21,53 @@ import java.util.List;
  */
 public class ScreenFilesDAO implements ScreenshotFilesDAO {
 
-    private final String fileName;
+    private final String pathScreens;
     private String studyName;
     private HashMap map;
     private final SimpleStudyParam ssp;
-    
+    private final String langue;
+     private final Outils.SVNWorker svn = new SVNWorker();
+    private final ArrayList list;
+
     private final DateManager dateM = new DateManager();
 
-    public ScreenFilesDAO(String fileName) {
+    public ScreenFilesDAO(String fileName, String langue) {
         ssp = Params.getInstance().studyParam;
-        //this.fileName = Params.getInstance().studyPath +ssp.getPathScreens();
-       this.fileName = fileName+ssp.getPathScreens();
+        //this.pathScreens = Params.getInstance().studyPath +ssp.getPathScreens();
+        //this.pathScreens = pathScreens+ssp.getPathScreens();
+        this.pathScreens = fileName + "/" + langue;
+        this.langue = langue;
+        list = svn.listSVNByExt(this.pathScreens, ".pdf");
+        
     }
 
     @Override
     public boolean checkExistingPDF(String langue, String formulaire, String version) {
         boolean bob = false;
-        
-        
-       // File file = new File(fileName + "/" + langue + "/" + formulaire + "_" + langue + "_v" + version + ".pdf");
-        //System.out.println("filename: "+fileName + "/" + langue + "/" + formulaire + "_" + langue + "_v" + version + ".pdf");
 
-        //File nfile = new File ("svn://svn.kayentis.fr:14000/Kayentis/Novartis/CAIN457M2301/trunk/Scripts/Screenshots/AF_ZA/DLQI_AF_ZA_v1.0.0.pdf");
+        String cible = formulaire+"_"+langue+"_v"+version+".pdf";
         
-        //utilisation de != null au lieu de .exists() qui ne marche pas sur svn
-        if (new File((fileName + "/" + langue + "/" + formulaire + "_" + langue + "_v" + version + ".pdf")) != null) {
+        bob = Outils.Check.checkIsIn(cible, list);
+        
+         if (bob) {
+            System.out.println("+++++++++ " + pathScreens +  "/" + formulaire + "_" + langue + "_v"+version+".pdf" + " a ete trouve++++");
+        } else {
+            System.out.println("+++++++++ " + pathScreens +  "/" + formulaire + "_" + langue + "_v"+version +".pdf" + " InTROUVABLE++++");
+        }
+        
+        /*
+        if (new File((pathScreens + "/" + langue + "/" + formulaire + "_" + langue + "_v" + version + ".pdf")) != null) {
             bob = true;
 
-            System.out.println("+++++++++ " + fileName + "/" + langue + "/" + formulaire + "_" + langue + "_v" + version + ".pdf" + " a ete trouve++++");
-        } 
-        //partie qui sera remplacé par le mapping
+            System.out.println("+++++++++ " + pathScreens + "/" + langue + "/" + formulaire + "_" + langue + "_v" + version + ".pdf" + " a ete trouve++++");
+        } //partie qui sera remplacé par le mapping
         /*else if (bob == false) {
             bob = compareQuest(langue, formulaire, version);
-        } */
-        else {
-            System.out.println("+++++++++ " + fileName + "/" + langue + "/" + formulaire + "_" + langue + "_v" + version + ".pdf" + " InTROUVABLE++++");
+        } */ 
+        /*else {
+            System.out.println("+++++++++ " + pathScreens + "/" + langue + "/" + formulaire + "_" + langue + "_v" + version + ".pdf" + " InTROUVABLE++++");
         }
+        */
 
         return bob;
 
@@ -64,7 +76,7 @@ public class ScreenFilesDAO implements ScreenshotFilesDAO {
     @Override
     public String getDateLastModifPDF(String langue, String formulaire, String version) {
         String date = "Done/NoDate";
-        File file = new File(fileName + "/" + langue + "/" + formulaire + "_" + langue + "_v" + version + ".pdf");
+        File file = new File(pathScreens + "/" + langue + "/" + formulaire + "_" + langue + "_v" + version + ".pdf");
 
         if (file.exists()) {
 
@@ -88,14 +100,14 @@ public class ScreenFilesDAO implements ScreenshotFilesDAO {
         String date = "No";
         Boolean bob = false;
         File file = null;
-        ArrayList<String> list = (ArrayList) Outils.FilesWorker.ListerFilesByContainsAndExt(fileName + "/" + langue, "train", ".pdf");
+        ArrayList<String> list = (ArrayList) Outils.FilesWorker.ListerFilesByContainsAndExt(pathScreens + "/" + langue, "train", ".pdf");
 
         if (!list.isEmpty()) {
 
             for (String str : list) {
 
                 if (str.contains(version)) {
-                    file = new File(fileName + "/" + langue + "/" + str);
+                    file = new File(pathScreens + "/" + langue + "/" + str);
                 }
             }
         }
@@ -107,37 +119,38 @@ public class ScreenFilesDAO implements ScreenshotFilesDAO {
     }
 
     /**
-     * cherche dans la liste des pdf du fichiers si peut contrnir ou etre contenu dans le
-     * label excel les deux sont standardisé au mieux
+     * cherche dans la liste des pdf du fichiers si peut contrnir ou etre
+     * contenu dans le label excel les deux sont standardisé au mieux
+     *
      * @param langue
      * @param formulaire
      * @param version
-     * @return 
+     * @return
      */
     private boolean compareQuest(String langue, String formulaire, String version) {
         boolean bob = false;
-         String quest;
-         String vers;
+        String quest;
+        String vers;
         String questCible = standardise(formulaire);
         List<String> list = new ArrayList();
-        list = Outils.FilesWorker.ListerFilesByExt(fileName + "/" + langue, ".pdf");
+        list = Outils.FilesWorker.ListerFilesByExt(pathScreens + "/" + langue, ".pdf");
 
         for (String str : list) {
             System.out.println("list ++++++++ : " + str);
-           
+
             String[] tab = str.split(langue);
             quest = tab[0];
-            
+
             //recuperation de la version du pdf
             vers = tab[1];
             vers = vers.replace("_", "");
-            vers = vers.toLowerCase().replace(".pdf","");
-            
+            vers = vers.toLowerCase().replace(".pdf", "");
+
             quest = standardise(quest);
-            
-            System.out.println("quest "+quest +" questcible "+questCible + " versioncible: "+version+" version: "+vers);
-            
-            if ( (quest.contains(questCible) || questCible.contains(quest)) && vers.equals(version) ) {
+
+            System.out.println("quest " + quest + " questcible " + questCible + " versioncible: " + version + " version: " + vers);
+
+            if ((quest.contains(questCible) || questCible.contains(quest)) && vers.equals(version)) {
                 bob = true;
             }
 
@@ -145,16 +158,19 @@ public class ScreenFilesDAO implements ScreenshotFilesDAO {
 
         return bob;
     }
-/**
- * Enleve les underscore , les tirets, les espaces et passe tout en minuscule
- * @param formulaire la sequence a standardiser
- * @return la sequence transformée
- */
+
+    /**
+     * Enleve les underscore , les tirets, les espaces et passe tout en
+     * minuscule
+     *
+     * @param formulaire la sequence a standardiser
+     * @return la sequence transformée
+     */
     private String standardise(String formulaire) {
         String std;
         std = formulaire.replace("_", "");
         std = std.replace("-", "");
-        std =std.replace(" ", "");
+        std = std.replace(" ", "");
         std = std.toLowerCase();
 
         return std;

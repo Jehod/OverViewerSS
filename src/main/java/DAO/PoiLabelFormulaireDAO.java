@@ -17,17 +17,16 @@ public class PoiLabelFormulaireDAO implements LabelFormulaireDAO{
     
     private String fileName;
 
-    public PoiLabelFormulaireDAO(String fileName) {
+   /* public PoiLabelFormulaireDAO(String fileName) {
         super();
         this.fileName = fileName;
-    }
-    
+    }*/
     
 ////a changer toutes ses parties
     @Override
     public List<SimpleModifTrack> findAllModifTrack() {
         PoiModifTrackDAO pmtk = new PoiModifTrackDAO(fileName);
-        return pmtk.findAllModifTrack();
+        return null;// pmtk.findAllModifTrack();
     }
 
     @Override
@@ -35,7 +34,7 @@ public class PoiLabelFormulaireDAO implements LabelFormulaireDAO{
         PoiModifTrackDAO pmtk = new PoiModifTrackDAO(fileName);
         final List<SimpleModifTrack> allModifTrack = new ArrayList<>();
         
-         return  allModifTrack.get(allModifTrack.size()).getVersion();
+         return null; // allModifTrack.get(allModifTrack.size()).getVersion();
         
     }
 

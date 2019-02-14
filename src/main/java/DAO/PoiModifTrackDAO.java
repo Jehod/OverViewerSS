@@ -100,25 +100,25 @@ public class PoiModifTrackDAO implements ModifTrackDAO {
                     break;
             }
         }
-        rtk.setDate(date);
+        rtk.setDate(date.trim());
 
         ///recup du contributeur
         if (row.getCell(1) != null || row.getCell(1).getStringCellValue() != null) {
             contributor = row.getCell(1).getStringCellValue();
         }
-        rtk.setContributor(contributor);
+        rtk.setContributor(contributor.trim());
 
         //recup de la version
         if (row.getCell(0)!= null || row.getCell(0).getStringCellValue() != null) {
             version = row.getCell(0).getStringCellValue();
         }
-        rtk.setVersion(version);
+        rtk.setVersion(version.trim());
 
         // recup de l'action
         if (row.getCell(2) != null && row.getCell(2).getStringCellValue() != null) {
              action = row.getCell(2).getStringCellValue();
         }
-        rtk.setAction(action);
+        rtk.setAction(action.trim());
 
         return rtk;
     }
