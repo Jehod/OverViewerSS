@@ -6,6 +6,7 @@
 package Outils;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -23,16 +24,16 @@ public class SVNWorker {
      *
      * @param comment le commentaire du commit
      * @param path le dossier versioné en adresse local
+     * @return
      */
-    public void commitSVN(String comment, String path) {
+    public String commitSVN(String comment, String path) {
 
+        String str = null;
         //ne pas oublié les guillements pour pas planter en powershell
-        String command = "powershell.exe svn commit  -m'";
+        String command = "powershell.exe svn commit  -m'" + comment + "' '" + path + "'";
 
+        //command = command + comment + "' '" + path + "'"; // 'D:\\project\\CAIN457M2301\\Settings\\Labels\\AF_ZA'"; // $PSVersionTable.PSVersion";
         try {
-
-            command = command + comment + "' '" + path + "'"; // 'D:\\project\\CAIN457M2301\\Settings\\Labels\\AF_ZA'"; // $PSVersionTable.PSVersion";
-
             // Executing the command
             Process powerShellProcess = Runtime.getRuntime().exec(command);
             // Getting the results
@@ -43,6 +44,7 @@ public class SVNWorker {
                     powerShellProcess.getInputStream()))) {
                 while ((line = stdout.readLine()) != null) {
                     System.out.println(line);
+                    str = str + line;
                 }
             }
             System.out.println("Standard Error:");
@@ -50,14 +52,16 @@ public class SVNWorker {
                     powerShellProcess.getErrorStream()))) {
                 while ((line = stderr.readLine()) != null) {
                     System.out.println(line);
+                    str = str + line;
                 }
             }
             System.out.println("Done ");
+            str = str + "Done";
         } catch (IOException ex) {
             System.out.println("catch dans le svn " + ex.getLocalizedMessage());
             Logger.getLogger(SVNWorker.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        return str;
     }
 
     /**
@@ -70,10 +74,12 @@ public class SVNWorker {
      */
     public ArrayList listSVNByExt(String URL, String ext) {
         ArrayList list = new ArrayList();
+
+        //dans le commande ne pas oublié les '' en plus, pour que ce soit reconnu dans Powershell
+        String command = "powershell.exe svn list '" + URL + "'";//'svn://svn.kayentis.fr:14000/Kayentis/testeclient/teststudy'";
+
         try {
 
-            //dans le commande ne pas oublié les '' en plus, pour que ce soit reconnu dans Powershell
-            String command = "powershell.exe svn list  -v '" + URL + "'";//'svn://svn.kayentis.fr:14000/Kayentis/testeclient/teststudy'";
             // Executing the command
             Process powerShellProcess = Runtime.getRuntime().exec(command);
             // Getting the results
@@ -83,10 +89,10 @@ public class SVNWorker {
             BufferedReader stdout = new BufferedReader(new InputStreamReader(
                     powerShellProcess.getInputStream()));
             while ((line = stdout.readLine()) != null) {
-                String str = extractName(line, ext);
+                String str = line; //extractName(line, ext);
                 if (str != null && str.endsWith(ext)) {
                     list.add(str);
-                    System.out.println("en plus sur la liste: " + str);
+                    System.out.println(" sur la liste: " + str);
                 }
 
             }
@@ -110,9 +116,12 @@ public class SVNWorker {
 
     /**
      * methode pour parser les lignes recuperé de sVn pour n'avoir que le nom
+     * (obsolete) utile quand on tire la liste svn en verbose (ajouter -v à la
+     * ligne de commande)
+     *
      * @param line
      * @param ext
-     * @return 
+     * @return
      */
     private String extractName(String line, String ext) {
         String str = null;
@@ -123,5 +132,96 @@ public class SVNWorker {
 
         }
         return str;
+    }
+
+    /**
+     * ajoute un fichier non versionné dans svn
+     *
+     * @param url adresse du depot
+     * @param pathFile adress du fichier a deposer
+     * @return la string de output le verbiage bon ou mauvais de la commande
+     */
+    public String mountInSvn(String pathFile, String url) {
+        String str = null;
+        String command = "powershell.exe svn import  -m'AutoImport' '" + pathFile + "' '" + url + "'";
+
+        try {
+            // Executing the command
+            Process powerShellProcess = Runtime.getRuntime().exec(command);
+            // Getting the results
+            powerShellProcess.getOutputStream().close();
+            String line;
+            System.out.println("Standard Output:");
+            try (BufferedReader stdout = new BufferedReader(new InputStreamReader(
+                    powerShellProcess.getInputStream()))) {
+                while ((line = stdout.readLine()) != null) {
+                    System.out.println(line);
+                    str = str + line;
+                }
+            }
+            System.out.println("Standard Error:");
+            try (BufferedReader stderr = new BufferedReader(new InputStreamReader(
+                    powerShellProcess.getErrorStream()))) {
+                while ((line = stderr.readLine()) != null) {
+                    System.out.println(line);
+                    str = str + line;
+                }
+            }
+            System.out.println("Done");
+            str = str + " Done";
+        } catch (IOException ex) {
+            System.out.println("catch dans le svn " + ex.getLocalizedMessage());
+            Logger.getLogger(SVNWorker.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return str;
+    }
+
+    /**
+     * renvoie true si il trouve un fichier du nom cible dans le dossier pointé
+     * par url
+     *
+     * @param URL
+     * @param cible
+     * @return
+     */
+    public boolean CheckExistInSVN(String URL, String cible) {
+        ArrayList list = new ArrayList();
+        boolean bob = false;
+
+        //dans le commande ne pas oublié les '' en plus, pour que ce soit reconnu dans Powershell
+        String command = "powershell.exe svn list '" + URL + cible + "'";//'svn://svn.kayentis.fr:14000/Kayentis/testeclient/teststudy'";
+
+        try {
+
+            // Executing the command
+            Process powerShellProcess = Runtime.getRuntime().exec(command);
+            // Getting the results
+            powerShellProcess.getOutputStream().close();
+            String line;
+            System.out.println("Standard Output:");
+            try (BufferedReader stdout = new BufferedReader(new InputStreamReader(
+                    powerShellProcess.getInputStream()))) {
+                while ((line = stdout.readLine()) != null) {
+                    bob = true;
+                    System.out.println("trouve " + line);
+
+                }
+            }
+            System.out.println("Standard Error:");
+            BufferedReader stderr = new BufferedReader(new InputStreamReader(
+                    powerShellProcess.getErrorStream()));
+            while ((line = stderr.readLine()) != null) {
+                System.out.println(line);
+            }
+            stderr.close();
+            
+
+        } catch (IOException ex) {
+            System.out.println("catch du check in SVN " + ex.getLocalizedMessage());
+            Logger.getLogger(SVNWorker.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return bob;
     }
 }

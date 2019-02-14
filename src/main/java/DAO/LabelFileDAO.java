@@ -15,7 +15,7 @@ public class LabelFileDAO implements LabelsFilesDAO {
 
     final String pathLabels;
 
-    public LabelFileDAO(String pathLabels) {
+   public LabelFileDAO(String pathLabels) {
         super();
         this.pathLabels = pathLabels;
     }
@@ -23,7 +23,7 @@ public class LabelFileDAO implements LabelsFilesDAO {
     @Override
     public List<String> getAllLabelsFiles() {
 
-        List list;
+        List list ;
         
         list = Outils.FilesWorker.ListerDirByform(pathLabels, ".._..");
         return list;

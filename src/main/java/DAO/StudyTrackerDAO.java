@@ -27,7 +27,7 @@ public interface StudyTrackerDAO
     boolean fillStudyTracker(ArrayList<SimpleTracker> allTracker);
     
   /**
-   * sauvegarde le strudyTracker dans l'excel
+   * sauvegarde le studyTracker a l'emplacement prevu dans le format prevu
    * @param sst
    * @return 
    */
