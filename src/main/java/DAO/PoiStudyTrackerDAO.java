@@ -7,6 +7,7 @@ package DAO;
 
 import Outils.DateManager;
 import Outils.SVNWorker;
+import com.JehodFactory.overviewerss.Params;
 import entity.SimpleRowTracker;
 import entity.SimpleStudyTracker;
 import entity.SimpleTracker;
@@ -28,11 +29,16 @@ import style.StylePoi;
  */
 public class PoiStudyTrackerDAO implements StudyTrackerDAO {
 
-    private String fileName;
+    private final String pathFileLabels;
+    private final boolean local;
+    private String pathSvnDoc = Params.getInstance().studyParam.getPathSvnDoc();
+    private Workbook wb = null;
+    private File file;
 
-    public PoiStudyTrackerDAO(String fileName) {
+    public PoiStudyTrackerDAO(String fileName, Boolean local) {
         super();
-        this.fileName = fileName;
+        this.pathFileLabels = fileName;
+        this.local = local;
     }
 
     @Override
@@ -48,11 +54,9 @@ public class PoiStudyTrackerDAO implements StudyTrackerDAO {
     @Override
     public boolean svgStudyTracker(SimpleStudyTracker sst) {
         boolean bob = false;
-        Workbook wb = null;
+
         Sheet sheet = null;
         String date = new DateManager().getSimpleCurrentDate();
-        File file;
-        Outils.SVNWorker svn = new SVNWorker();
 
         //creer le workbook et la sheet
         try {
@@ -85,9 +89,11 @@ public class PoiStudyTrackerDAO implements StudyTrackerDAO {
             style.createHeader(i, 1);
             i++;
             for (SimpleRowTracker row : track.getAllRowTracker()) {
-                PoiTrackerDAO ptk = new PoiTrackerDAO(fileName);
-                rows = sheet.createRow(i);
-                ptk.addRowTracker(lang, row, rows);
+                PoiTrackerDAO ptk = new PoiTrackerDAO(pathFileLabels);
+                if (sheet != null) {
+                    rows = sheet.createRow(i);
+                    ptk.addRowTracker(lang, row, rows);
+                }
                 i++;
 
             }
@@ -97,30 +103,11 @@ public class PoiStudyTrackerDAO implements StudyTrackerDAO {
         //apply decoration
         style.pairStyle();
 
-        String fileStudy = "STUDYTRACKER " + date + ".xlsx";
-        String pathFile = fileName + "\\" + fileStudy;
-        try {
-
-            file = new File(pathFile);
-            FileOutputStream outFile = new FileOutputStream(file);
-            wb.write(outFile);
-            //outFile.close();
-            bob = true;
-        } catch (IOException ex) {
-            bob = false;
-            System.out.println("catch de la sauvegarde " + ex.getLocalizedMessage());
-            Logger.getLogger(PoiTrackerDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        //exemple d'autocommit'
-        // Outils.SVNWorker.commitSVN("autoCommit","D:\\project\\CAIN457M2301\\Settings\\Labels\\TR_TR" );
-        String url = "svn://document.kayentis.fr:15000/kayentis/Documentation/Projets/Santé/Novartis/CAIN457M2301-M2302/3- Functional scope/2- Forms/2- Kayentis design/1 - Screenshots/";
-        String out; 
-        
-        if (svn.CheckExistInSVN(url, fileStudy)) {
-            out = svn.commitSVN("AutCommit", pathFile);
+        if (local) {
+            bob = svgLocal("STUDYTRACKER " + date + ".xlsx");
         } else {
-             out = svn.mountInSvn(pathFile, url + fileStudy);
+            bob = svgSvn("STUDYTRACKER.xlsx");
+
         }
 
         return bob;
@@ -136,6 +123,92 @@ public class PoiStudyTrackerDAO implements StudyTrackerDAO {
         rows.createCell(0).setCellValue(name);
         //ajouter la decoration ici
 
+    }
+
+    /**
+     * sauvegarde en local sur le poste du dev
+     *
+     * @return
+     */
+    private boolean svgLocal(String fileStudy) {
+        boolean bob = false;
+
+        try {
+
+            file = new File(pathFileLabels + fileStudy);
+            FileOutputStream outFile = new FileOutputStream(file);
+            wb.write(outFile);
+            //outFile.close();
+            bob = true;
+        } catch (IOException ex) {
+           
+            System.out.println("catch de la sauvegarde " + ex.getLocalizedMessage());
+            Logger.getLogger(PoiTrackerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return bob;
+    }
+
+    /**
+     * sauvegarde sur svnDoc et svn Del en detruisant avant si il existe deja et
+     * en passant par un fichier temporaire ( aucun lien avec les working copy
+     * locales
+     *
+     * @return
+     */
+    private boolean svgSvn(String fileStudy) {
+        boolean bob = false;
+        String out;
+        String pathTemp = "C:\\";
+        Outils.SVNWorker svn = new SVNWorker();
+
+        //creation d'un fichier temporaire (on part du principe que l'adresse local n'est pas connu.
+        try {
+
+            file = new File(pathTemp + fileStudy);
+            FileOutputStream outFile = new FileOutputStream(file);
+            wb.write(outFile);
+            //outFile.close();
+            bob = true;
+        } catch (IOException ex) {
+            
+            System.out.println("catch de la sauvegarde " + ex.getLocalizedMessage());
+            Logger.getLogger(PoiTrackerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        //exemple d'autocommit'
+        // Outils.SVNWorker.commitSVN("autoCommit","D:\\project\\CAIN457M2301\\Settings\\Labels\\TR_TR" );
+        //url = "svn://document.kayentis.fr:15000/kayentis/Documentation/Projets/Santé/Novartis/CAIN457M2301-M2302/3- Functional scope/2- Forms/2- Kayentis design/1 - Screenshots/";
+        
+        //pour svnDel 1400
+        //si il existe on le detruit    
+        if (svn.CheckExistInSVN(pathFileLabels, fileStudy)) {
+            svn.deleteInSVN(pathFileLabels, fileStudy);
+        }
+
+        out = svn.mountInSvn(pathTemp + fileStudy, pathFileLabels + fileStudy);
+
+        //out = svn.commitSVN("AutCommit", pathFile);
+        
+        // pour svnDoc 1500
+        if (svn.CheckExistInSVN(pathSvnDoc, fileStudy)) {
+            svn.deleteInSVN(pathSvnDoc, fileStudy);
+        }
+
+        out = svn.mountInSvn(pathTemp + fileStudy, pathSvnDoc + fileStudy);
+
+        
+        //on detruit le fichier temp
+         file.delete();
+         
+        /*
+        if (svn.CheckExistInSVN(pathSvnDoc, fileStudy)) {
+            out = svn.commitSVN("AutCommit", pathFile);
+        } else {
+            out = svn.mountInSvn(pathFile, pathSvnDoc + fileStudy);
+        }*/
+       
+        
+        return bob;
     }
 
 }

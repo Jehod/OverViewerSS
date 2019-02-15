@@ -22,13 +22,13 @@ public class FenSelectStudy extends FenGenerik
 {
     
      ArrayList<String> list = Params.getInstance().listStudy;
-
+ 
     /**
      * Creates new form FenSelectStudy
      */
     public FenSelectStudy()
     {
-        Dimension dim = this.getToolkit().getScreenSize();
+       Dimension dim = this.getToolkit().getScreenSize();
 
         initComponents();
 
@@ -121,7 +121,7 @@ public class FenSelectStudy extends FenGenerik
         if (comboStudy.getSelectedItem() != null)
         {
             Params.getInstance().accedeStudy((String) comboStudy.getSelectedItem());
-            FenStudy fens = new FenStudy();
+            FenStudy fens = new FenStudy(this);
             this.setVisible(false);
         }else
         {
@@ -131,7 +131,7 @@ public class FenSelectStudy extends FenGenerik
     }//GEN-LAST:event_butGoWithActionPerformed
 
     private void butCreateStudy2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butCreateStudy2ActionPerformed
-        FenCreatStudy fcs = new FenCreatStudy();
+        FenCreatStudy fcs = new FenCreatStudy(this);
         this.setVisible(false);
     }//GEN-LAST:event_butCreateStudy2ActionPerformed
 

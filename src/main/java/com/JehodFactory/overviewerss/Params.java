@@ -70,17 +70,17 @@ public class Params {
 
         //studyPath = (String) jw.getListcibleOfStudy(studyName, "path").get(0);
         ArrayList<String> listPath = jw.getListcibleOfStudy(studyName, "path");
-
         String trad = jw.getValueCibleOfStudy(studyName, "Trad");
-        String pathLabels = jw.getValueCibleOfStudy(studyName, "pathLabels");
-        String pathScreens = jw.getValueCibleOfStudy(studyName, "pathScreens");
         String tabModel = jw.getValueCibleOfStudy(studyName, "Tablet");
-        String pathCertifs = jw.getValueCibleOfStudy(studyName, "pathCertifs").replace("Ã©", "é");
         Boolean font = jw.getBooleanCibleOfStudy(studyName, "Font");
-
-        System.out.println("pathcertif "+ pathCertifs);
+        String pathSvnDoc = jw.getValueCibleOfStudy(studyName, "pathSvnDoc").replace("Ã©", "é");
+        String pathSvnDel = jw.getValueCibleOfStudy(studyName, "pathSvnDel").replace("Ã©", "é");
         
-        this.studyParam = new SimpleStudyParam(listPath, trad, pathLabels, pathScreens, pathCertifs, tabModel, font, new HashMap<>());
+
+        System.out.println("pathSvnDoc: "+ pathSvnDoc);
+        
+        //this.studyParam = new SimpleStudyParam(listPath, trad, pathLabels, pathScreens, pathCertifs, tabModel, font, new HashMap<>());
+        this.studyParam = new SimpleStudyParam(listPath, trad, new HashMap<>(), tabModel, font, pathSvnDoc, pathSvnDel);
 
       
     }
@@ -97,7 +97,7 @@ public class Params {
             bob = jw.setNewStudyName(studyName);
             if (bob) {
                 bob = jw.fillStudy(studyName, ssp.getTrad(), ssp.getTabModel(), ssp.getFontSamsung(),
-                        ssp.getListStudyPath(), ssp.getPathLabels(), ssp.getPathScreens(), ssp.getPathCertifs(), ssp.getMap());
+                        ssp.getListStudyPath(), ssp.getPathSvnDoc(), ssp.getPathSvnDel(), ssp.getMap());
             }
         } else {
             JOptionPane.showMessageDialog(null, "A study with same name already exist", "Error", ERROR);

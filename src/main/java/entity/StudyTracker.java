@@ -15,9 +15,9 @@ import java.util.List;
 public interface StudyTracker extends Serializable
 {
     List<SimpleTracker> getAllTrackers();
-    String getStudyPath();
-    String getLabelsPath();
-    String getScreenShotsPath();
+    //String getStudyPath();
+    //String getLabelsPath();
+    //String getScreenShotsPath();
     
     
 }

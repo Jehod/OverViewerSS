@@ -31,4 +31,11 @@ interface StudyParams extends Serializable{
     public String getPathCertifs();
     
     public boolean getFontSamsung();
+    
+    public String getPathFinalsScreens();
+    
+    public String getPathSvnDoc();
+    
+    public String getPathSvnDel();
+    
 }

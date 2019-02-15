@@ -12,7 +12,9 @@ import java.awt.Dimension;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import style.GraphicCharter;
+import view.generikForms.ButtonCancel;
 import view.generikForms.ButtonGenerik;
+import view.generikForms.ButtonRefresh;
 import view.generikForms.FenGenerik;
 import view.generikForms.LabelGenerik;
 
@@ -22,10 +24,15 @@ import view.generikForms.LabelGenerik;
  */
 public class FenCreatStudy extends FenGenerik {
 
+    FenSelectStudy prec;
     /**
      * Creates new form FenCreatStudy
+     * @param prec fenetre precedente
      */
-    public FenCreatStudy() {
+    public FenCreatStudy(FenSelectStudy prec) {
+        
+        this.prec= prec;
+        
         Dimension dim = this.getToolkit().getScreenSize();
 
         initComponents();
@@ -49,19 +56,19 @@ public class FenCreatStudy extends FenGenerik {
         panLabel = new javax.swing.JPanel();
         labname = new LabelGenerik();
         labtrad = new LabelGenerik();
-        labPalb = new LabelGenerik();
+        labPathSvnDoc = new LabelGenerik();
         labfont = new LabelGenerik();
-        labPScre = new LabelGenerik();
-        labCertif = new LabelGenerik();
+        labPathSvnDel = new LabelGenerik();
         labTabler1 = new LabelGenerik();
         txtfstudyname = new javax.swing.JTextField();
         txtfTrad = new javax.swing.JTextField();
         txtfTAblet = new javax.swing.JTextField();
         cBxFont = new javax.swing.JCheckBox();
-        txtfPLabels = new javax.swing.JTextField();
-        txtfsPscreen = new javax.swing.JTextField();
-        txtfsPcertif = new javax.swing.JTextField();
+        txtfPathSvnDoc = new javax.swing.JTextField();
+        txtfsPathSvnDel = new javax.swing.JTextField();
         butcreate = new ButtonGenerik();
+        butCancel = new ButtonCancel();
+        butrefresh = new ButtonRefresh();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -75,17 +82,15 @@ public class FenCreatStudy extends FenGenerik {
         labtrad.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         labtrad.setText("Traductor:  ");
 
-        labPalb.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        labPalb.setText("Path Labels:  ");
+        labPathSvnDoc.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        labPathSvnDoc.setText("Path Svn Doc:  ");
+        labPathSvnDoc.setToolTipText("");
 
         labfont.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         labfont.setText("Font:  ");
 
-        labPScre.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        labPScre.setText("Path Screenshots:  ");
-
-        labCertif.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        labCertif.setText("Path Certificats:  ");
+        labPathSvnDel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        labPathSvnDel.setText("Path Svn Del:  ");
 
         labTabler1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         labTabler1.setText("Tablet Model:  ");
@@ -98,14 +103,9 @@ public class FenCreatStudy extends FenGenerik {
 
         cBxFont.setText("Samsung Sans");
 
-        txtfPLabels.setFont(GraphicCharter.fontCorps);
-        txtfPLabels.setText("/Settings/Labels/");
+        txtfPathSvnDoc.setFont(GraphicCharter.fontCorps);
 
-        txtfsPscreen.setFont(GraphicCharter.fontCorps);
-        txtfsPscreen.setText("/Scripts/Screenshots/");
-
-        txtfsPcertif.setFont(GraphicCharter.fontCorps);
-        txtfsPcertif.setText("/");
+        txtfsPathSvnDel.setFont(GraphicCharter.fontCorps);
 
         javax.swing.GroupLayout panLabelLayout = new javax.swing.GroupLayout(panLabel);
         panLabel.setLayout(panLabelLayout);
@@ -120,17 +120,13 @@ public class FenCreatStudy extends FenGenerik {
                             .addComponent(cBxFont)
                             .addGap(129, 129, 129))
                         .addGroup(panLabelLayout.createSequentialGroup()
-                            .addComponent(labPalb, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labPathSvnDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(txtfPLabels, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE))
+                            .addComponent(txtfPathSvnDoc))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panLabelLayout.createSequentialGroup()
-                            .addGroup(panLabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(labPScre, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
-                                .addComponent(labCertif, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(labPathSvnDel, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addGroup(panLabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txtfsPscreen, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
-                                .addComponent(txtfsPcertif))))
+                            .addComponent(txtfsPathSvnDel, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(panLabelLayout.createSequentialGroup()
                         .addGroup(panLabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(labname, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -138,7 +134,7 @@ public class FenCreatStudy extends FenGenerik {
                             .addComponent(labTabler1, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(panLabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtfTrad, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
+                            .addComponent(txtfTrad)
                             .addComponent(txtfstudyname)
                             .addComponent(txtfTAblet))))
                 .addContainerGap())
@@ -164,17 +160,13 @@ public class FenCreatStudy extends FenGenerik {
                     .addComponent(cBxFont))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panLabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labPalb)
-                    .addComponent(txtfPLabels, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(labPathSvnDoc)
+                    .addComponent(txtfPathSvnDoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panLabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labPScre)
-                    .addComponent(txtfsPscreen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panLabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labCertif)
-                    .addComponent(txtfsPcertif, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(57, Short.MAX_VALUE))
+                    .addComponent(labPathSvnDel)
+                    .addComponent(txtfsPathSvnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(88, Short.MAX_VALUE))
         );
 
         butcreate.setText("Create Study");
@@ -184,29 +176,50 @@ public class FenCreatStudy extends FenGenerik {
             }
         });
 
+        butCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                butCancelActionPerformed(evt);
+            }
+        });
+
+        butrefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/refresh1.png"))); // NOI18N
+        butrefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                butrefreshActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(LabTitre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(panLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(166, 166, 166)
-                        .addComponent(butcreate)))
+                .addComponent(LabTitre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(butrefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(butCancel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(butcreate)
+                .addGap(38, 38, 38))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(panLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(LabTitre, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(LabTitre, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(butrefresh))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(butcreate)
+                .addComponent(panLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(butcreate)
+                    .addComponent(butCancel))
                 .addContainerGap())
         );
 
@@ -220,21 +233,20 @@ public class FenCreatStudy extends FenGenerik {
         String name = txtfstudyname.getText().trim().toUpperCase();
         String trad = txtfTrad.getText().trim().toUpperCase();
         String tablet = txtfTAblet.getText().trim().toUpperCase();
-        String pathL = txtfPLabels.getText().trim();
-        String pathS = txtfsPscreen.getText().trim();
-        String pathC = txtfsPcertif.getText().trim();
+        String pathSvnDoc = txtfPathSvnDoc.getText().trim();
+        String pathSvnDel = txtfsPathSvnDel.getText().trim();
         Boolean font = cBxFont.isSelected();
 
         if (Outils.Check.isGood(name) && Check.isGood(trad) && Check.isGood(tablet)
-                && Check.isGood(pathL) && Check.isGood(pathS) && Check.isGood(pathC)) {
+                && Check.isGood(pathSvnDoc) && Check.isGood(pathSvnDel)) {
             JsonStudyParamsDAO jsp = new JsonStudyParamsDAO();
-            bob = jsp.createStudy(name, trad, tablet, font, pathL, pathS, pathC);
+            bob = jsp.createStudy(name, trad, tablet, font, pathSvnDoc, pathSvnDel);
             
             if (bob) {
                 
                 Params.getInstance().setStudyName(name);
                 Params.getInstance().accedeStudy(name);
-                FenStudy fen = new FenStudy();
+                FenStudy fen = new FenStudy(prec);
                 this.setVisible(false);
                 
             } else {
@@ -247,24 +259,35 @@ public class FenCreatStudy extends FenGenerik {
 
     }//GEN-LAST:event_butcreateActionPerformed
 
+    private void butCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butCancelActionPerformed
+        prec.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_butCancelActionPerformed
+
+    private void butrefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butrefreshActionPerformed
+        
+        FenCreatStudy fc = new FenCreatStudy(prec);
+        this.dispose();
+    }//GEN-LAST:event_butrefreshActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel LabTitre;
+    private javax.swing.JButton butCancel;
     private javax.swing.JButton butcreate;
+    private javax.swing.JButton butrefresh;
     private javax.swing.JCheckBox cBxFont;
-    private javax.swing.JLabel labCertif;
-    private javax.swing.JLabel labPScre;
-    private javax.swing.JLabel labPalb;
+    private javax.swing.JLabel labPathSvnDel;
+    private javax.swing.JLabel labPathSvnDoc;
     private javax.swing.JLabel labTabler1;
     private javax.swing.JLabel labfont;
     private javax.swing.JLabel labname;
     private javax.swing.JLabel labtrad;
     private javax.swing.JPanel panLabel;
-    private javax.swing.JTextField txtfPLabels;
+    private javax.swing.JTextField txtfPathSvnDoc;
     private javax.swing.JTextField txtfTAblet;
     private javax.swing.JTextField txtfTrad;
-    private javax.swing.JTextField txtfsPcertif;
-    private javax.swing.JTextField txtfsPscreen;
+    private javax.swing.JTextField txtfsPathSvnDel;
     private javax.swing.JTextField txtfstudyname;
     // End of variables declaration//GEN-END:variables
 }

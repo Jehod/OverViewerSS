@@ -12,7 +12,6 @@ package com.JehodFactory.overviewerss;
 import java.io.IOException;
 import java.util.logging.Logger;
 import style.GraphicCharter;
-import view.FenMain;
 import view.FenSelectStudy;
 
 /**
@@ -27,39 +26,18 @@ public class OverViewerSS {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args)  {
         
-        GraphicCharter gc=  GraphicCharter.getInstance();
-       
-        // donner le chemin absolu pour le test
-        
-        //path pour tester sur ordi perso
-       /*
-        String path ="F:\\Kayentis\\Projets\\CAIN457M2302";
-        String pathLabels ="\\Settings\\Labels\\";
-        */
-         
-        
-      
-        Params param = new Params();
-        
-        
+        GraphicCharter instance = GraphicCharter.getInstance();
 
-     
-       
-        //path pour tester sur ordi pro
-        String path ="D:\\project\\CAIN457M2301";
-        String pathLabels ="\\Settings\\Labels\\";
-       
-    
+        Params params = new Params();
+        
         
         //lancer le tracker
-       // metier.OverView ov = new metier.OverView(path, pathLabels);
+        // metier.OverView ov = new metier.OverView(path, pathLabels);
         //ov.overview();
-        
         //via la fenetre
-        //FenMain ff = new FenMain();
-        FenSelectStudy fsl = new FenSelectStudy();
+        FenSelectStudy fenSelectStudy = new FenSelectStudy();
                 
         
        

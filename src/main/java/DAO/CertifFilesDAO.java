@@ -5,6 +5,7 @@
  */
 package DAO;
 
+import Outils.Check;
 import Outils.SVNWorker;
 import java.util.ArrayList;
 
@@ -22,23 +23,26 @@ public class CertifFilesDAO implements CertificationsFilesDAO {
     public CertifFilesDAO(String pathCertifs, String langue) {
         this.pathCertifs = pathCertifs + "/" + langue;
         this.langue = langue;
-         list = svn.listSVNByExt(this.pathCertifs, ".pdf");
+        list = svn.listSVNByExt(this.pathCertifs, ".pdf");
     }
 
     @Override
     public Boolean checkCertif(String formulaire, String version) {
-        Boolean bob;
-       
-        String cible = formulaire + "_" + langue + "-certification.pdf";
+        Boolean bob = false;
 
-        bob = Outils.Check.checkIsIn(cible, list);
+        if (Check.isGood(formulaire) && Check.isGood(version)) {
+            //expression a modifier quand la standardisation sera effective
+            String cible = formulaire + "_" + langue + "-certification.pdf";
+
+            bob = Outils.Check.checkIsIn(cible, list);
+        }
 
         if (bob) {
-            System.out.println("+++++++++ " + pathCertifs +  "/" + formulaire + "_" + langue + "-certification.pdf" + " a ete trouve++++");
+            System.out.println("+++++++++ " + pathCertifs + "/" + formulaire + "_" + langue + "-certification.pdf" + " a ete trouve++++");
         } else {
-            System.out.println("+++++++++ " + pathCertifs +  "/" + formulaire + "_" + langue + "-certification.pdf" + " InTROUVABLE++++");
+            System.out.println("+++++++++ " + pathCertifs + "/" + formulaire + "_" + langue + "-certification.pdf" + " InTROUVABLE++++");
         }
-        
+
         return bob;
     }
 

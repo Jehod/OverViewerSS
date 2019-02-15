@@ -18,10 +18,10 @@ import java.util.HashMap;
 public class JsonStudyParamsDAO implements StudyParamsDAO {
 
     @Override
-    public boolean createStudy(String name, String trad, String tablet, boolean font, String pathLabel, String pathScreens, String certif) {
+    public boolean createStudy(String name, String trad, String tablet, boolean font, String pathSvnDel, String pathSvnDoc) {
         boolean bob = false;
 
-        SimpleStudyParam ssp = new SimpleStudyParam(new ArrayList<>(), trad, pathLabel, pathScreens, certif, tablet, font, new HashMap<>());
+        SimpleStudyParam ssp = new SimpleStudyParam(new ArrayList<>(), trad, new HashMap(), tablet, font, pathSvnDoc, pathSvnDel);//(new ArrayList<>(), trad, pathLabel, pathScreens, certif, tablet, font, new HashMap<>());
 
         bob = Params.getInstance().svgStudyParam(name, ssp);
 

@@ -14,17 +14,17 @@ import java.util.List;
  */
 public class SimpleStudyTracker implements StudyTracker
 {
-    private ArrayList<SimpleTracker> allTrackers;
-    private String studyPath;
-    private String labelsPath;
-    private String screenshotsPath;
+    private final ArrayList<SimpleTracker> allTrackers;
+   // private final String studyPath;
+    //private final String labelsPath;
+    //private final String screenshotsPath;
 
-    public SimpleStudyTracker(ArrayList<SimpleTracker> allTrackers, String studyPath, String labelsPath, String screenshotsPath)
+    public SimpleStudyTracker(ArrayList<SimpleTracker> allTrackers)//, String studyPath, String labelsPath, String screenshotsPath)
     {
         this.allTrackers = allTrackers;
-        this.studyPath = studyPath;
-        this.labelsPath = labelsPath;
-        this.screenshotsPath = screenshotsPath;
+       // this.studyPath = studyPath;
+       // this.labelsPath = labelsPath;
+       // this.screenshotsPath = screenshotsPath;
     }
     
 
@@ -36,29 +36,29 @@ public class SimpleStudyTracker implements StudyTracker
     {
         return allTrackers;
     }
-
+/*
     @Override
     public String getStudyPath()
     {
         return studyPath;
-    }
-
+    }*/
+/*
     @Override
     public String getLabelsPath()
     {
        return labelsPath;
-    }
+    }*/
 
-    @Override
+    /*@Override
     public String getScreenShotsPath()
     {
        return screenshotsPath;
-    }
+    }*/
 
     @Override
     public String toString()
     {
-        return "Number of Trackers: "+allTrackers.size()+ " Path: "+studyPath+" LabelPath: "+labelsPath+" ScreenShotPath: "+screenshotsPath ;
+        return "StudyTracker: Number of Trackers: "+allTrackers.size(); //+ " Path: "+studyPath+" LabelPath: "+labelsPath+" ScreenShotPath: "+screenshotsPath ;
     }
     
     

@@ -18,13 +18,13 @@ public class ButtonRefresh extends ButtonGenerik{
 
     public ButtonRefresh() {
         
-        super.setIcon(new ImageIcon("/refresh.png"));
+        super.setIcon(new ImageIcon("/refresh1.png"));
           super.setSize(27, 27);
           super.setPreferredSize(new Dimension(27, 27));
         super.setBackground(Color.green);
     }
 
-    
+   
     
     
     

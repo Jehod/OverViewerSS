@@ -13,55 +13,56 @@ import java.util.HashMap;
  *
  * @author nik
  */
-public class SimpleStudyParam implements StudyParams
-{
+public class SimpleStudyParam implements StudyParams {
+
     //valeur par defaut pour eviter les champs vides
     private final String def = "Not Found";
-    
-    private ArrayList<String> listStudyPath = null;
-    private String trad= def;
-    private String pathLabels= def;
-    private String pathScreens=def;
-    private HashMap<String,String> map =null;
-    private String tabModel=def;
-    private String pathCertifs = def;
-    private boolean fontSamsung = true;
-    
 
-    public SimpleStudyParam(ArrayList<String> studyPath, String trad, 
-            String pathLabels, String pathScreens, String pathCertifs,
-            String tabModel,Boolean fontSamsung,
-            HashMap<String, String> map)
-    {
-        
-        this.listStudyPath = studyPath;
-        if (Check.isGood(trad)) this.trad = trad;
-        if (Check.isGood(pathLabels)) this.pathLabels = pathLabels;
-        if (Check.isGood(pathScreens))this.pathScreens = pathScreens;
+    private ArrayList<String> listStudyPath;  // D:/project/<PROJET>/Trunk/)
+    private String trad = def;
+    private String pathLabels = "/Settings/Labels/";
+    private String pathScreens = "/Scripts/Screenshots/";
+    private HashMap<String, String> map;
+    private String tabModel = def;
+    private String pathCertifs = "/2-Certifications/1-Language/";
+    private boolean fontSamsung;
+    private String pathSvnDoc = def;   //svn://document.kayentis.fr:15000/kayentis/Documentation/Projets/Santé/<CLIENT>/<PROJET>/3- Functional scope/2- Forms/2- Kayentis design/
+    private String pathSvnDel = def;   ///svn://svn.kayentis.fr:14000/Kayentis/<CLIENT>/<PROJET>/Platforms/Trunk/ 
+    private String pathFinalsScreens = "/1-Final/2-Language/";
+
+    public SimpleStudyParam(ArrayList<String> listStudyPath, String trad, HashMap<String, String> map, 
+            String tabModel, boolean fontSamsung, String pathSvnDoc, String pathSvnDel) {
+        this.listStudyPath = listStudyPath;
+        if (Check.isGood(trad)) {
+            this.trad = trad;
+        }
         this.map = map;
-        if (Check.isGood(tabModel)) this.tabModel = tabModel;
-        if (Check.isGood(pathCertifs))this.pathCertifs = pathCertifs;
+        if (Check.isGood(tabModel)) {
+            this.tabModel = tabModel;
+        }
         this.fontSamsung = fontSamsung;
-        
+        if (Check.isGood(pathSvnDoc)) {
+            this.pathSvnDoc = pathSvnDoc;
+        }
+        if (Check.isGood(pathSvnDel)) {
+            this.pathSvnDel = pathSvnDel;
+        }
     }
-    
-   
+
 
     @Override
-    public String getTrad()
-    {
+    public String getTrad() {
         return trad;
     }
 
     @Override
-    public HashMap<String, String> getMap()
-    {
+    public HashMap<String, String> getMap() {
         return map;
     }
 
     @Override
     public String getPathScreens() {
-       return pathScreens;
+        return pathScreens;
     }
 
     @Override
@@ -110,7 +111,7 @@ public class SimpleStudyParam implements StudyParams
 
     @Override
     public boolean getFontSamsung() {
-       return fontSamsung;
+        return fontSamsung;
     }
 
     public void setPathCertifs(String pathCertifs) {
@@ -121,6 +122,32 @@ public class SimpleStudyParam implements StudyParams
         this.fontSamsung = fontSamsung;
     }
 
+    @Override
+    public String getPathFinalsScreens() {
+        return pathFinalsScreens;
+    }
+
+    @Override
+    public String getPathSvnDoc() {
+       return pathSvnDoc;
+    }
+
+    @Override
+    public String getPathSvnDel() {
+        return pathSvnDel;
+    }
+
+    public void setPathSvnDoc(String pathSvnDoc) {
+        this.pathSvnDoc = pathSvnDoc;
+    }
+
+    public void setPathSvnDel(String pathSvnDel) {
+        this.pathSvnDel = pathSvnDel;
+    }
+
+    public void setPathFinalsScreens(String pathFinalsScreens) {
+        this.pathFinalsScreens = pathFinalsScreens;
+    }
+
     
-   
 }

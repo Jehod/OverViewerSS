@@ -25,7 +25,7 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
  */
 public class PoiRowTrackerDAO implements RowTrackerDAO {
 
-    private String fileName;
+    private final String fileName;
 
     public PoiRowTrackerDAO(String fileName) {
         super();
@@ -57,9 +57,8 @@ public class PoiRowTrackerDAO implements RowTrackerDAO {
 
             } catch (IOException e) {
                 System.out.println("findAllRowTracker catch: " + e.getMessage());
-            } catch (InvalidFormatException ex) {
-                Logger.getLogger(PoiRowTrackerDAO.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (EncryptedDocumentException ex) {
+            } catch (InvalidFormatException | EncryptedDocumentException ex) {
+                System.out.println("findAllRowTracker catch: " + ex.getMessage());
                 Logger.getLogger(PoiRowTrackerDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {

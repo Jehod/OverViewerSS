@@ -136,9 +136,9 @@ public class SVNWorker {
 
     /**
      * ajoute un fichier non versionné dans svn
-     *
+     * 
+     *@param pathFile adress du fichier a deposer
      * @param url adresse du depot
-     * @param pathFile adress du fichier a deposer
      * @return la string de output le verbiage bon ou mauvais de la commande
      */
     public String mountInSvn(String pathFile, String url) {
@@ -186,7 +186,7 @@ public class SVNWorker {
      * @return
      */
     public boolean CheckExistInSVN(String URL, String cible) {
-        ArrayList list = new ArrayList();
+        
         boolean bob = false;
 
         //dans le commande ne pas oublié les '' en plus, pour que ce soit reconnu dans Powershell
@@ -219,6 +219,52 @@ public class SVNWorker {
 
         } catch (IOException ex) {
             System.out.println("catch du check in SVN " + ex.getLocalizedMessage());
+            Logger.getLogger(SVNWorker.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return bob;
+    }
+
+    /**
+     * detruit un fichier cible present dans l'adresse svn filePath
+     * @param filePath
+     * @param cible
+     * @return 
+     */
+    public boolean deleteInSVN(String filePath, String cible) {
+        
+        boolean bob = false;
+
+        //dans le commande ne pas oublié les '' en plus, pour que ce soit reconnu dans Powershell
+        String command = "powershell.exe svn delete -m'Temporary destruction' '" + filePath + cible + "'";//'svn://svn.kayentis.fr:14000/Kayentis/testeclient/teststudy'";
+
+        try {
+
+            // Executing the command
+            Process powerShellProcess = Runtime.getRuntime().exec(command);
+            // Getting the results
+            powerShellProcess.getOutputStream().close();
+            String line;
+            System.out.println("Standard Output:");
+            try (BufferedReader stdout = new BufferedReader(new InputStreamReader(
+                    powerShellProcess.getInputStream()))) {
+                while ((line = stdout.readLine()) != null) {
+                    bob = true;
+                    System.out.println("delete " + line);
+
+                }
+            }
+            System.out.println("Standard Error:");
+            BufferedReader stderr = new BufferedReader(new InputStreamReader(
+                    powerShellProcess.getErrorStream()));
+            while ((line = stderr.readLine()) != null) {
+                System.out.println(line);
+            }
+            stderr.close();
+            
+
+        } catch (IOException ex) {
+            System.out.println("catch du delete in SVN " + ex.getLocalizedMessage());
             Logger.getLogger(SVNWorker.class.getName()).log(Level.SEVERE, null, ex);
         }
 

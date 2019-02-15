@@ -263,7 +263,7 @@ public class JsonWorker {
      * @param map
      */
     public boolean fillStudy(String studyName, String trad, String tabModel, boolean fontSamsung,
-            ArrayList<String> listStudyPath, String pathLabels, String pathScreens, String pathCertifs, HashMap<String, String> map) {
+            ArrayList<String> listStudyPath, String pathSvnDoc, String pathSvnDel, HashMap<String, String> map) {
 
         boolean bob = false;
         JSONArray tab = null;
@@ -277,7 +277,7 @@ public class JsonWorker {
             JSONObject next = (JSONObject) it.next();
 
             if (next.get("Name").equals(studyName)) {
-
+/*
                 next.put("Trad", trad);
                 next.put("Tablet", tabModel);
                 next.put("Font", fontSamsung);
@@ -285,6 +285,14 @@ public class JsonWorker {
                 next.put("pathLabels", pathLabels);
                 next.put("pathScreens", pathScreens);
                 next.put("pathCertifs", pathCertifs);
+                next.put("map", map);
+*/
+                next.put("Trad", trad);
+                next.put("Tablet", tabModel);
+                next.put("Font", fontSamsung);
+                next.put("path", listStudyPath);
+                next.put("pathSvnDel", pathSvnDel);
+                next.put("pathSvnDoc", pathSvnDoc);
                 next.put("map", map);
 
                 bob = true;

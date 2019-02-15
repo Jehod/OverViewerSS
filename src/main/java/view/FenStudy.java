@@ -11,13 +11,16 @@ import view.generikForms.FenGenerik;
 import view.generikForms.ButtonGenerik;
 import com.JehodFactory.overviewerss.Params;
 import entity.SimpleStudyParam;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import model.ComboModel;
 import style.GraphicCharter;
+import view.generikForms.ButtonCancel;
 import view.generikForms.ButtonRefresh;
 
 /**
@@ -26,21 +29,23 @@ import view.generikForms.ButtonRefresh;
  */
 public class FenStudy extends FenGenerik {
 
-    String studyPath;
-    String pathLabels;
-    String pathCertif;
-    String pathScreens;
-    String trad;
-    String tabletModel;
-    boolean font = true;
     String studyName = Params.getInstance().studyName;
     SimpleStudyParam ssp = Params.getInstance().studyParam;
     ArrayList<String> list = ssp.getListStudyPath();
 
+    String studyPath;
+    String pathSvnDel = ssp.getPathSvnDel();
+    String pathSvnDoc = ssp.getPathSvnDoc();
+
+    FenSelectStudy prec;
+
     /**
      * Creates new form FenStudy
      */
-    public FenStudy() {
+    public FenStudy(FenSelectStudy fss) {
+
+        //on note la fenetre d'avant pour le retour arriere
+        prec = fss;
         Dimension dim = this.getToolkit().getScreenSize();
 
         initComponents();
@@ -48,6 +53,7 @@ public class FenStudy extends FenGenerik {
         this.setLocation(dim.width / 2 - this.getWidth() / 2, dim.height / 2 - this.getHeight() / 2);
         this.setSize(478, 400);
         this.setVisible(true);
+        //on cache le browser
         butSelect.setVisible(false);
     }
 
@@ -62,21 +68,15 @@ public class FenStudy extends FenGenerik {
 
         jFileChooser1 = new javax.swing.JFileChooser();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        TxtFieldTabModel = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        TxtFieldPathLabels = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        TxtFieldPathScreen = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        TxtFieldTrad = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         comboStudyPath = new javax.swing.JComboBox<>();
-        butSVG = new ButtonGenerik();
-        butLaunch = new ButtonGenerik();
-        butrefresh = new ButtonRefresh();
+        butLaunchSVN = new ButtonGenerik();
         butAddPath = new ButtonGenerik();
         butSelect = new javax.swing.JFileChooser();
+        butViewStudy = new ButtonGenerik();
+        butCancel = new ButtonCancel();
+        jButton1 = new ButtonRefresh();
+        butLaunchLocal = new ButtonGenerik();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -84,67 +84,26 @@ public class FenStudy extends FenGenerik {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText(studyName);
 
-        jLabel2.setFont(GraphicCharter.titre3);
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel2.setText("Tablet Models:  ");
-        jLabel2.setToolTipText("");
-
-        TxtFieldTabModel.setFont(GraphicCharter.titre3);
-        TxtFieldTabModel.setText(ssp.getTabModel());
-
-        jLabel3.setFont(GraphicCharter.titre3);
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel3.setText("PathLabels:  ");
-
-        TxtFieldPathLabels.setFont(GraphicCharter.titre3);
-        TxtFieldPathLabels.setText(ssp.getPathLabels());
-
-        jLabel4.setFont(GraphicCharter.titre3);
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel4.setText("PathScreens:  ");
-
-        TxtFieldPathScreen.setFont(GraphicCharter.titre3);
-        TxtFieldPathScreen.setText(ssp.getPathScreens());
-
-        jLabel5.setFont(GraphicCharter.titre3);
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel5.setText("Traductor:  ");
-
-        TxtFieldTrad.setFont(GraphicCharter.titre3);
-        TxtFieldTrad.setText(ssp.getTrad());
-
         jLabel6.setFont(GraphicCharter.titre3);
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel6.setText("Select Path:  ");
+        jLabel6.setText("Path for Local Track:  ");
+        jLabel6.setToolTipText("");
 
         comboStudyPath.setFont(GraphicCharter.titre3
         );
         comboStudyPath.setMaximumRowCount(10);
         comboStudyPath.setModel(new ComboModel(list));
 
-        butSVG.setText("Save Change");
-        butSVG.addActionListener(new java.awt.event.ActionListener() {
+        butLaunchSVN.setText("Track SVN");
+        butLaunchSVN.setToolTipText("Use SVN1400 and SVN1500. Put no file in local depositoy");
+        butLaunchSVN.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                butSVGActionPerformed(evt);
+                butLaunchSVNActionPerformed(evt);
             }
         });
 
-        butLaunch.setText("Launch Track");
-        butLaunch.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                butLaunchActionPerformed(evt);
-            }
-        });
-
-        butrefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/refresh.png"))); // NOI18N
-        butrefresh.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                butrefreshActionPerformed(evt);
-            }
-        });
-
-        butAddPath.setText("Add Path");
-        butAddPath.setToolTipText("Save after adding a new path");
+        butAddPath.setText("...");
+        butAddPath.setToolTipText("Browser");
         butAddPath.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 butAddPathActionPerformed(evt);
@@ -162,47 +121,68 @@ public class FenStudy extends FenGenerik {
                 }
             });
 
+            butViewStudy.setText("View Study Details");
+            butViewStudy.setToolTipText("Give some details and possibility of modification ");
+            butViewStudy.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    butViewStudyActionPerformed(evt);
+                }
+            });
+
+            butCancel.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    butCancelActionPerformed(evt);
+                }
+            });
+
+            jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/refresh1.png"))); // NOI18N
+            jButton1.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    jButton1ActionPerformed(evt);
+                }
+            });
+
+            butLaunchLocal.setText("Track Local");
+            butLaunchLocal.setToolTipText("Analysis of local work. No contact with Svn");
+            butLaunchLocal.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    butLaunchLocalActionPerformed(evt);
+                }
+            });
+
             javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
             getContentPane().setLayout(layout);
             layout.setHorizontalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(0, 3, Short.MAX_VALUE)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(butrefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(butSVG)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(butLaunch))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(TxtFieldTrad, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(TxtFieldPathScreen, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(TxtFieldPathLabels, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(TxtFieldTabModel, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(butAddPath)
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addComponent(comboStudyPath, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                    .addGap(18, 18, 18)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(17, 17, 17))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(22, 22, 22)
+                            .addComponent(butCancel)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(butViewStudy)
+                            .addGap(26, 26, 26))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(jLabel6)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(comboStudyPath, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(butAddPath, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(butLaunchSVN)
+                                        .addComponent(butLaunchLocal))
+                                    .addGap(0, 0, Short.MAX_VALUE)))
+                            .addGap(18, 18, 18)))
                     .addComponent(butSelect, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(21, 21, 21))
             );
@@ -217,34 +197,21 @@ public class FenStudy extends FenGenerik {
                                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(layout.createSequentialGroup()
                                     .addContainerGap()
-                                    .addComponent(butrefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGap(26, 26, 26)
+                                    .addComponent(jButton1)))
+                            .addGap(56, 56, 56)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel6)
-                                .addComponent(comboStudyPath, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(butAddPath)
-                            .addGap(8, 8, 8)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel3)
-                                .addComponent(TxtFieldPathLabels, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel4)
-                                .addComponent(TxtFieldPathScreen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel5)
-                                .addComponent(TxtFieldTrad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel2)
-                                .addComponent(TxtFieldTabModel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(42, 42, 42)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(butSVG)
-                                .addComponent(butLaunch))
-                            .addGap(0, 98, Short.MAX_VALUE))
+                                .addComponent(comboStudyPath, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(butAddPath))
+                            .addGap(41, 41, 41)
+                            .addComponent(butLaunchLocal)
+                            .addGap(29, 29, 29)
+                            .addComponent(butLaunchSVN)
+                            .addGap(37, 37, 37)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(butCancel)
+                                .addComponent(butViewStudy))
+                            .addGap(0, 104, Short.MAX_VALUE))
                         .addGroup(layout.createSequentialGroup()
                             .addGap(2, 2, 2)
                             .addComponent(butSelect, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
@@ -254,38 +221,24 @@ public class FenStudy extends FenGenerik {
             pack();
         }// </editor-fold>//GEN-END:initComponents
 
-    private void butrefreshActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_butrefreshActionPerformed
-    {//GEN-HEADEREND:event_butrefreshActionPerformed
-        FenStudy fs = new FenStudy();
-        this.dispose();
-    }//GEN-LAST:event_butrefreshActionPerformed
+    private void butLaunchSVNActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_butLaunchSVNActionPerformed
+    {//GEN-HEADEREND:event_butLaunchSVNActionPerformed
 
-    private void butLaunchActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_butLaunchActionPerformed
-    {//GEN-HEADEREND:event_butLaunchActionPerformed
+        int dialogButton = JOptionPane.YES_NO_OPTION;
+        int dialogResult = JOptionPane.showConfirmDialog(null, "Confirm complete path:" + pathSvnDel + " \r This method put nothing in local. Please update your working copy after.", "confirmation", dialogButton);
 
-        studyPath = (String) comboStudyPath.getSelectedItem();
+        if (dialogResult == JOptionPane.YES_OPTION) {
+            Params.getInstance().setStudyPath(pathSvnDel);
 
-        if (!recupInfo()) {
-            JOptionPane.showMessageDialog(null, "Please dont left an empty field", "Missing fields", JOptionPane.ERROR_MESSAGE);
-        } else if (!recupComboBox()) {
-            JOptionPane.showMessageDialog(null, "Please select a path for the study", "No selection", JOptionPane.ERROR_MESSAGE);
-        } else {
+            this.dispose();
+            FenProgress fenp = new FenProgress();
+            fenp.setVisible(true);
+            metier.OverView ov = new metier.OverView(pathSvnDel, false);
+            ov.overview();
 
-            int dialogButton = JOptionPane.YES_NO_OPTION;
-            int dialogResult = JOptionPane.showConfirmDialog(null, "Confirm complete path:" + studyPath + pathLabels, "confirmation", dialogButton);
-
-            if (dialogResult == JOptionPane.YES_OPTION) {
-                Params.getInstance().setStudyPath(studyPath);
-                        
-                this.dispose();
-                FenProgress fenp = new FenProgress();
-                fenp.setVisible(true);
-                metier.OverView ov = new metier.OverView(studyPath, pathLabels + "\\");
-                ov.overview();
-            }
         }
 
-    }//GEN-LAST:event_butLaunchActionPerformed
+    }//GEN-LAST:event_butLaunchSVNActionPerformed
 
     private void butAddPathActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_butAddPathActionPerformed
     {//GEN-HEADEREND:event_butAddPathActionPerformed
@@ -297,8 +250,9 @@ public class FenStudy extends FenGenerik {
             select = butSelect.getSelectedFile().getAbsolutePath();
             System.out.println("select: " + select);
             //this.setSize(500,400);
-            if (!Check.checkIsIn(select, list))
-            {list.add(select);}
+            if (!Check.checkIsIn(select, list)) {
+                list.add(select);
+            }
             comboStudyPath.setSelectedItem(select);
             comboStudyPath.repaint();
         }
@@ -310,65 +264,58 @@ public class FenStudy extends FenGenerik {
 
     }//GEN-LAST:event_butSelectActionPerformed
 
-    private void butSVGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butSVGActionPerformed
+    private void butViewStudyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butViewStudyActionPerformed
+        FenViewStudy fw = new FenViewStudy(this);
+        this.setVisible(false);
+    }//GEN-LAST:event_butViewStudyActionPerformed
 
-        ArrayList newlist;
-        newlist = new ArrayList();
-        JsonStudyParamsDAO jspd = new JsonStudyParamsDAO();;
+    private void butCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butCancelActionPerformed
+        prec.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_butCancelActionPerformed
 
-        if (!recupInfo()) {
-            JOptionPane.showMessageDialog(null, "Please dont left an empty field", "Missing fields", JOptionPane.ERROR_MESSAGE);
-        } else if (!recupComboBox()) {
-            JOptionPane.showMessageDialog(null, "Please select a path for the study", "No selection", JOptionPane.ERROR_MESSAGE);
-        } else {
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.dispose();
+        FenStudy fs = new FenStudy(prec);
 
-            //on ajoute le path selectioné de la liste en evitant les doublons eventuels
-            jspd.addStudyPath(studyName, studyPath);
-            System.out.println("mark2");
+    }//GEN-LAST:event_jButton1ActionPerformed
 
-            // jspd.modifStudy(studyName, trad, tabletModel, font, pathLabels, pathScreens, pathCertif);
-        }
+    private void butLaunchLocalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butLaunchLocalActionPerformed
 
-
-    }//GEN-LAST:event_butSVGActionPerformed
-
-    /**
-     * recup toutes les infos des champs, et les stock dans les attributs prévus
-     * et les check
-     */
-    private boolean recupInfo() {
-
-        pathLabels = TxtFieldPathLabels.getText();
-        pathScreens = TxtFieldPathScreen.getText();
-        trad = TxtFieldTrad.getText();
-        tabletModel = TxtFieldTabModel.getText();
-
-        return (Check.isGood(pathLabels) && Check.isGood(pathScreens) && Check.isGood(trad) && Check.isGood(tabletModel));
-    }
-
-    private boolean recupComboBox() {
         studyPath = (String) comboStudyPath.getSelectedItem();
 
-        return (Check.isGood(studyPath));
-    }
+        if (!Check.isGood(studyPath)) {
+            JOptionPane.showMessageDialog(null, "PLease select a study ", "Error Filling conboBox", ERROR_MESSAGE);
+            comboStudyPath.setBackground(Color.red);
+            comboStudyPath.repaint();
+        } else {
+            int dialogButton = JOptionPane.YES_NO_OPTION;
+            int dialogResult = JOptionPane.showConfirmDialog(null, "Confirm complete path:" + studyPath + " \r  This method has no contact with svn. Please commit after.", "confirmation", dialogButton);
+           
+            if (dialogResult == JOptionPane.YES_OPTION) {
+                Params.getInstance().setStudyPath(studyPath);
+
+                this.dispose();
+                FenProgress fenp = new FenProgress();
+                fenp.setVisible(true);
+                metier.OverView ov = new metier.OverView(studyPath, true);
+                ov.overview();
+            }
+        }
+    }//GEN-LAST:event_butLaunchLocalActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField TxtFieldPathLabels;
-    private javax.swing.JTextField TxtFieldPathScreen;
-    private javax.swing.JTextField TxtFieldTabModel;
-    private javax.swing.JTextField TxtFieldTrad;
     private javax.swing.JButton butAddPath;
-    private javax.swing.JButton butLaunch;
-    private javax.swing.JButton butSVG;
+    private javax.swing.JButton butCancel;
+    private javax.swing.JButton butLaunchLocal;
+    private javax.swing.JButton butLaunchSVN;
     private javax.swing.JFileChooser butSelect;
-    private javax.swing.JButton butrefresh;
+    private javax.swing.JButton butViewStudy;
     private javax.swing.JComboBox<String> comboStudyPath;
+    private javax.swing.JButton jButton1;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     // End of variables declaration//GEN-END:variables
 }

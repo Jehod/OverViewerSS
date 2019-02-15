@@ -162,7 +162,7 @@ public class FenMain extends JFrame
                 this.dispose();
                 FenProgress fenp = new FenProgress();
                 fenp.setVisible(true);
-                metier.OverView ov = new metier.OverView(path, pathLabels + "\\");
+                metier.OverView ov = new metier.OverView(path, pathLabels, true);
                 ov.overview();
             } else
             {

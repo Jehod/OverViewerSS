@@ -6,7 +6,6 @@
 package DAO;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -21,12 +20,11 @@ public interface StudyParamsDAO extends Serializable{
      * @param trad
      * @param tablet
      * @param font
-     * @param pathLabel
-     * @param pathScreens
-     * @param certif
+     * @param pathSvnDel
+     * @param pathSvnDoc
      * @return 
      */
-    boolean createStudy (String name, String trad, String tablet, boolean font, String pathLabel, String pathScreens, String certif);
+     boolean createStudy(String name, String trad, String tablet, boolean font, String pathSvnDel, String pathSvnDoc);
     /**
      * creer un objet studyParam et remplace celui de reference mais en commencant par une recuperation de l'existant
      * @param name
