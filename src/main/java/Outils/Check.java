@@ -47,4 +47,21 @@ public class Check {
 
         return bob;
     }
+    
+     /**
+     * Enleve les underscore , les tirets, les espaces et passe tout en
+     * minuscule
+     *
+     * @param formulaire la sequence a standardiser
+     * @return la sequence transformée
+     */
+    public static String standardise(String formulaire) {
+        String std;
+        std = formulaire.replace("_", "");
+        std = std.replace("-", "");
+        std = std.replace(" ", "");
+        std = std.toLowerCase();
+
+        return std;
+    }
 }

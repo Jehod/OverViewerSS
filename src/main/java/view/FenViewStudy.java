@@ -222,7 +222,7 @@ public class FenViewStudy extends javax.swing.JFrame {
     }//GEN-LAST:event_butCancelActionPerformed
 
     private void buttSaveNGoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttSaveNGoActionPerformed
-        JsonStudyParamsDAO jspd = new JsonStudyParamsDAO();;
+        JsonStudyParamsDAO jspd = new JsonStudyParamsDAO();
 
         if (!recupInfo()) {
             JOptionPane.showMessageDialog(null, "Please dont left an empty field", "Missing fields", JOptionPane.ERROR_MESSAGE);

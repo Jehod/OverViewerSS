@@ -5,6 +5,8 @@
  */
 package entity;
 
+import entity.interfaceEntity.ModifTrack;
+
 /** le modifTrack represente une ligne de tracage dans le xls de label
  * un fichier a donc un modifTrack par version qu'il a
  *

@@ -68,11 +68,12 @@ public class Params {
     public void accedeStudy(String studyName) {
         this.studyName = studyName;
 
-        //studyPath = (String) jw.getListcibleOfStudy(studyName, "path").get(0);
+        // on recupere toutes les infos du Json pour les stocker dans le study Params
         ArrayList<String> listPath = jw.getListcibleOfStudy(studyName, "path");
         String trad = jw.getValueCibleOfStudy(studyName, "Trad");
         String tabModel = jw.getValueCibleOfStudy(studyName, "Tablet");
         Boolean font = jw.getBooleanCibleOfStudy(studyName, "Font");
+        System.out.println("le svn DOc depuis le accede study"+jw.getValueCibleOfStudy(studyName, "pathSvnDoc"));
         String pathSvnDoc = jw.getValueCibleOfStudy(studyName, "pathSvnDoc").replace("Ã©", "é");
         String pathSvnDel = jw.getValueCibleOfStudy(studyName, "pathSvnDel").replace("Ã©", "é");
         

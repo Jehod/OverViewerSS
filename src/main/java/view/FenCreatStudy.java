@@ -38,7 +38,7 @@ public class FenCreatStudy extends FenGenerik {
         initComponents();
 
         this.setLocation(dim.width / 2 - this.getWidth() / 2, dim.height / 2 - this.getHeight() / 2);
-        this.setSize(478, 400);
+        this.setSize(700, 400);
         this.setVisible(true);
 
     }
@@ -113,25 +113,26 @@ public class FenCreatStudy extends FenGenerik {
             panLabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panLabelLayout.createSequentialGroup()
                 .addGroup(panLabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panLabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panLabelLayout.createSequentialGroup()
-                            .addComponent(labfont, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGap(10, 10, 10)
-                            .addComponent(cBxFont)
-                            .addGap(129, 129, 129))
-                        .addGroup(panLabelLayout.createSequentialGroup()
-                            .addComponent(labPathSvnDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(txtfPathSvnDoc))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panLabelLayout.createSequentialGroup()
-                            .addComponent(labPathSvnDel, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(txtfsPathSvnDel, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(panLabelLayout.createSequentialGroup()
-                        .addGroup(panLabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(labname, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(panLabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labPathSvnDel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(panLabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(labPathSvnDoc, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
+                                .addComponent(labfont, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                        .addGroup(panLabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtfPathSvnDoc, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panLabelLayout.createSequentialGroup()
+                                .addComponent(cBxFont, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(129, 129, 129))
+                            .addComponent(txtfsPathSvnDel)))
+                    .addGroup(panLabelLayout.createSequentialGroup()
+                        .addGroup(panLabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panLabelLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(labTabler1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(labtrad, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(labTabler1, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE))
+                            .addComponent(labname, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(panLabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtfTrad)

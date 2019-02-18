@@ -5,6 +5,7 @@
  */
 package entity;
 
+import entity.interfaceEntity.StudyTracker;
 import java.util.ArrayList;
 import java.util.List;
 

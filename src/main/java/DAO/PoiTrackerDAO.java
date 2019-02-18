@@ -5,6 +5,7 @@
  */
 package DAO;
 
+import DAO.interfaceDAO.TrackerDAO;
 import Outils.DateManager;
 import Outils.FilesWorker;
 import entity.SimpleModifTrack;
@@ -87,8 +88,8 @@ public class PoiTrackerDAO implements TrackerDAO {
     @Override
     public SimpleTracker createTrackerFromLabel(String dir) {
 
-        SimpleTracker stk = new SimpleTracker();
-        List<SimpleRowTracker> allMdT = new ArrayList<SimpleRowTracker>();
+        SimpleTracker stk;
+        List<SimpleRowTracker> allMdT = new ArrayList<>();
         Boolean findTrain = false;
 
         //on list les excels de label presents 

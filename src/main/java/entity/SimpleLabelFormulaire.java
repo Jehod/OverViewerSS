@@ -5,6 +5,8 @@
  */
 package entity;
 
+import entity.interfaceEntity.LabelFormulaire;
+import entity.interfaceEntity.ModifTrack;
 import java.util.ArrayList;
 import java.util.List;
 

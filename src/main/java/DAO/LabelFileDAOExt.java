@@ -5,29 +5,19 @@
  */
 package DAO;
 
+import DAO.interfaceDAO.LabelsFilesDAO;
 import java.util.List;
 
 /**
  *
  * @author nrochas
  */
-public class LabelFileDAO extends LabelFileDAOExt{
-
-    final String pathLabels;
-
-   public LabelFileDAO(String pathLabels) {
-        super();
-        this.pathLabels = pathLabels;
-    }
+public class LabelFileDAOExt implements LabelsFilesDAO{
 
     @Override
     public List<String> getAllLabelsFiles() {
-
-        List list ;
-        
-        list = Outils.FilesWorker.ListerDirByform(pathLabels, ".._..");
-        return list;
-
+        System.out.println("plop error ancestror");
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
 }

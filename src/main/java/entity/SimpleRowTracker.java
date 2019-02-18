@@ -5,6 +5,8 @@
  */
 package entity;
 
+import entity.interfaceEntity.RowTracker;
+
 /**
  *
  * @author nik

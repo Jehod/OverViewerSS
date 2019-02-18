@@ -5,6 +5,7 @@
  */
 package entity;
 
+import entity.interfaceEntity.StudyParams;
 import Outils.Check;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,15 +21,15 @@ public class SimpleStudyParam implements StudyParams {
 
     private ArrayList<String> listStudyPath;  // D:/project/<PROJET>/Trunk/)
     private String trad = def;
-    private String pathLabels = "/Settings/Labels/";
-    private String pathScreens = "/Scripts/Screenshots/";
+    private String pathLabels = "Settings/Labels/";
+    private String pathScreens = "Scripts/Screenshots/";
     private HashMap<String, String> map;
     private String tabModel = def;
-    private String pathCertifs = "/2-Certifications/1-Language/";
+    private String pathCertifs = "2-Certifications/1-Language/";
     private boolean fontSamsung;
     private String pathSvnDoc = def;   //svn://document.kayentis.fr:15000/kayentis/Documentation/Projets/Santé/<CLIENT>/<PROJET>/3- Functional scope/2- Forms/2- Kayentis design/
     private String pathSvnDel = def;   ///svn://svn.kayentis.fr:14000/Kayentis/<CLIENT>/<PROJET>/Platforms/Trunk/ 
-    private String pathFinalsScreens = "/1-Final/2-Language/";
+    private String pathFinalsScreens = "1-Final/2-Language/";
 
     public SimpleStudyParam(ArrayList<String> listStudyPath, String trad, HashMap<String, String> map, 
             String tabModel, boolean fontSamsung, String pathSvnDoc, String pathSvnDel) {

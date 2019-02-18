@@ -9,7 +9,6 @@ package com.JehodFactory.overviewerss;
  *
  * @author nik
  */
-import java.io.IOException;
 import java.util.logging.Logger;
 import style.GraphicCharter;
 import view.FenSelectStudy;
@@ -37,7 +36,8 @@ public class OverViewerSS {
         // metier.OverView ov = new metier.OverView(path, pathLabels);
         //ov.overview();
         //via la fenetre
-        FenSelectStudy fenSelectStudy = new FenSelectStudy();
+        FenSelectStudy fenSelectStudy;
+        fenSelectStudy = new FenSelectStudy();
                 
         
        

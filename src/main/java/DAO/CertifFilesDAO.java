@@ -5,6 +5,7 @@
  */
 package DAO;
 
+import DAO.interfaceDAO.CertificationsFilesDAO;
 import Outils.Check;
 import Outils.SVNWorker;
 import java.util.ArrayList;

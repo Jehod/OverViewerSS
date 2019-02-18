@@ -5,6 +5,7 @@
  */
 package DAO;
 
+import DAO.interfaceDAO.StudyTrackerDAO;
 import Outils.DateManager;
 import Outils.SVNWorker;
 import com.JehodFactory.overviewerss.Params;
@@ -158,7 +159,7 @@ public class PoiStudyTrackerDAO implements StudyTrackerDAO {
     private boolean svgSvn(String fileStudy) {
         boolean bob = false;
         String out;
-        String pathTemp = "C:\\";
+        String pathTemp = "D:\\";
         Outils.SVNWorker svn = new SVNWorker();
 
         //creation d'un fichier temporaire (on part du principe que l'adresse local n'est pas connu.

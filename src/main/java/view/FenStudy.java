@@ -5,7 +5,6 @@
  */
 package view;
 
-import DAO.JsonStudyParamsDAO;
 import Outils.Check;
 import view.generikForms.FenGenerik;
 import view.generikForms.ButtonGenerik;
@@ -14,7 +13,6 @@ import entity.SimpleStudyParam;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
-import java.util.Iterator;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
@@ -41,6 +39,7 @@ public class FenStudy extends FenGenerik {
 
     /**
      * Creates new form FenStudy
+     * @param fss fenetre precedente
      */
     public FenStudy(FenSelectStudy fss) {
 
@@ -110,116 +109,115 @@ public class FenStudy extends FenGenerik {
             }
         });
 
+        butSelect.setAcceptAllFileFilterUsed(false);
         butSelect.setApproveButtonText("Select");
         butSelect.setApproveButtonToolTipText("");
-        butSelect.setCurrentDirectory(new java.io.File("C:\\"));
-            butSelect.setDialogTitle("");
-            butSelect.setFileSelectionMode(javax.swing.JFileChooser.DIRECTORIES_ONLY);
-            butSelect.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    butSelectActionPerformed(evt);
-                }
-            });
+        butSelect.setControlButtonsAreShown(false);
+        butSelect.setCurrentDirectory(new java.io.File("D:\\project"));
+        butSelect.setDialogTitle("");
+        butSelect.setFileSelectionMode(javax.swing.JFileChooser.DIRECTORIES_ONLY);
+        butSelect.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                butSelectActionPerformed(evt);
+            }
+        });
 
-            butViewStudy.setText("View Study Details");
-            butViewStudy.setToolTipText("Give some details and possibility of modification ");
-            butViewStudy.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    butViewStudyActionPerformed(evt);
-                }
-            });
+        butViewStudy.setText("View Study Details");
+        butViewStudy.setToolTipText("Give some details and possibility of modification ");
+        butViewStudy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                butViewStudyActionPerformed(evt);
+            }
+        });
 
-            butCancel.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    butCancelActionPerformed(evt);
-                }
-            });
+        butCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                butCancelActionPerformed(evt);
+            }
+        });
 
-            jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/refresh1.png"))); // NOI18N
-            jButton1.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    jButton1ActionPerformed(evt);
-                }
-            });
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/refresh1.png"))); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
-            butLaunchLocal.setText("Track Local");
-            butLaunchLocal.setToolTipText("Analysis of local work. No contact with Svn");
-            butLaunchLocal.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    butLaunchLocalActionPerformed(evt);
-                }
-            });
+        butLaunchLocal.setText("Track Local");
+        butLaunchLocal.setToolTipText("Analysis of local work. No contact with Svn");
+        butLaunchLocal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                butLaunchLocalActionPerformed(evt);
+            }
+        });
 
-            javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-            getContentPane().setLayout(layout);
-            layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(0, 3, Short.MAX_VALUE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(17, 17, 17))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(22, 22, 22)
-                            .addComponent(butCancel)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(butViewStudy)
-                            .addGap(26, 26, 26))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(jLabel6)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(comboStudyPath, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(butAddPath, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(butLaunchSVN)
-                                        .addComponent(butLaunchLocal))
-                                    .addGap(0, 0, Short.MAX_VALUE)))
-                            .addGap(18, 18, 18)))
-                    .addComponent(butSelect, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(21, 21, 21))
-            );
-            layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(2, 2, 2)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addContainerGap()
-                                    .addComponent(jButton1)))
-                            .addGap(56, 56, 56)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel6)
-                                .addComponent(comboStudyPath, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(butAddPath))
-                            .addGap(41, 41, 41)
-                            .addComponent(butLaunchLocal)
-                            .addGap(29, 29, 29)
-                            .addComponent(butLaunchSVN)
-                            .addGap(37, 37, 37)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(butCancel)
-                                .addComponent(butViewStudy))
-                            .addGap(0, 104, Short.MAX_VALUE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(2, 2, 2)
-                            .addComponent(butSelect, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
-                    .addContainerGap())
-            );
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 25, Short.MAX_VALUE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(17, 17, 17))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(butCancel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(butViewStudy)
+                        .addGap(26, 26, 26))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(comboStudyPath, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(butAddPath, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(butLaunchSVN)
+                                    .addComponent(butLaunchLocal))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(18, 18, 18)))
+                .addComponent(butSelect, javax.swing.GroupLayout.PREFERRED_SIZE, 481, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(2, 2, 2)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jButton1)))
+                .addGap(56, 56, 56)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(comboStudyPath, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(butAddPath))
+                .addGap(41, 41, 41)
+                .addComponent(butLaunchLocal)
+                .addGap(29, 29, 29)
+                .addComponent(butLaunchSVN)
+                .addGap(37, 37, 37)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(butCancel)
+                    .addComponent(butViewStudy))
+                .addContainerGap(115, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 11, Short.MAX_VALUE)
+                .addComponent(butSelect, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
-            pack();
-        }// </editor-fold>//GEN-END:initComponents
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
 
     private void butLaunchSVNActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_butLaunchSVNActionPerformed
     {//GEN-HEADEREND:event_butLaunchSVNActionPerformed
@@ -233,7 +231,7 @@ public class FenStudy extends FenGenerik {
             this.dispose();
             FenProgress fenp = new FenProgress();
             fenp.setVisible(true);
-            metier.OverView ov = new metier.OverView(pathSvnDel, false);
+            metier.OverView ov = new metier.OverView(pathSvnDel,pathSvnDoc, false);
             ov.overview();
 
         }
@@ -247,7 +245,7 @@ public class FenStudy extends FenGenerik {
         //this.setSize(1000, 400);
         int retour = butSelect.showOpenDialog(this);
         if (retour == JFileChooser.APPROVE_OPTION) {
-            select = butSelect.getSelectedFile().getAbsolutePath();
+            select = butSelect.getSelectedFile().getAbsolutePath()+"\\";
             System.out.println("select: " + select);
             //this.setSize(500,400);
             if (!Check.checkIsIn(select, list)) {

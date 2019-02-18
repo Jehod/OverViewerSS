@@ -21,7 +21,7 @@ import java.util.List;
  *
  * @author nrochas
  */
-public class ScreenFilesDAO extends ScreenFilesDAOExt {
+public class SvnScreenFilesDAO extends ScreenFilesDAOExt {
 
     private final String pathScreens;
     private String studyName;
@@ -34,7 +34,7 @@ public class ScreenFilesDAO extends ScreenFilesDAOExt {
 
     private final DateManager dateM = new DateManager();
 
-    public ScreenFilesDAO(String fileName, String langue) {
+    public SvnScreenFilesDAO(String fileName, String langue) {
         ssp = Params.getInstance().studyParam;
         //this.pathScreens = Params.getInstance().studyPath +ssp.getPathScreens();
         //this.pathScreens = pathScreens+ssp.getPathScreens();
@@ -43,6 +43,8 @@ public class ScreenFilesDAO extends ScreenFilesDAOExt {
         listScreens = svn.listSVNByExt(this.pathScreens, ".pdf");
         
     }
+
+  
 
     @Override
     public boolean checkExistingPDF(String langue, String formulaire, String version) {

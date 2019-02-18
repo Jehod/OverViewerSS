@@ -5,6 +5,7 @@
  */
 package DAO;
 
+import DAO.interfaceDAO.RowTrackerDAO;
 import entity.SimpleRowTracker;
 import java.io.File;
 import java.io.IOException;

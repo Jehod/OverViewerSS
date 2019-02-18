@@ -5,7 +5,7 @@
  */
 package DAO;
 
-import Outils.Check;
+import DAO.interfaceDAO.StudyParamsDAO;
 import com.JehodFactory.overviewerss.Params;
 import entity.SimpleStudyParam;
 import java.util.ArrayList;
@@ -17,9 +17,11 @@ import java.util.HashMap;
  */
 public class JsonStudyParamsDAO implements StudyParamsDAO {
 
+    private boolean bob;
+    
     @Override
     public boolean createStudy(String name, String trad, String tablet, boolean font, String pathSvnDel, String pathSvnDoc) {
-        boolean bob = false;
+       
 
         SimpleStudyParam ssp = new SimpleStudyParam(new ArrayList<>(), trad, new HashMap(), tablet, font, pathSvnDoc, pathSvnDel);//(new ArrayList<>(), trad, pathLabel, pathScreens, certif, tablet, font, new HashMap<>());
 
@@ -35,7 +37,7 @@ public class JsonStudyParamsDAO implements StudyParamsDAO {
 
     @Override
     public boolean addStudyPath(String studyName, String newPath) {
-        boolean bob = false;
+      
         ArrayList listPath = Params.getInstance().studyParam.getListStudyPath();
         System.out.println("list size:"+listPath.size()+" newPath "+newPath);
 

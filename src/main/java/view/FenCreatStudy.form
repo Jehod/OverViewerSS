@@ -81,35 +81,38 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="labfont" max="32767" attributes="0"/>
-                              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                              <Component id="cBxFont" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="129" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="labPathSvnDel" alignment="1" min="-2" pref="123" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="labPathSvnDoc" pref="123" max="32767" attributes="0"/>
+                                  <Component id="labfont" max="32767" attributes="0"/>
+                              </Group>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="labPathSvnDoc" min="-2" pref="181" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="txtfPathSvnDoc" max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="labPathSvnDel" min="-2" pref="181" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="txtfsPathSvnDel" min="-2" pref="225" max="-2" attributes="0"/>
+                          <EmptySpace pref="10" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="txtfPathSvnDoc" alignment="1" max="32767" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="cBxFont" min="-2" pref="154" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="129" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="txtfsPathSvnDel" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="labname" max="32767" attributes="0"/>
-                              <Component id="labtrad" max="32767" attributes="0"/>
-                              <Component id="labTabler1" pref="182" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Group type="102" alignment="1" attributes="0">
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="labTabler1" min="-2" pref="113" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="labtrad" alignment="0" max="32767" attributes="0"/>
+                              <Component id="labname" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="txtfTrad" max="32767" attributes="0"/>
                               <Component id="txtfstudyname" max="32767" attributes="0"/>
-                              <Component id="txtfTAblet" alignment="0" max="32767" attributes="0"/>
+                              <Component id="txtfTAblet" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>

@@ -7,9 +7,13 @@ package metier;
 
 import DAO.CertifFilesDAO;
 import DAO.LabelFileDAO;
+import DAO.LabelFileDAOExt;
 import DAO.PoiStudyTrackerDAO;
 import DAO.PoiTrackerDAO;
 import DAO.ScreenFilesDAO;
+import DAO.ScreenFilesDAOExt;
+import DAO.SvnLabelFileDAO;
+import DAO.SvnScreenFilesDAO;
 import com.JehodFactory.overviewerss.Params;
 import entity.SimpleRowTracker;
 import entity.SimpleStudyTracker;
@@ -27,7 +31,7 @@ import view.FenEnd;
  * @author nrochas
  */
 public class OverView {
-    
+
     entity.SimpleStudyParam params = Params.getInstance().studyParam;
     final String path;
     final String pathSvnDoc;
@@ -36,19 +40,19 @@ public class OverView {
     final String pathFinalsScreens = params.getPathFinalsScreens();
     final String pathCertifs = params.getPathCertifs();
     final Boolean local;
-    
+
     public OverView(String path, String pathSvnDoc, boolean local) {
         this.path = path;
         this.local = local;
         this.pathSvnDoc = pathSvnDoc;
-        
+
     }
-    
+
     public OverView(String path, boolean local) {
         this.path = path;
         this.local = local;
         this.pathSvnDoc = null;
-        
+
     }
 
     /**
@@ -57,13 +61,23 @@ public class OverView {
      */
     public void overview() {
 
+        PoiTrackerDAO ptk;
+
+        LabelFileDAOExt lbf;
         //on liste les dossiers de langues
         List<String> listLang;
-        LabelFileDAO lbf = new LabelFileDAO(path + pathLabels);
-        
+        //une version label local et une version svn
+        if (local) {
+            System.out.println("pathLocal des labels: " + path + pathLabels);
+            lbf = new LabelFileDAO(path + pathLabels);
+        } else {
+            lbf = new SvnLabelFileDAO(path + pathLabels);
+        }
+
+        ScreenFilesDAOExt scf;
+
+        //utile que pour la track svn
         CertifFilesDAO ctf = null;
-        PoiTrackerDAO ptk;
-        ScreenFilesDAO scf;
         ScreenFilesDAO scfFinals = null;
 
         //on pointe le dossier de screenshot
@@ -71,6 +85,7 @@ public class OverView {
         listLang = lbf.getAllLabelsFiles();
         List<SimpleTracker> listTrackers = new ArrayList<>();
 
+        System.out.println("listlang: " + listLang.size());
         //on alerte si pas de dossier de langue
         if (listLang.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Aucun dossier de langue trouvé. Track end", "Warning", JOptionPane.ERROR_MESSAGE, new ImageIcon("C:\\Users\\nik\\Documents\\NetBeansProjects\\OverViewerSS\\src\\main\\resources\\rugissment.png"));
@@ -83,62 +98,111 @@ public class OverView {
                 ptk = new PoiTrackerDAO(path + pathLabels + dir);
                 scf = new ScreenFilesDAO(path + pathScreens, dir);//("svn://svn.kayentis.fr:14000/Kayentis/Novartis/CAIN457M2301/trunk");//(path + pathScreenshot);
 
-                //on pointe l'url des certifs et des screens finaux si on n'est pas local
-                if (!local) {
-                    ctf = new CertifFilesDAO(pathSvnDoc + pathCertifs, dir);
-                    scfFinals = new ScreenFilesDAO(pathSvnDoc + pathFinalsScreens, dir);
-                }
-                
+                //traitement commun en local ou svn
                 SimpleTracker smt = ptk.createTrackerFromLabel(dir);
 
-                //comme le rowtracker ont été créé depuis les labels il manque plusieurs infos
-                //on fait ici l'ajout de la verif de screenshot et de certif si !local
-                if (new File(path + pathLabels + dir).exists()) {
-                    //pour chaque questionnaire de la langue
-                    for (SimpleRowTracker rt : smt.getAllRowTracker()) {
-                        System.out.println("pathcertif " + path + pathCertifs);
-                        System.out.println("patscreen " + path + pathScreens);
-                        
-                        if (rt.getFormulaire().contains("Training")) {
-                            rt.setScreenDone(scf.searchTrainingPDF(dir, rt.getFormulaire(), rt.getVersion()));
-                        } else {
-                            
-                            if (scf.checkExistingPDF(dir, rt.getFormulaire(), rt.getVersion())) {
-                                rt.setScreenDone("Yes");//scf.getDateLastModifPDF(dir, rt.getFormulaire(), rt.getVersion()));
-                            }
-                            
-                            //lance les controle sur svn sur on n'est pas local
-                            if (!local) {
-                                
-                                if (scfFinals.checkExistingPDF(dir, rt.getFormulaire(), rt.getVersion())) {
-                                    rt.setScreenDone("Yes");
-                                } else {
-                                    rt.setScreenDone("No");
-                                }                                
-                                
-                                if (rt.getVersion().contains(".0.0") && rt.getScreenDone().equals("Yes") && ctf.checkCertif(rt.getFormulaire(), rt.getVersion())) {
-                                    rt.setCertified("Yes");
-                                }
-                            }
-                            
-                        }
-                    }
-                    
-                }
+                ///le simpleTracker n'ayant que les infos du labels , un second TT ajoute les screenshot (et finaux et certif si svn)
+                if (local) {
+                    smt = localTraitement(dir, smt, scf, ptk);
+                } else {
+                    smt = svnTraitement(dir, smt, scf, ptk);
 
-                //on agrege la liste de tout les trackers et on ecrit le tracker de label
+                }
                 listTrackers.add(smt);
-                ptk.svgTracker(smt);
-                
             }
 
             //on creer le studytracker avec tout ce qu'on a recuperé et on le svg          
             PoiStudyTrackerDAO pstk = new PoiStudyTrackerDAO(path + pathLabels, local);
             pstk.svgStudyTracker(new SimpleStudyTracker((ArrayList<SimpleTracker>) listTrackers));
-            
+
             FenEnd fe = new FenEnd();
             fe.setVisible(true);
+
         }
     }
-    
+
+    /**
+     * Traitement en local pour l'iteration de la boucle d'un fichier de langue
+     *
+     * @param dir la langue
+     * @param smt le tracker dédié a cette langue
+     * @param scf le dossier de screenshot de cette langue
+     * @param ptk le tracker POI pour l'output
+     * @return renvoie le Simpletracker completé
+     */
+    private SimpleTracker localTraitement(String dir, SimpleTracker smt, ScreenFilesDAOExt scf, PoiTrackerDAO ptk) {
+
+        // ArrayList list = new ArrayList();
+        scf = new ScreenFilesDAO(path + pathScreens, dir);
+        //comme le rowtracker ont été créé depuis les labels il manque plusieurs infos
+        //on fait ici l'ajout de la verif de screenshot et de certif si !local
+        if (new File(path + pathLabels + dir).exists()) {
+            //pour chaque questionnaire de la langue
+            for (SimpleRowTracker rt : smt.getAllRowTracker()) {
+                System.out.println("pathLabels " + path + pathLabels);
+                System.out.println("patscreen " + path + pathScreens);
+
+                if (rt.getFormulaire().contains("Training")) {
+                    rt.setScreenDone(scf.searchTrainingPDF(dir, rt.getFormulaire(), rt.getVersion()));
+                } else {
+
+                    if (scf.checkExistingPDF(dir, rt.getFormulaire(), rt.getVersion())) {
+                        rt.setScreenDone("Yes");
+                        //pour avoir la date //scf.getDateLastModifPDF(dir, rt.getFormulaire(), rt.getVersion()));
+                    }
+
+                }
+                //pas de certif en appli local
+                rt.setCertified("Local");
+            }
+
+        }
+
+        //en local on svg dans chaque dossier de langue
+        ptk.svgTracker(smt);
+
+        return smt;
+    }
+
+    private SimpleTracker svnTraitement(String dir, SimpleTracker smt, ScreenFilesDAOExt scf, PoiTrackerDAO ptk) {
+       
+
+        CertifFilesDAO ctf = new CertifFilesDAO(pathSvnDoc + pathCertifs, dir);
+        SvnScreenFilesDAO scfFinals = new SvnScreenFilesDAO(pathSvnDoc + pathFinalsScreens, dir);
+        scf = new SvnScreenFilesDAO(path + pathScreens, dir);
+
+      
+        if (new File(path + pathLabels + dir).exists()) {
+            //pour chaque questionnaire de la langue
+            for (SimpleRowTracker rt : smt.getAllRowTracker()) {
+                System.out.println("pathLabels"+path+pathLabels);
+                System.out.println("pathcertif " + path + pathCertifs);
+                System.out.println("patscreen " + path + pathScreens);
+
+                if (rt.getFormulaire().contains("Training")) {
+                    rt.setScreenDone(scf.searchTrainingPDF(dir, rt.getFormulaire(), rt.getVersion()));
+                } else {
+
+                    if (!rt.getVersion().endsWith(".0.0")) {
+
+                        if (scf.checkExistingPDF(dir, rt.getFormulaire(), rt.getVersion())) {rt.setScreenDone("Yes");}
+                            
+                        
+                    } else {
+
+                        //check supplementaire des versions finals et des certifs
+                        if (scfFinals.checkExistingPDF(dir, rt.getFormulaire(), rt.getVersion())) {
+                           
+                            rt.setScreenDone("Yes");
+                            if (ctf.checkCertif(rt.getFormulaire(), rt.getVersion())) { rt.setCertified("Yes");}
+
+                        }
+                    }
+
+                }
+
+               
+            } 
+        }return smt;
+    }
 }

@@ -52,7 +52,7 @@ public class FilesWorker {
      */
     public static List ListerFilesByExt(String path, String filtre) {
         File f = new File(path);
-        List list  = new ArrayList();
+        List list = new ArrayList();
 
         FilenameFilter filter = (File dir, String name) -> (name.toLowerCase().endsWith(filtre));
 
@@ -153,11 +153,13 @@ public class FilesWorker {
         FilenameFilter filter = (File dir, String name) -> (name.toLowerCase().endsWith(fiExt));
 
         String[] noms = f.list(filter);
-        for (String nom : noms) {
-            if (nom.startsWith(fiStart)) {
-                list.add(nom);
-            }
+        if (noms != null) {
+            for (String nom : noms) {
+                if (nom.startsWith(fiStart)) {
+                    list.add(nom);
+                }
 
+            }
         }
 
         System.out.println("list de" + list.toString());

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package entity;
+package entity.interfaceEntity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ import java.util.HashMap;
  *
  * @author nrochas
  */
-interface StudyParams extends Serializable{
+public interface StudyParams extends Serializable{
 
     
     public String getTrad();
