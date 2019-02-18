@@ -228,7 +228,7 @@ public class SVNWorker {
 
     /**
      * detruit un fichier cible present dans l'adresse svn filePath
-     *
+     * attention Ne test pas son existence avant
      * @param filePath
      * @param cible
      * @return
@@ -272,6 +272,12 @@ public class SVNWorker {
         return bob;
     }
 
+    /**
+     * list le contenu d'un depot svn suivant le matching du nom de dossier/ fichier
+     * @param pathLabels
+     * @param form
+     * @return 
+     */
     public ArrayList listSVNByForm(String pathLabels, String form) {
         ArrayList<String> list = new ArrayList();
 
@@ -289,8 +295,8 @@ public class SVNWorker {
             BufferedReader stdout = new BufferedReader(new InputStreamReader(
                     powerShellProcess.getInputStream()));
             while ((line = stdout.readLine()) != null) {
-                String str = line; //extractName(line, ext);
-                if (str != null && str.matches(form + "/")) {
+                String str = line.replace("/", ""); //extractName(line, ext);
+                if (str != null && str.matches(form)) {
                     list.add(str);
 
                 }
@@ -314,11 +320,18 @@ public class SVNWorker {
         return list;
     }
 
+    /**
+     * list le contenu d'un depot psvn avec un filtre prefex et un suffix
+     * @param URL
+     * @param prefix
+     * @param ends
+     * @return 
+     */
     public List<String> listSVNByExtAndStart(String URL, String prefix, String ends) {
          ArrayList list = new ArrayList();
 
         //dans le commande ne pas oublié les '' en plus, pour que ce soit reconnu dans Powershell
-        String command = "powershell.exe svn list '" + URL + "'";//'svn://svn.kayentis.fr:14000/Kayentis/testeclient/teststudy'";
+        String command = "powershell.exe svn list '" + URL + "'";
 
         try {
 
@@ -356,6 +369,15 @@ public class SVNWorker {
         return list;
     }
 
+    /**
+     * copie un fichier cible d'une URL de depot vers un fichier local pathTEMP
+     * si le fichier existe deja ca l'ecrase.
+     * ne verifie pas si le fichier existe avant de tenter la copie
+     * @param URL
+     * @param cible
+     * @param pathTEMP
+     * @return 
+     */
     public File copyInTempLocal(String URL, String cible, String pathTEMP) {
        
         File file =null;
@@ -375,7 +397,7 @@ public class SVNWorker {
                     powerShellProcess.getInputStream()));
             while ((line = stdout.readLine()) != null) {
                 String str = line; 
-                System.out.println(str );
+                
                 file = new File(pathTEMP+cible);
          
             }
@@ -387,7 +409,7 @@ public class SVNWorker {
                 System.out.println(line);
             }
             stderr.close();
-            System.out.println("Done :");
+            
 
         } catch (IOException ex) {
             System.out.println("catch du listsVN " + ex.getLocalizedMessage());

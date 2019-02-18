@@ -71,11 +71,11 @@ public class FenStudy extends FenGenerik {
         comboStudyPath = new javax.swing.JComboBox<>();
         butLaunchSVN = new ButtonGenerik();
         butAddPath = new ButtonGenerik();
-        butSelect = new javax.swing.JFileChooser();
         butViewStudy = new ButtonGenerik();
         butCancel = new ButtonCancel();
         jButton1 = new ButtonRefresh();
         butLaunchLocal = new ButtonGenerik();
+        butSelect = new javax.swing.JFileChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -109,19 +109,6 @@ public class FenStudy extends FenGenerik {
             }
         });
 
-        butSelect.setAcceptAllFileFilterUsed(false);
-        butSelect.setApproveButtonText("Select");
-        butSelect.setApproveButtonToolTipText("");
-        butSelect.setControlButtonsAreShown(false);
-        butSelect.setCurrentDirectory(new java.io.File("D:\\project"));
-        butSelect.setDialogTitle("");
-        butSelect.setFileSelectionMode(javax.swing.JFileChooser.DIRECTORIES_ONLY);
-        butSelect.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                butSelectActionPerformed(evt);
-            }
-        });
-
         butViewStudy.setText("View Study Details");
         butViewStudy.setToolTipText("Give some details and possibility of modification ");
         butViewStudy.addActionListener(new java.awt.event.ActionListener() {
@@ -151,6 +138,13 @@ public class FenStudy extends FenGenerik {
             }
         });
 
+        butSelect.setCurrentDirectory(new java.io.File("D:\\Projets"));
+        butSelect.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                butSelectActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -159,17 +153,16 @@ public class FenStudy extends FenGenerik {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 25, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(17, 17, 17))
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addComponent(butCancel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(butViewStudy)
-                        .addGap(26, 26, 26))
+                        .addGap(19, 19, 19))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -183,8 +176,9 @@ public class FenStudy extends FenGenerik {
                                     .addComponent(butLaunchSVN)
                                     .addComponent(butLaunchLocal))
                                 .addGap(0, 0, Short.MAX_VALUE)))
-                        .addGap(18, 18, 18)))
-                .addComponent(butSelect, javax.swing.GroupLayout.PREFERRED_SIZE, 481, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(11, 11, 11)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(butSelect, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -192,28 +186,31 @@ public class FenStudy extends FenGenerik {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jButton1)))
-                .addGap(56, 56, 56)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(comboStudyPath, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(butAddPath))
-                .addGap(41, 41, 41)
-                .addComponent(butLaunchLocal)
-                .addGap(29, 29, 29)
-                .addComponent(butLaunchSVN)
-                .addGap(37, 37, 37)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(butCancel)
-                    .addComponent(butViewStudy))
-                .addContainerGap(115, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 11, Short.MAX_VALUE)
-                .addComponent(butSelect, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(2, 2, 2)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jButton1)))
+                        .addGap(56, 56, 56)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(comboStudyPath, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(butAddPath))
+                        .addGap(41, 41, 41)
+                        .addComponent(butLaunchLocal)
+                        .addGap(29, 29, 29)
+                        .addComponent(butLaunchSVN)
+                        .addGap(37, 37, 37)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(butCancel)
+                            .addComponent(butViewStudy))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(butSelect, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
 
         pack();
@@ -256,12 +253,6 @@ public class FenStudy extends FenGenerik {
         }
     }//GEN-LAST:event_butAddPathActionPerformed
 
-    private void butSelectActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_butSelectActionPerformed
-    {//GEN-HEADEREND:event_butSelectActionPerformed
-
-
-    }//GEN-LAST:event_butSelectActionPerformed
-
     private void butViewStudyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butViewStudyActionPerformed
         FenViewStudy fw = new FenViewStudy(this);
         this.setVisible(false);
@@ -301,6 +292,10 @@ public class FenStudy extends FenGenerik {
             }
         }
     }//GEN-LAST:event_butLaunchLocalActionPerformed
+
+    private void butSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butSelectActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_butSelectActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

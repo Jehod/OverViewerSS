@@ -16,8 +16,6 @@ import entity.SimpleTracker;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -99,7 +97,7 @@ public class PoiTrackerDAO implements TrackerDAO {
         Boolean findTrain = false;
 
         //on list les excels de label presents 
-        List<String> listXls = new ArrayList<>();
+        List<String> listXls ;
         System.out.println("filename: " + fileName);
         listXls = FilesWorker.ListerFilesByExtAndStart(fileName, "Label", ".xlsx");
         // PoiRowTrackerDAO prtk = new PoiRowTrackerDAO(path + pathLabels + dir + "\\Tracker_" + dir + ".xlsx");

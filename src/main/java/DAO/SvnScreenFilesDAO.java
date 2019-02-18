@@ -36,9 +36,11 @@ public class SvnScreenFilesDAO extends ScreenFilesDAOExt {
 
     public SvnScreenFilesDAO(String fileName, String langue) {
         ssp = Params.getInstance().studyParam;
-        //this.pathScreens = Params.getInstance().studyPath +ssp.getPathScreens();
-        //this.pathScreens = pathScreens+ssp.getPathScreens();
-        this.pathScreens = fileName + langue;
+      
+        //this.pathScreens = fileName + langue;
+       
+        this.pathScreens = "svn://document.kayentis.fr:15000/kayentis/Documentation/Projets/Santé/Novartis/CAIN457M2301-M2302/3- Functional scope/2- Forms/2- Kayentis design/1 - Screenshots/"+langue+"M2302";
+        
         this.langue = langue;
         listScreens = svn.listSVNByExt(this.pathScreens, ".pdf");
         
@@ -60,19 +62,7 @@ public class SvnScreenFilesDAO extends ScreenFilesDAOExt {
             System.out.println("+++++++++ " + pathScreens +  "/" + formulaire + "_" + langue + "_v"+version +".pdf" + " InTROUVABLE++++");
         }
         
-        /*
-        if (new File((pathScreens + "/" + langue + "/" + formulaire + "_" + langue + "_v" + version + ".pdf")) != null) {
-            bob = true;
-
-            System.out.println("+++++++++ " + pathScreens + "/" + langue + "/" + formulaire + "_" + langue + "_v" + version + ".pdf" + " a ete trouve++++");
-        } //partie qui sera remplacé par le mapping
-        /*else if (bob == false) {
-            bob = compareQuest(langue, formulaire, version);
-        } */ 
-        /*else {
-            System.out.println("+++++++++ " + pathScreens + "/" + langue + "/" + formulaire + "_" + langue + "_v" + version + ".pdf" + " InTROUVABLE++++");
-        }
-        */
+     
 
         return bob;
 
