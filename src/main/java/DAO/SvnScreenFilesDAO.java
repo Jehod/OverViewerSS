@@ -38,7 +38,7 @@ public class SvnScreenFilesDAO extends ScreenFilesDAOExt {
         ssp = Params.getInstance().studyParam;
         //this.pathScreens = Params.getInstance().studyPath +ssp.getPathScreens();
         //this.pathScreens = pathScreens+ssp.getPathScreens();
-        this.pathScreens = fileName + "/" + langue;
+        this.pathScreens = fileName + langue;
         this.langue = langue;
         listScreens = svn.listSVNByExt(this.pathScreens, ".pdf");
         

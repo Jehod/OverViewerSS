@@ -61,8 +61,15 @@ public class OverView {
      */
     public void overview() {
 
+        //dao des output excel
         PoiTrackerDAO ptk;
+        //dao des screenshots instancié dans les methodes en local ou en svn
+        ScreenFilesDAOExt scf;
+        
+        //on prepare la liste des trackers qui construira le study tracker
+        List<SimpleTracker> listTrackers = new ArrayList<>();
 
+        
         LabelFileDAOExt lbf;
         //on liste les dossiers de langues
         List<String> listLang;
@@ -73,19 +80,10 @@ public class OverView {
         } else {
             lbf = new SvnLabelFileDAO(path + pathLabels);
         }
-
-        ScreenFilesDAOExt scf;
-
-        //utile que pour la track svn
-        CertifFilesDAO ctf = null;
-        ScreenFilesDAO scfFinals = null;
-
-        //on pointe le dossier de screenshot
-        // ScreenFilesDAO scf = new ScreenFilesDAO(path + pathScreenshot);//("svn://svn.kayentis.fr:14000/Kayentis/Novartis/CAIN457M2301/trunk");//(path + pathScreenshot);
+        //on recupere les dossiers de lables
         listLang = lbf.getAllLabelsFiles();
-        List<SimpleTracker> listTrackers = new ArrayList<>();
-
         System.out.println("listlang: " + listLang.size());
+
         //on alerte si pas de dossier de langue
         if (listLang.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Aucun dossier de langue trouvé. Track end", "Warning", JOptionPane.ERROR_MESSAGE, new ImageIcon("C:\\Users\\nik\\Documents\\NetBeansProjects\\OverViewerSS\\src\\main\\resources\\rugissment.png"));
@@ -98,14 +96,15 @@ public class OverView {
                 ptk = new PoiTrackerDAO(path + pathLabels + dir);
                 scf = new ScreenFilesDAO(path + pathScreens, dir);//("svn://svn.kayentis.fr:14000/Kayentis/Novartis/CAIN457M2301/trunk");//(path + pathScreenshot);
 
-                //traitement commun en local ou svn
-                SimpleTracker smt = ptk.createTrackerFromLabel(dir);
+                
+                SimpleTracker smt = null;
 
                 ///le simpleTracker n'ayant que les infos du labels , un second TT ajoute les screenshot (et finaux et certif si svn)
                 if (local) {
-                    smt = localTraitement(dir, smt, scf, ptk);
+                    
+                    smt = localTraitement(dir, scf, ptk);
                 } else {
-                    smt = svnTraitement(dir, smt, scf, ptk);
+                    smt = svnTraitement(dir, scf, ptk);
 
                 }
                 listTrackers.add(smt);
@@ -130,8 +129,9 @@ public class OverView {
      * @param ptk le tracker POI pour l'output
      * @return renvoie le Simpletracker completé
      */
-    private SimpleTracker localTraitement(String dir, SimpleTracker smt, ScreenFilesDAOExt scf, PoiTrackerDAO ptk) {
+    private SimpleTracker localTraitement(String dir, ScreenFilesDAOExt scf, PoiTrackerDAO ptk) {
 
+        SimpleTracker smt = ptk.createTrackerFromLabel(dir);
         // ArrayList list = new ArrayList();
         scf = new ScreenFilesDAO(path + pathScreens, dir);
         //comme le rowtracker ont été créé depuis les labels il manque plusieurs infos
@@ -164,9 +164,10 @@ public class OverView {
         return smt;
     }
 
-    private SimpleTracker svnTraitement(String dir, SimpleTracker smt, ScreenFilesDAOExt scf, PoiTrackerDAO ptk) {
+    private SimpleTracker svnTraitement(String dir, ScreenFilesDAOExt scf, PoiTrackerDAO ptk) {
        
-
+         SimpleTracker smt = ptk.createTrackerFromSVNLabel(dir);
+        
         CertifFilesDAO ctf = new CertifFilesDAO(pathSvnDoc + pathCertifs, dir);
         SvnScreenFilesDAO scfFinals = new SvnScreenFilesDAO(pathSvnDoc + pathFinalsScreens, dir);
         scf = new SvnScreenFilesDAO(path + pathScreens, dir);
@@ -183,6 +184,7 @@ public class OverView {
                     rt.setScreenDone(scf.searchTrainingPDF(dir, rt.getFormulaire(), rt.getVersion()));
                 } else {
 
+                    //si ce n'est pas un label final on TraiTe normal sinon TTT en screenfinal
                     if (!rt.getVersion().endsWith(".0.0")) {
 
                         if (scf.checkExistingPDF(dir, rt.getFormulaire(), rt.getVersion())) {rt.setScreenDone("Yes");}

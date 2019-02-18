@@ -257,15 +257,14 @@ public class JsonWorker {
      * @param tabModel
      * @param fontSamsung
      * @param listStudyPath
-     * @param pathLabels
-     * @param pathScreens
-     * @param pathCertifs
+     * @param pathSvnDoc
      * @param map
+     * @param pathSvnDel
      */
     public boolean fillStudy(String studyName, String trad, String tabModel, boolean fontSamsung,
             ArrayList<String> listStudyPath, String pathSvnDoc, String pathSvnDel, HashMap<String, String> map) {
 
-        boolean bob = false;
+        boolean bob =false;
         JSONArray tab = null;
 
         if (jo != null) {
@@ -277,16 +276,7 @@ public class JsonWorker {
             JSONObject next = (JSONObject) it.next();
 
             if (next.get("Name").equals(studyName)) {
-/*
-                next.put("Trad", trad);
-                next.put("Tablet", tabModel);
-                next.put("Font", fontSamsung);
-                next.put("path", listStudyPath);
-                next.put("pathLabels", pathLabels);
-                next.put("pathScreens", pathScreens);
-                next.put("pathCertifs", pathCertifs);
-                next.put("map", map);
-*/
+
                 next.put("Trad", trad);
                 next.put("Tablet", tabModel);
                 next.put("Font", fontSamsung);
@@ -295,7 +285,7 @@ public class JsonWorker {
                 next.put("pathSvnDoc", pathSvnDoc);
                 next.put("map", map);
 
-                bob = true;
+               
             }
             bob = writeOnJson();
         }

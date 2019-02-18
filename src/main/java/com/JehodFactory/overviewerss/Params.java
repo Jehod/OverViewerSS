@@ -23,6 +23,8 @@ public class Params {
     private final String settings = "OverViewer_Settings.json";
     //recup de la variable d'environnement
     private final String bin = System.getenv("bin") + "\\";
+    //le fichier temporaire pour les aller retour svn
+    private final String pathTEMP = "D:\\";
 
     private JsonWorker jw;
 
@@ -73,7 +75,7 @@ public class Params {
         String trad = jw.getValueCibleOfStudy(studyName, "Trad");
         String tabModel = jw.getValueCibleOfStudy(studyName, "Tablet");
         Boolean font = jw.getBooleanCibleOfStudy(studyName, "Font");
-        System.out.println("le svn DOc depuis le accede study"+jw.getValueCibleOfStudy(studyName, "pathSvnDoc"));
+        
         String pathSvnDoc = jw.getValueCibleOfStudy(studyName, "pathSvnDoc").replace("Ã©", "é");
         String pathSvnDel = jw.getValueCibleOfStudy(studyName, "pathSvnDel").replace("Ã©", "é");
         
@@ -128,6 +130,10 @@ public class Params {
 
     public void setStudyPath(String studyPath) {
         this.studyPath = studyPath;
+    }
+
+    public String getPathTEMP() {
+        return pathTEMP;
     }
     
     

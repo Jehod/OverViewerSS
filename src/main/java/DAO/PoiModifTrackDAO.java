@@ -7,6 +7,7 @@ package DAO;
 
 import DAO.interfaceDAO.ModifTrackDAO;
 import Outils.DateManager;
+import Outils.SVNWorker;
 import entity.SimpleModifTrack;
 import java.io.File;
 import java.io.IOException;
@@ -31,18 +32,28 @@ public class PoiModifTrackDAO implements ModifTrackDAO {
 
     private final String fileName;
     private final String formulaire;
+    private  File file;
 
-    public PoiModifTrackDAO(String fileName) {
+  /*  public PoiModifTrackDAO(String fileName) {
         super();
         this.fileName = fileName;
         formulaire = recupNomForm(this.fileName);
 
+    }*/
+    
+    public PoiModifTrackDAO(String path, String fileXls, File file)
+    {
+        super();
+        fileName = path+fileXls;
+         formulaire = recupNomForm(this.fileName);
+         this.file = file;
     }
 
     @Override
     public List<SimpleModifTrack> findAllModifTrack() {
-        final File file = new File(fileName);
-        final List<SimpleModifTrack> allRow = new ArrayList<SimpleModifTrack>();
+       // final File file = new File(fileName);
+        
+        final List<SimpleModifTrack> allRow = new ArrayList<>();
 
         try {
             final Workbook wb = WorkbookFactory.create(file);
@@ -126,13 +137,15 @@ public class PoiModifTrackDAO implements ModifTrackDAO {
 
     @Override
     public SimpleModifTrack getLastModifTrack() {
-        final File file = new File(fileName);
+       // final File file = new File(fileName);
+         
         SimpleModifTrack mtk = null;
 
         try {
+            
             final Workbook wb = WorkbookFactory.create(file);
             final Sheet sheet = wb.getSheetAt(0);
-
+            
             int index = 1;
             Row row = sheet.getRow(index++);
 
@@ -181,17 +194,17 @@ public class PoiModifTrackDAO implements ModifTrackDAO {
      * @return le nom du qestionnaire
      */
     private String recupNomForm(String fileName) {
-        String formulaire = "erreur";
+        String form = "erreur";
         String[] split;
         if (fileName.contains("Label")) {
             split = fileName.split("Label_");
-            formulaire = split[1].substring(0, split[1].length() - 11);
+            form = split[1].substring(0, split[1].length() - 11);
         } else if (fileName.contains("Labels")) {
             split = fileName.split("Labels_");
-            formulaire = split[1].substring(0, split[1].length() - 11);
+            form = split[1].substring(0, split[1].length() - 11);
         }
 
-        return formulaire;
+        return form;
 
     }
 

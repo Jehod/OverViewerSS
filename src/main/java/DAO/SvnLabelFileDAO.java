@@ -22,6 +22,7 @@ public class SvnLabelFileDAO extends LabelFileDAOExt{
    public SvnLabelFileDAO(String pathLabels) {
        
         this.pathLabels = pathLabels;
+        System.out.println("pathLabels dans le SvnLabelDAO: "+ this.pathLabels);
     }
 
     @Override
@@ -30,7 +31,7 @@ public class SvnLabelFileDAO extends LabelFileDAOExt{
         ArrayList list ;
         list = svn.listSVNByForm(pathLabels, ".._..");
      
-        System.out.println("list "+list.toString());
+        System.out.println("list allLabelsFiles: "+list.toString());
         
         return list;
 

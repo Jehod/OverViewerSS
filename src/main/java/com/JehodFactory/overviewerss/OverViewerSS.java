@@ -29,7 +29,7 @@ public class OverViewerSS {
         
         GraphicCharter instance = GraphicCharter.getInstance();
 
-        Params params = new Params();
+        //Params params = new Params();
         
         
         //lancer le tracker

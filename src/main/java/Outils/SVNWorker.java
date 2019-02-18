@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,6 +20,7 @@ import java.util.logging.Logger;
  */
 public class SVNWorker {
 
+    boolean bob;
     /**
      * permet de commiter un dossier deja versioné
      *
@@ -187,7 +189,7 @@ public class SVNWorker {
      */
     public boolean CheckExistInSVN(String URL, String cible) {
 
-        boolean bob = false;
+         bob = false;
 
         //dans le commande ne pas oublié les '' en plus, pour que ce soit reconnu dans Powershell
         String command = "powershell.exe svn list '" + URL + cible + "'";//'svn://svn.kayentis.fr:14000/Kayentis/testeclient/teststudy'";
@@ -233,7 +235,7 @@ public class SVNWorker {
      */
     public boolean deleteInSVN(String filePath, String cible) {
 
-        boolean bob = false;
+         bob = false;
 
         //dans le commande ne pas oublié les '' en plus, pour que ce soit reconnu dans Powershell
         String command = "powershell.exe svn delete -m'Temporary destruction' '" + filePath + cible + "'";//'svn://svn.kayentis.fr:14000/Kayentis/testeclient/teststudy'";
@@ -288,7 +290,7 @@ public class SVNWorker {
                     powerShellProcess.getInputStream()));
             while ((line = stdout.readLine()) != null) {
                 String str = line; //extractName(line, ext);
-                if (str != null) {
+                if (str != null && str.matches(form + "/")) {
                     list.add(str);
 
                 }
@@ -309,22 +311,91 @@ public class SVNWorker {
             Logger.getLogger(SVNWorker.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        //retrie de la liste suivant la forme
-        ArrayList list2 = new ArrayList();
-        if (!list.isEmpty()) {
-            
-            for (String st : list) {
+        return list;
+    }
 
-                System.out.println("st: "+st);
-                if (st.matches(form+"/")) {
-                    
+    public List<String> listSVNByExtAndStart(String URL, String prefix, String ends) {
+         ArrayList list = new ArrayList();
 
-                    list2.add(st);
-                    System.out.println(" sur la liste: " + st);
+        //dans le commande ne pas oublié les '' en plus, pour que ce soit reconnu dans Powershell
+        String command = "powershell.exe svn list '" + URL + "'";//'svn://svn.kayentis.fr:14000/Kayentis/testeclient/teststudy'";
+
+        try {
+
+            // Executing the command
+            Process powerShellProcess = Runtime.getRuntime().exec(command);
+            // Getting the results
+            powerShellProcess.getOutputStream().close();
+            String line;
+            System.out.println("Standard Output:");
+            BufferedReader stdout = new BufferedReader(new InputStreamReader(
+                    powerShellProcess.getInputStream()));
+            while ((line = stdout.readLine()) != null) {
+                String str = line; //extractName(line, ext);
+                if (str != null && str.endsWith(ends) && str.startsWith(prefix) ) {
+                    list.add(str);
+                    System.out.println(" sur la liste: " + str);
                 }
+
             }
+            stdout.close();
+            System.out.println("Standard Error:");
+            BufferedReader stderr = new BufferedReader(new InputStreamReader(
+                    powerShellProcess.getErrorStream()));
+            while ((line = stderr.readLine()) != null) {
+                System.out.println(line);
+            }
+            stderr.close();
+            System.out.println("Done :");
+
+        } catch (IOException ex) {
+            System.out.println("catch du listsVN " + ex.getLocalizedMessage());
+            Logger.getLogger(SVNWorker.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return list2;
+        return list;
     }
+
+    public File copyInTempLocal(String URL, String cible, String pathTEMP) {
+       
+        File file =null;
+        
+         String command = "powershell.exe svn export --force '" + URL +cible+ "' '"+pathTEMP+"'";
+
+        try {
+
+            // Executing the command
+            Process powerShellProcess = Runtime.getRuntime().exec(command);
+            // Getting the results
+            powerShellProcess.getOutputStream().close();
+            String line;
+            System.out.println("Standard Output:");
+            BufferedReader stdout = new BufferedReader(new InputStreamReader(
+                   
+                    powerShellProcess.getInputStream()));
+            while ((line = stdout.readLine()) != null) {
+                String str = line; 
+                System.out.println(str );
+                file = new File(pathTEMP+cible);
+         
+            }
+            stdout.close();
+            System.out.println("Standard Error:");
+            BufferedReader stderr = new BufferedReader(new InputStreamReader(
+                    powerShellProcess.getErrorStream()));
+            while ((line = stderr.readLine()) != null) {
+                System.out.println(line);
+            }
+            stderr.close();
+            System.out.println("Done :");
+
+        } catch (IOException ex) {
+            System.out.println("catch du listsVN " + ex.getLocalizedMessage());
+            Logger.getLogger(SVNWorker.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return file;
+    }
+
+    
 }

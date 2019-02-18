@@ -32,9 +32,11 @@ public class PoiStudyTrackerDAO implements StudyTrackerDAO {
 
     private final String pathFileLabels;
     private final boolean local;
-    private String pathSvnDoc = Params.getInstance().studyParam.getPathSvnDoc();
+    private final String pathSvnDoc = Params.getInstance().studyParam.getPathSvnDoc();
+    private final String pathTEMP = Params.getInstance().getPathTEMP();
     private Workbook wb = null;
     private File file;
+    private boolean bob;
 
     public PoiStudyTrackerDAO(String fileName, Boolean local) {
         super();
@@ -54,7 +56,7 @@ public class PoiStudyTrackerDAO implements StudyTrackerDAO {
 
     @Override
     public boolean svgStudyTracker(SimpleStudyTracker sst) {
-        boolean bob = false;
+         bob = false;
 
         Sheet sheet = null;
         String date = new DateManager().getSimpleCurrentDate();
@@ -62,7 +64,7 @@ public class PoiStudyTrackerDAO implements StudyTrackerDAO {
         //creer le workbook et la sheet
         try {
 
-            System.out.println("trace: " + sst.toString());
+            
             wb = new XSSFWorkbook();
 //wb = WorkbookFactory.create(file);
 
@@ -132,7 +134,7 @@ public class PoiStudyTrackerDAO implements StudyTrackerDAO {
      * @return
      */
     private boolean svgLocal(String fileStudy) {
-        boolean bob = false;
+         bob = false;
 
         try {
 
@@ -157,15 +159,15 @@ public class PoiStudyTrackerDAO implements StudyTrackerDAO {
      * @return
      */
     private boolean svgSvn(String fileStudy) {
-        boolean bob = false;
+         bob = false;
         String out;
-        String pathTemp = "D:\\";
+        
         Outils.SVNWorker svn = new SVNWorker();
 
         //creation d'un fichier temporaire (on part du principe que l'adresse local n'est pas connu.
         try {
 
-            file = new File(pathTemp + fileStudy);
+            file = new File(pathTEMP + fileStudy);
             FileOutputStream outFile = new FileOutputStream(file);
             wb.write(outFile);
             //outFile.close();
@@ -186,7 +188,7 @@ public class PoiStudyTrackerDAO implements StudyTrackerDAO {
             svn.deleteInSVN(pathFileLabels, fileStudy);
         }
 
-        out = svn.mountInSvn(pathTemp + fileStudy, pathFileLabels + fileStudy);
+        out = svn.mountInSvn(pathTEMP + fileStudy, pathFileLabels + fileStudy);
 
         //out = svn.commitSVN("AutCommit", pathFile);
         
@@ -195,18 +197,13 @@ public class PoiStudyTrackerDAO implements StudyTrackerDAO {
             svn.deleteInSVN(pathSvnDoc, fileStudy);
         }
 
-        out = svn.mountInSvn(pathTemp + fileStudy, pathSvnDoc + fileStudy);
+        out = svn.mountInSvn(pathTEMP + fileStudy, pathSvnDoc + fileStudy);
 
         
-        //on detruit le fichier temp
-         file.delete();
+        //on detruit le fichier temp car on sort
+         file.deleteOnExit();
          
-        /*
-        if (svn.CheckExistInSVN(pathSvnDoc, fileStudy)) {
-            out = svn.commitSVN("AutCommit", pathFile);
-        } else {
-            out = svn.mountInSvn(pathFile, pathSvnDoc + fileStudy);
-        }*/
+       
        
         
         return bob;

@@ -8,12 +8,16 @@ package DAO;
 import DAO.interfaceDAO.TrackerDAO;
 import Outils.DateManager;
 import Outils.FilesWorker;
+import Outils.SVNWorker;
+import com.JehodFactory.overviewerss.Params;
 import entity.SimpleModifTrack;
 import entity.SimpleRowTracker;
 import entity.SimpleTracker;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -32,8 +36,10 @@ import style.StylePoi;
  * @author nik
  */
 public class PoiTrackerDAO implements TrackerDAO {
-
+    
+    final private String pathTEMP = Params.getInstance().getPathTEMP();
     final private String fileName;
+    private boolean bob;
 
     /**
      *
@@ -100,7 +106,9 @@ public class PoiTrackerDAO implements TrackerDAO {
 
         //pour chaque xls de label
         for (String xls : listXls) {
-            PoiModifTrackDAO pmtk = new PoiModifTrackDAO(fileName + "\\" + xls);
+            // PoiModifTrackDAO pmtk = new PoiModifTrackDAO(fileName + "\\" + xls);
+
+            PoiModifTrackDAO pmtk = new PoiModifTrackDAO(fileName, xls, new File(fileName + "\\" + xls));
 
             //on note l'existence d'un training.
             if (xls.toLowerCase().contains("train")) {
@@ -110,13 +118,14 @@ public class PoiTrackerDAO implements TrackerDAO {
             //creation de la ligne
             SimpleModifTrack smtk;
             smtk = pmtk.getLastModifTrack();
+            
             if (smtk.getFormulaire().equals("PARAM") || smtk.getFormulaire().contains("PFT")) {
                 System.out.println("les pft et le param ne sont pas pris");
             } else {
                 allMdT.add(modifTrackToRowTracker(smtk));
             }
 
-            System.out.println("xls traité: " + xls.toString() + " size: " + listXls.size());
+            System.out.println("xls traité: " + xls + " size: " + listXls.size());
         }
 
         //on ajoute un train si il ne l'a pas trouvé
@@ -174,7 +183,7 @@ public class PoiTrackerDAO implements TrackerDAO {
 
     @Override
     public boolean svgTracker(SimpleTracker stk) {
-        boolean bob = false;
+        bob = false;
         Workbook wb = null;
         Sheet sheet = null;
 
@@ -223,6 +232,58 @@ public class PoiTrackerDAO implements TrackerDAO {
 
         return bob;
 
+    }
+
+    public SimpleTracker createTrackerFromSVNLabel(String dir) {
+        SimpleTracker stk;
+        List<SimpleRowTracker> allMdT = new ArrayList<>();
+        Boolean findTrain = false;
+        SVNWorker svn = new SVNWorker();
+       
+
+        //on list les excels de label presents 
+        List<String> listXls;
+        System.out.println("filename: " + fileName);
+
+       
+        listXls = svn.listSVNByExtAndStart(fileName, "Label", ".xlsx");
+
+        //pour chaque xls de label
+        for (String xls : listXls) {
+            
+            File file = svn.copyInTempLocal(fileName, xls, pathTEMP);
+            
+            PoiModifTrackDAO pmtk = new PoiModifTrackDAO(pathTEMP, xls, file);
+
+            //on note l'existence d'un training.
+            if (xls.toLowerCase().contains("train")) {
+                findTrain = true;
+            }
+
+            //creation de la ligne
+            SimpleModifTrack smtk;
+            smtk = pmtk.getLastModifTrack();
+            if (smtk.getFormulaire().equals("PARAM") || smtk.getFormulaire().contains("PFT")) {
+                System.out.println("les pft et le param ne sont pas pris");
+            } else {
+                allMdT.add(modifTrackToRowTracker(smtk));
+            }
+
+            file.deleteOnExit();
+            
+            System.out.println("xls traité: " + xls.toString() + " size: " + listXls.size());
+        }
+
+        //on ajoute un train si il ne l'a pas trouvé
+        if (!findTrain) {
+            SimpleModifTrack smtk;
+            smtk = new SimpleModifTrack("Training", new DateManager().getSimpleCurrentDate(), "Kayentis", "1.0.0", "Auto-creation");
+            allMdT.add(modifTrackToRowTracker(smtk));
+        }
+
+        stk = createTracker((ArrayList<SimpleRowTracker>) allMdT);
+
+        return stk;
     }
 
 }
