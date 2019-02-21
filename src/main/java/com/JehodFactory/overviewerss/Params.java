@@ -126,7 +126,7 @@ public class Params {
      * @return
      */
     public boolean svgStudyParam(String studyName, SimpleStudyParam ssp) {
-       
+
         if (ssp != null && Check.isGood(studyName)) {
             bob = jw.fillStudy(studyName, ssp.getTrad(), ssp.getTabModel(), ssp.getFontSamsung(),
                     ssp.getListStudyPath(), ssp.getPathSvnDoc(), ssp.getPathSvnDel(), ssp.getMap());
@@ -154,7 +154,11 @@ public class Params {
     }
 
     public void setStudyPath(String studyPath) {
-        this.studyPath = studyPath;
+        if (Check.isGood(studyPath)) {
+            this.studyPath = studyPath;
+            
+        }
+
     }
 
     public String getPathTEMP() {

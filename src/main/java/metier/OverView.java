@@ -14,6 +14,7 @@ import DAO.ScreenFilesDAO;
 import DAO.ScreenFilesDAOExt;
 import DAO.SvnLabelFileDAO;
 import DAO.SvnScreenFilesDAO;
+import Outils.Check;
 import com.JehodFactory.overviewerss.Params;
 import entity.SimpleRowTracker;
 import entity.SimpleStudyTracker;
@@ -23,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import view.FenEnd;
 
 /**
@@ -60,16 +62,21 @@ public class OverView {
      * instancie les DAO et parcourt les fichiers de langue
      */
     public void overview() {
+        String str = Check.TestNeededPath(local, path, pathSvnDoc);
+        
 
+        if (!str.equals("ok")) {
+            System.out.println(str);
+            System.exit(ERROR_MESSAGE);
+        }
         //dao des output excel
         PoiTrackerDAO ptk;
         //dao des screenshots instancié dans les methodes en local ou en svn
         ScreenFilesDAOExt scf;
-        
+
         //on prepare la liste des trackers qui construira le study tracker
         List<SimpleTracker> listTrackers = new ArrayList<>();
 
-        
         LabelFileDAOExt lbf;
         //on liste les dossiers de langues
         List<String> listLang;
@@ -91,20 +98,21 @@ public class OverView {
 
             //pour chaque dossier de langue
             for (String dir : listLang) {
-                
+
+                System.out.println("");
                 System.out.println("+++++++++++++++++++++++++++++++++++++++++++Nouvelle langue+++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
                 System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+                System.out.println("");
 
                 //on pointe les dossier de screenshots et labels path est soit svn1400 soit local
                 ptk = new PoiTrackerDAO(path + pathLabels + dir);
                 scf = new ScreenFilesDAO(path + pathScreens, dir);//("svn://svn.kayentis.fr:14000/Kayentis/Novartis/CAIN457M2301/trunk");//(path + pathScreenshot);
 
-                
                 SimpleTracker smt = null;
 
                 ///le simpleTracker n'ayant que les infos du labels , un second TT ajoute les screenshot (et finaux et certif si svn)
                 if (local) {
-                    
+
                     smt = localTraitement(dir, scf, ptk);
                 } else {
                     smt = svnTraitement(dir, scf, ptk);
@@ -168,20 +176,19 @@ public class OverView {
     }
 
     private SimpleTracker svnTraitement(String dir, ScreenFilesDAOExt scf, PoiTrackerDAO ptk) {
-       
-         SimpleTracker smt = ptk.createTrackerFromSVNLabel(dir);
-        
-        CertifFilesDAO ctf = new CertifFilesDAO(pathSvnDoc + pathCertifs, dir);
-       // SvnScreenFilesDAO scfFinals = new SvnScreenFilesDAO(pathSvnDoc + pathFinalsScreens, dir);
-       String M2301 = "svn://document.kayentis.fr:15000/kayentis/Documentation/Projets/Santé/Novartis/CAIN457M2301-M2302/3- Functional scope/2- Forms/2- Kayentis design/1 - Screenshots/"+dir+"/M2302/";
-       SvnScreenFilesDAO scfFinals = new SvnScreenFilesDAO(M2301, dir);
-       scf = new SvnScreenFilesDAO(path + pathScreens, dir);
 
-      
+        SimpleTracker smt = ptk.createTrackerFromSVNLabel(dir);
+
+        CertifFilesDAO ctf = new CertifFilesDAO(pathSvnDoc + pathCertifs, dir);
+        // SvnScreenFilesDAO scfFinals = new SvnScreenFilesDAO(pathSvnDoc + pathFinalsScreens, dir);
+        String M2301 = "svn://document.kayentis.fr:15000/kayentis/Documentation/Projets/Santé/Novartis/CAIN457M2301-M2302/3- Functional scope/2- Forms/2- Kayentis design/1 - Screenshots/" + dir + "/M2302/";
+        SvnScreenFilesDAO scfFinals = new SvnScreenFilesDAO(M2301, dir);
+        scf = new SvnScreenFilesDAO(path + pathScreens, dir);
+
         if (new File(path + pathLabels + dir).exists()) {
             //pour chaque questionnaire de la langue
             for (SimpleRowTracker rt : smt.getAllRowTracker()) {
-                System.out.println("+++++++pathLabels"+path+pathLabels);
+                System.out.println("+++++++pathLabels" + path + pathLabels);
                 System.out.println("+++++++pathcertif " + path + pathCertifs);
                 System.out.println("+++++++patscreen " + path + pathScreens);
 
@@ -192,24 +199,27 @@ public class OverView {
                     //si ce n'est pas un label final on TraiTe normal sinon TTT en screenfinal
                     if (!rt.getVersion().endsWith(".0.0")) {
 
-                        if (scf.checkExistingPDF(dir, rt.getFormulaire(), rt.getVersion())) {rt.setScreenDone("Yes");}
-                            
-                        
+                        if (scf.checkExistingPDF(dir, rt.getFormulaire(), rt.getVersion())) {
+                            rt.setScreenDone("Yes");
+                        }
+
                     } else {
 
                         //check supplementaire des versions finals et des certifs
                         if (scfFinals.checkExistingPDF(dir, rt.getFormulaire(), rt.getVersion())) {
-                           
+
                             rt.setScreenDone("Yes");
-                            if (ctf.checkCertif(rt.getFormulaire(), rt.getVersion())) { rt.setCertified("Yes");}
+                            if (ctf.checkCertif(rt.getFormulaire(), rt.getVersion())) {
+                                rt.setCertified("Yes");
+                            }
 
                         }
                     }
 
                 }
 
-               
-            } 
-        }return smt;
+            }
+        }
+        return smt;
     }
 }

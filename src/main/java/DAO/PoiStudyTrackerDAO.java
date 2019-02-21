@@ -107,7 +107,7 @@ public class PoiStudyTrackerDAO implements StudyTrackerDAO {
         style.pairStyle();
 
         if (local) {
-            bob = svgLocal("STUDYTRACKER " + date + ".xlsx");
+            bob = svgLocal("STUDYTRACKER.xlsx");
         } else {
             bob = svgSvn("STUDYTRACKER.xlsx");
 

@@ -7,7 +7,7 @@ package DAO;
 
 import java.util.List;
 
-/**
+/**pour gerer le dossier de labels (version local)
  *
  * @author nrochas
  */
@@ -25,7 +25,7 @@ public class LabelFileDAO extends LabelFileDAOExt{
 
         List list ;
         
-        list = Outils.FilesWorker.ListerDirByform(pathLabels, ".._..");
+        list = Outils.FilesWorker.ListerDirByform(pathLabels, ".._..|..._..|.._...|..._...");
         return list;
 
     }

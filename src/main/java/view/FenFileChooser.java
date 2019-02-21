@@ -70,13 +70,10 @@ public class FenFileChooser extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void fileChoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileChoActionPerformed
-        int retour = fileCho.showOpenDialog(this);
         String select;
-        if (retour == JFileChooser.APPROVE_OPTION) {
-            select = fileCho.getSelectedFile().getAbsolutePath() + "/";
-            System.out.println("select: " + select);
-            prec.setFilechoice(select);
-        }
+        select = fileCho.getSelectedFile().getAbsolutePath() + "/";
+        System.out.println("select: " + select);
+        prec.setFilechoice(select);
         this.dispose();
 
     }//GEN-LAST:event_fileChoActionPerformed

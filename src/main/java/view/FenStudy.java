@@ -5,6 +5,7 @@
  */
 package view;
 
+import DAO.JsonStudyParamsDAO;
 import Outils.Check;
 import view.generikForms.FenGenerik;
 import view.generikForms.ButtonGenerik;
@@ -349,7 +350,7 @@ public class FenStudy extends FenGenerik {
         studyPath = (String) comboStudyPath.getSelectedItem();
 
         if (!Check.isGood(studyPath)) {
-            JOptionPane.showMessageDialog(null, "PLease select a study ", "Error Filling conboBox", ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Please select a study ", "Error Filling conboBox", ERROR_MESSAGE);
             comboStudyPath.setBackground(Color.red);
             comboStudyPath.repaint();
         } else {
@@ -357,13 +358,17 @@ public class FenStudy extends FenGenerik {
             int dialogResult = JOptionPane.showConfirmDialog(null, "Confirm complete path:" + studyPath + " \r  This method has no contact with svn. Please commit after.", "confirmation", dialogButton);
            
             if (dialogResult == JOptionPane.YES_OPTION) {
+                //on met a jour les path de la study
                 Params.getInstance().setStudyPath(studyPath);
-
+                new JsonStudyParamsDAO().addStudyPath(studyName, studyPath);                        
+                
+                //on ouvre et ferme les vues 
                 this.dispose();
                 FenProgress fenp = new FenProgress();
                 fenp.setVisible(true);
-                metier.OverView ov = new metier.OverView(studyPath, true);
-                ov.overview();
+                //et on lance le traitement proprement dit
+                new metier.OverView(studyPath, true).overview();
+                
             }
         }
     }//GEN-LAST:event_butLaunchLocalActionPerformed

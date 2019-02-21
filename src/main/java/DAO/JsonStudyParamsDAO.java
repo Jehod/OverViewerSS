@@ -21,6 +21,12 @@ public class JsonStudyParamsDAO implements StudyParamsDAO {
     private boolean bob;
     Params params = Params.getInstance();
 
+    public JsonStudyParamsDAO() {
+        super();
+    }
+    
+    
+
     @Override
     public boolean createStudy(String name, String trad, String tablet, boolean font, String pathSvnDel, String pathSvnDoc) {
         SimpleStudyParam ssp;
@@ -52,9 +58,9 @@ public class JsonStudyParamsDAO implements StudyParamsDAO {
         ArrayList listPath = Params.getInstance().studyParam.getListStudyPath();
         System.out.println("list size:" + listPath.size() + " newPath " + newPath);
 
-        bob = Params.getInstance().svgListStudy(studyName, listPath);
+        return  Params.getInstance().svgListStudy(studyName, listPath);
 
-        return bob;
+      
     }
 
     @Override

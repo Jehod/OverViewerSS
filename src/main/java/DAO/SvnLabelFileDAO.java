@@ -29,7 +29,7 @@ public class SvnLabelFileDAO extends LabelFileDAOExt{
     public List<String> getAllLabelsFiles() {
 
         ArrayList list ;
-        list = svn.listSVNByForm(pathLabels, ".._..");
+        list = svn.listSVNByForm(pathLabels, ".._..|..._..|.._...|..._...");
      
         System.out.println("list allLabelsFiles: "+list.toString());
         

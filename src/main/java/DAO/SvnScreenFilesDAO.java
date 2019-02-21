@@ -5,7 +5,6 @@
  */
 package DAO;
 
-import DAO.interfaceDAO.ScreenshotFilesDAO;
 import Outils.Check;
 import com.JehodFactory.overviewerss.Params;
 import Outils.DateManager;
@@ -38,6 +37,7 @@ public class SvnScreenFilesDAO extends ScreenFilesDAOExt {
         ssp = Params.getInstance().studyParam;
         this.langue = langue;
         this.pathScreens = fileName + langue;
+        System.out.println("pathScreens +++++++++" + pathScreens);
        
        // this.pathScreens = "svn://document.kayentis.fr:15000/kayentis/Documentation/Projets/Santé/Novartis/CAIN457M2301-M2302/3- Functional scope/2- Forms/2- Kayentis design/1 - Screenshots/"+this.langue+"/M2302/";
         
