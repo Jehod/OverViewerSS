@@ -5,28 +5,18 @@
  */
 package view.generikForms;
 
-import java.awt.Dimension;
-
 /**
  *
- * @author nik
+ * @author nrochas
  */
-public class FenGenerik extends javax.swing.JFrame
-{
+public class PanBackGenerik extends javax.swing.JPanel {
 
     /**
-     * Creates new form FenGenerik
+     * Creates new form panBackGenerik
      */
-    public FenGenerik()
-    {
-       Dimension dim = this.getToolkit().getScreenSize();
-        
-       initComponents();
-      
-        this.setLocation(dim.width/2 - this.getWidth()/2, dim.height/2 - this.getHeight()/2);
-        this.setSize(850, 400);
-        this.setBackground(style.GraphicCharter.colorYellow);
-        
+    public PanBackGenerik() {
+        initComponents();
+        this.setName("PanFond");
     }
 
     /**
@@ -38,12 +28,10 @@ public class FenGenerik extends javax.swing.JFrame
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setBackground(style.GraphicCharter.colorBack);
-        setForeground(style.GraphicCharter.colorFont);
+        setBackground(style.GraphicCharter.colorYellow);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 400, Short.MAX_VALUE)
@@ -52,14 +40,8 @@ public class FenGenerik extends javax.swing.JFrame
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 300, Short.MAX_VALUE)
         );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

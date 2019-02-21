@@ -7,7 +7,6 @@ package view.generikForms;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 /**
@@ -21,7 +20,7 @@ public class ButtonRefresh extends ButtonGenerik{
         super.setIcon(new ImageIcon("/refresh1.png"));
           super.setSize(27, 27);
           super.setPreferredSize(new Dimension(27, 27));
-        super.setBackground(Color.green);
+        super.setBackground(style.GraphicCharter.colorGreen);
     }
 
    

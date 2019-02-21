@@ -11,12 +11,15 @@ import com.JehodFactory.overviewerss.Params;
 import java.awt.Dimension;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
+import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 import style.GraphicCharter;
 import view.generikForms.ButtonCancel;
 import view.generikForms.ButtonGenerik;
 import view.generikForms.ButtonRefresh;
 import view.generikForms.FenGenerik;
 import view.generikForms.LabelGenerik;
+import view.generikForms.PanBackGenerik;
+import view.generikForms.PanGenerik;
 
 /**
  *
@@ -38,7 +41,7 @@ public class FenCreatStudy extends FenGenerik {
         initComponents();
 
         this.setLocation(dim.width / 2 - this.getWidth() / 2, dim.height / 2 - this.getHeight() / 2);
-        this.setSize(700, 400);
+        //this.setSize(450, 400);
         this.setVisible(true);
 
     }
@@ -52,8 +55,13 @@ public class FenCreatStudy extends FenGenerik {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel2 = new PanBackGenerik();
         LabTitre = new LabelGenerik();
-        panLabel = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        butrefresh = new ButtonRefresh();
+        butCancel = new ButtonCancel();
+        butcreate = new ButtonGenerik();
+        panLabel = new PanGenerik();
         labname = new LabelGenerik();
         labtrad = new LabelGenerik();
         labPathSvnDoc = new LabelGenerik();
@@ -66,15 +74,62 @@ public class FenCreatStudy extends FenGenerik {
         cBxFont = new javax.swing.JCheckBox();
         txtfPathSvnDoc = new javax.swing.JTextField();
         txtfsPathSvnDel = new javax.swing.JTextField();
-        butcreate = new ButtonGenerik();
-        butCancel = new ButtonCancel();
-        butrefresh = new ButtonRefresh();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        LabTitre.setBackground(GraphicCharter.colorBlue);
         LabTitre.setFont(style.GraphicCharter.titre1);
         LabTitre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         LabTitre.setText("Create Study");
+        LabTitre.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        LabTitre.setOpaque(true);
+
+        jPanel1.setBackground(GraphicCharter.colorYellow);
+
+        butrefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/refresh1.png"))); // NOI18N
+        butrefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                butrefreshActionPerformed(evt);
+            }
+        });
+
+        butCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                butCancelActionPerformed(evt);
+            }
+        });
+
+        butcreate.setText("Create Study");
+        butcreate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                butcreateActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(butCancel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(butrefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(butcreate)
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(butrefresh)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(butCancel, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(butcreate, javax.swing.GroupLayout.Alignment.TRAILING)))
+                .addContainerGap())
+        );
 
         labname.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         labname.setText("Study Name:   ");
@@ -101,6 +156,7 @@ public class FenCreatStudy extends FenGenerik {
 
         txtfTAblet.setFont(GraphicCharter.fontCorps);
 
+        cBxFont.setBackground(panLabel.getBackground());
         cBxFont.setText("Samsung Sans");
 
         txtfPathSvnDoc.setFont(GraphicCharter.fontCorps);
@@ -120,12 +176,11 @@ public class FenCreatStudy extends FenGenerik {
                                 .addComponent(labPathSvnDoc, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
                                 .addComponent(labfont, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
-                        .addGroup(panLabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtfPathSvnDoc, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panLabelLayout.createSequentialGroup()
-                                .addComponent(cBxFont, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(129, 129, 129))
-                            .addComponent(txtfsPathSvnDel)))
+                        .addGroup(panLabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panLabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txtfPathSvnDoc, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE)
+                                .addComponent(txtfsPathSvnDel))
+                            .addComponent(cBxFont, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(panLabelLayout.createSequentialGroup()
                         .addGroup(panLabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panLabelLayout.createSequentialGroup()
@@ -167,61 +222,44 @@ public class FenCreatStudy extends FenGenerik {
                 .addGroup(panLabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labPathSvnDel)
                     .addComponent(txtfsPathSvnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(88, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
-        butcreate.setText("Create Study");
-        butcreate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                butcreateActionPerformed(evt);
-            }
-        });
-
-        butCancel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                butCancelActionPerformed(evt);
-            }
-        });
-
-        butrefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/refresh1.png"))); // NOI18N
-        butrefresh.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                butrefreshActionPerformed(evt);
-            }
-        });
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(panLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+            .addComponent(LabTitre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(LabTitre, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(panLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(LabTitre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(butrefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(butCancel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(butcreate)
-                .addGap(38, 38, 38))
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(panLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(LabTitre, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(butrefresh))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(panLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(butcreate)
-                    .addComponent(butCancel))
-                .addContainerGap())
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -241,12 +279,11 @@ public class FenCreatStudy extends FenGenerik {
         if (Outils.Check.isGood(name) && Check.isGood(trad) && Check.isGood(tablet)
                 && Check.isGood(pathSvnDoc) && Check.isGood(pathSvnDel)) {
             JsonStudyParamsDAO jsp = new JsonStudyParamsDAO();
-            bob = jsp.createStudy(name, trad, tablet, font, pathSvnDoc, pathSvnDel);
-            
-            if (bob) {
-                
+           if(jsp.createStudy(name, trad, tablet, font, pathSvnDoc, pathSvnDel))           
+             {              
                 Params.getInstance().setStudyName(name);
                 Params.getInstance().accedeStudy(name);
+                JOptionPane.showMessageDialog(null, "Study Create","Confirmation creation",INFORMATION_MESSAGE);
                 FenStudy fen = new FenStudy(prec);
                 this.setVisible(false);
                 
@@ -278,6 +315,8 @@ public class FenCreatStudy extends FenGenerik {
     private javax.swing.JButton butcreate;
     private javax.swing.JButton butrefresh;
     private javax.swing.JCheckBox cBxFont;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel labPathSvnDel;
     private javax.swing.JLabel labPathSvnDoc;
     private javax.swing.JLabel labTabler1;

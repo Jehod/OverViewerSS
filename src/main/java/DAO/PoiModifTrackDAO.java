@@ -96,6 +96,7 @@ public class PoiModifTrackDAO implements ModifTrackDAO {
 
         rtk.setFormulaire(formulaire);
 
+        System.out.println("plooop");
         // recup de la date.  avec une protection suplementaire pour format de cellule string ou Date
         if (row.getCell(3) != null || null != row.getCell(3).getCellTypeEnum()) {
             switch (row.getCell(3).getCellTypeEnum()) {

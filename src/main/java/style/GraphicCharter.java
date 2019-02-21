@@ -16,7 +16,10 @@ public class GraphicCharter
 {
      public static Color colorBack;
     public static Color colorFont;
+    public static Color colorBlue;
     public static Color colorFront;
+    public static Color colorYellow;
+    public static Color colorGreen;
     public static Font fontCorps;
     public static Font fontButton;
     
@@ -26,12 +29,16 @@ public class GraphicCharter
     //titre 1 est le plus grand
     public static Font titre1;
     public static Font fontCorpsReduit;
+    
 
     private GraphicCharter()
     {
         colorBack = new Color(0, 156, 180);
         colorFront = new Color(251, 187, 0);
         colorFont = new Color(76, 79, 83);
+        colorGreen = new Color(68,185,81);
+        colorYellow = new Color(251, 187, 0);
+        colorBlue = new Color(0, 156, 180);
         fontCorps = new Font("Tahoma", Font.PLAIN, 12);
         titre3 = fontCorps.deriveFont(Font.BOLD, 13);
 

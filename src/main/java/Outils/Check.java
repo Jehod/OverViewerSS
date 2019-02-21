@@ -6,6 +6,7 @@
 package Outils;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -34,7 +35,7 @@ public class Check {
      * @param list
      * @return true si il trouve la cible dans la list
      */
-    public static boolean checkIsIn(String cible, ArrayList<String> list) {
+    public static boolean checkIsIn(String cible, List<String> list) {
         boolean bob = false;
 
         if (cible != null && list != null && !cible.equals("")) {

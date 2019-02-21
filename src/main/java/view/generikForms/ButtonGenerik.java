@@ -22,6 +22,8 @@ public class ButtonGenerik extends JButton
         super.setForeground(style.GraphicCharter.colorFont);
         super.setFont(style.GraphicCharter.fontButton);
         super.setToolTipText("Ceci est un Bouton et cliquer dessus produira un effet (sans doute)");
+        
     }
+    
 
 }

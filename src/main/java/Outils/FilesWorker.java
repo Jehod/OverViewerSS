@@ -31,7 +31,7 @@ public class FilesWorker {
      */
     public static List ListerFilesByStart(String path, String filtre) {
         File f = new File(path);
-        List list = new ArrayList();
+        List list ;
 
         FilenameFilter filter = (File dir, String name) -> (name.toLowerCase().startsWith(filtre));
 

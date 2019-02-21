@@ -25,6 +25,7 @@ public interface StudyParamsDAO extends Serializable{
      * @return 
      */
      boolean createStudy(String name, String trad, String tablet, boolean font, String pathSvnDel, String pathSvnDoc);
+     
     /**
      * creer un objet studyParam et remplace celui de reference mais en commencant par une recuperation de l'existant
      * @param name
@@ -33,10 +34,10 @@ public interface StudyParamsDAO extends Serializable{
      * @param font
      * @param pathLabel
      * @param pathScreens
-     * @param certif
      * @return 
      */
-    boolean modifStudy (String name, String trad, String tablet, boolean font, String pathLabel, String pathScreens, String certif);
+    boolean modifStudy (String name, String trad, String tablet, boolean font, String pathLabel, String pathScreens);
+    
     /**
      * ajoute un path a la liste des paths
      * @param studyName

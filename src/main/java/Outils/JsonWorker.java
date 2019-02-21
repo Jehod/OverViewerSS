@@ -260,6 +260,7 @@ public class JsonWorker {
      * @param pathSvnDoc
      * @param map
      * @param pathSvnDel
+     * @return 
      */
     public boolean fillStudy(String studyName, String trad, String tabModel, boolean fontSamsung,
             ArrayList<String> listStudyPath, String pathSvnDoc, String pathSvnDel, HashMap<String, String> map) {

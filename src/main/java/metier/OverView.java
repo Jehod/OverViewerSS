@@ -33,7 +33,7 @@ import view.FenEnd;
 public class OverView {
 
     entity.SimpleStudyParam params = Params.getInstance().studyParam;
-    final String path;
+    final String path; //egal a svnDEL ou a chemin local suivant mode de track
     final String pathSvnDoc;
     final String pathLabels = params.getPathLabels();
     final String pathScreens = params.getPathScreens();
@@ -91,6 +91,9 @@ public class OverView {
 
             //pour chaque dossier de langue
             for (String dir : listLang) {
+                
+                System.out.println("+++++++++++++++++++++++++++++++++++++++++++Nouvelle langue+++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+                System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 
                 //on pointe les dossier de screenshots et labels path est soit svn1400 soit local
                 ptk = new PoiTrackerDAO(path + pathLabels + dir);
@@ -169,16 +172,18 @@ public class OverView {
          SimpleTracker smt = ptk.createTrackerFromSVNLabel(dir);
         
         CertifFilesDAO ctf = new CertifFilesDAO(pathSvnDoc + pathCertifs, dir);
-        SvnScreenFilesDAO scfFinals = new SvnScreenFilesDAO(pathSvnDoc + pathFinalsScreens, dir);
-        scf = new SvnScreenFilesDAO(path + pathScreens, dir);
+       // SvnScreenFilesDAO scfFinals = new SvnScreenFilesDAO(pathSvnDoc + pathFinalsScreens, dir);
+       String M2301 = "svn://document.kayentis.fr:15000/kayentis/Documentation/Projets/Santé/Novartis/CAIN457M2301-M2302/3- Functional scope/2- Forms/2- Kayentis design/1 - Screenshots/"+dir+"/M2302/";
+       SvnScreenFilesDAO scfFinals = new SvnScreenFilesDAO(M2301, dir);
+       scf = new SvnScreenFilesDAO(path + pathScreens, dir);
 
       
         if (new File(path + pathLabels + dir).exists()) {
             //pour chaque questionnaire de la langue
             for (SimpleRowTracker rt : smt.getAllRowTracker()) {
-                System.out.println("pathLabels"+path+pathLabels);
-                System.out.println("pathcertif " + path + pathCertifs);
-                System.out.println("patscreen " + path + pathScreens);
+                System.out.println("+++++++pathLabels"+path+pathLabels);
+                System.out.println("+++++++pathcertif " + path + pathCertifs);
+                System.out.println("+++++++patscreen " + path + pathScreens);
 
                 if (rt.getFormulaire().contains("Training")) {
                     rt.setScreenDone(scf.searchTrainingPDF(dir, rt.getFormulaire(), rt.getVersion()));

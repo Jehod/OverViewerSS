@@ -5,27 +5,18 @@
  */
 package view.generikForms;
 
-import java.awt.Dimension;
-
 /**
  *
- * @author nik
+ * @author nrochas
  */
-public class FenGenerik extends javax.swing.JFrame
-{
+public class PanGenerik extends javax.swing.JPanel {
 
     /**
-     * Creates new form FenGenerik
+     * Creates new form PanGenerik
      */
-    public FenGenerik()
-    {
-       Dimension dim = this.getToolkit().getScreenSize();
-        
-       initComponents();
-      
-        this.setLocation(dim.width/2 - this.getWidth()/2, dim.height/2 - this.getHeight()/2);
-        this.setSize(850, 400);
-        this.setBackground(style.GraphicCharter.colorYellow);
+    public PanGenerik() {
+        initComponents();
+        this.setBackground(style.GraphicCharter.colorBlue);
         
     }
 
@@ -38,28 +29,20 @@ public class FenGenerik extends javax.swing.JFrame
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setBackground(style.GraphicCharter.colorBack);
-        setForeground(style.GraphicCharter.colorFont);
+        setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 396, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 296, Short.MAX_VALUE)
         );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

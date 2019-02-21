@@ -104,6 +104,7 @@ public class SimpleStudyParam implements StudyParams {
     public void setTabModel(String tabModel) {
         this.tabModel = tabModel;
     }
+    
 
     @Override
     public String getPathCertifs() {

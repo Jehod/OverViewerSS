@@ -41,23 +41,23 @@ public class SVNWorker {
             // Getting the results
             powerShellProcess.getOutputStream().close();
             String line;
-            System.out.println("Standard Output:");
+            System.out.println("Standard Output commit:");
             try (BufferedReader stdout = new BufferedReader(new InputStreamReader(
                     powerShellProcess.getInputStream()))) {
                 while ((line = stdout.readLine()) != null) {
-                    System.out.println(line);
+                    System.out.print(" : "+line);
                     str = str + line;
                 }
             }
-            System.out.println("Standard Error:");
+            
             try (BufferedReader stderr = new BufferedReader(new InputStreamReader(
                     powerShellProcess.getErrorStream()))) {
                 while ((line = stderr.readLine()) != null) {
-                    System.out.println(line);
+                    System.out.println("error "+ line);
                     str = str + line;
                 }
             }
-            System.out.println("Done ");
+           
             str = str + "Done";
         } catch (IOException ex) {
             System.out.println("catch dans le svn " + ex.getLocalizedMessage());
@@ -87,26 +87,26 @@ public class SVNWorker {
             // Getting the results
             powerShellProcess.getOutputStream().close();
             String line;
-            System.out.println("Standard Output:");
+            System.out.println("Standard Output list:");
             BufferedReader stdout = new BufferedReader(new InputStreamReader(
                     powerShellProcess.getInputStream()));
             while ((line = stdout.readLine()) != null) {
                 String str = line; //extractName(line, ext);
                 if (str != null && str.endsWith(ext)) {
                     list.add(str);
-                    System.out.println(" sur la liste: " + str);
+                    System.out.print(" : " + str);
                 }
 
             }
             stdout.close();
-            System.out.println("Standard Error:");
+            
             BufferedReader stderr = new BufferedReader(new InputStreamReader(
                     powerShellProcess.getErrorStream()));
             while ((line = stderr.readLine()) != null) {
-                System.out.println(line);
+                System.out.println("Error "+line);
             }
             stderr.close();
-            System.out.println("Done :");
+            
 
         } catch (IOException ex) {
             System.out.println("catch du listsVN " + ex.getLocalizedMessage());
@@ -157,15 +157,15 @@ public class SVNWorker {
             try (BufferedReader stdout = new BufferedReader(new InputStreamReader(
                     powerShellProcess.getInputStream()))) {
                 while ((line = stdout.readLine()) != null) {
-                    System.out.println(line);
+                    System.out.print(" : "+ line);
                     str = str + line;
                 }
             }
-            System.out.println("Standard Error:");
+            
             try (BufferedReader stderr = new BufferedReader(new InputStreamReader(
                     powerShellProcess.getErrorStream()))) {
                 while ((line = stderr.readLine()) != null) {
-                    System.out.println(line);
+                    System.out.println("Error "+line);
                     str = str + line;
                 }
             }
@@ -210,11 +210,11 @@ public class SVNWorker {
 
                 }
             }
-            System.out.println("Standard Error:");
+      
             BufferedReader stderr = new BufferedReader(new InputStreamReader(
                     powerShellProcess.getErrorStream()));
             while ((line = stderr.readLine()) != null) {
-                System.out.println(line);
+                System.out.println("Error "+line);
             }
             stderr.close();
 
@@ -256,11 +256,11 @@ public class SVNWorker {
 
                 }
             }
-            System.out.println("Standard Error:");
+            
             BufferedReader stderr = new BufferedReader(new InputStreamReader(
                     powerShellProcess.getErrorStream()));
             while ((line = stderr.readLine()) != null) {
-                System.out.println(line);
+                System.out.println( "Error:"+line);
             }
             stderr.close();
 
@@ -303,14 +303,14 @@ public class SVNWorker {
 
             }
             stdout.close();
-            System.out.println("Standard Error:");
+            
             BufferedReader stderr = new BufferedReader(new InputStreamReader(
                     powerShellProcess.getErrorStream()));
             while ((line = stderr.readLine()) != null) {
-                System.out.println(line);
+                System.out.println("Error "+line);
             }
             stderr.close();
-            System.out.println("Done :");
+            
 
         } catch (IOException ex) {
             System.out.println("catch du listsVN " + ex.getLocalizedMessage());
@@ -347,19 +347,19 @@ public class SVNWorker {
                 String str = line; //extractName(line, ext);
                 if (str != null && str.endsWith(ends) && str.startsWith(prefix) ) {
                     list.add(str);
-                    System.out.println(" sur la liste: " + str);
+                    System.out.print(" : " + str);
                 }
 
             }
             stdout.close();
-            System.out.println("Standard Error:");
+            
             BufferedReader stderr = new BufferedReader(new InputStreamReader(
                     powerShellProcess.getErrorStream()));
             while ((line = stderr.readLine()) != null) {
-                System.out.println(line);
+                System.out.println("Error: "+line);
             }
             stderr.close();
-            System.out.println("Done :");
+            
 
         } catch (IOException ex) {
             System.out.println("catch du listsVN " + ex.getLocalizedMessage());
@@ -399,14 +399,16 @@ public class SVNWorker {
                 String str = line; 
                 
                 file = new File(pathTEMP+cible);
+                file.deleteOnExit();
          
             }
             stdout.close();
-            System.out.println("Standard Error:");
+            
             BufferedReader stderr = new BufferedReader(new InputStreamReader(
                     powerShellProcess.getErrorStream()));
             while ((line = stderr.readLine()) != null) {
-                System.out.println(line);
+                System.out.println(" Error: "+ line);
+                
             }
             stderr.close();
             

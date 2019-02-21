@@ -36,12 +36,12 @@ public class SvnScreenFilesDAO extends ScreenFilesDAOExt {
 
     public SvnScreenFilesDAO(String fileName, String langue) {
         ssp = Params.getInstance().studyParam;
-      
-        //this.pathScreens = fileName + langue;
-       
-        this.pathScreens = "svn://document.kayentis.fr:15000/kayentis/Documentation/Projets/Santé/Novartis/CAIN457M2301-M2302/3- Functional scope/2- Forms/2- Kayentis design/1 - Screenshots/"+langue+"M2302";
-        
         this.langue = langue;
+        this.pathScreens = fileName + langue;
+       
+       // this.pathScreens = "svn://document.kayentis.fr:15000/kayentis/Documentation/Projets/Santé/Novartis/CAIN457M2301-M2302/3- Functional scope/2- Forms/2- Kayentis design/1 - Screenshots/"+this.langue+"/M2302/";
+        
+        
         listScreens = svn.listSVNByExt(this.pathScreens, ".pdf");
         
     }
@@ -52,7 +52,7 @@ public class SvnScreenFilesDAO extends ScreenFilesDAOExt {
     public boolean checkExistingPDF(String langue, String formulaire, String version) {
         
 
-        String cible = formulaire+"_"+langue+"_v"+version+".pdf";
+        String cible = formulaire+"_"+this.langue+"_v"+version+".pdf";
         
         bob = Outils.Check.checkIsIn(cible, listScreens);
         

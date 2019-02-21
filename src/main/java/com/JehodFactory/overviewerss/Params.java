@@ -8,7 +8,6 @@ package com.JehodFactory.overviewerss;
 import Outils.Check;
 import Outils.JsonWorker;
 import entity.SimpleStudyParam;
-import static java.awt.image.ImageObserver.ERROR;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
@@ -25,6 +24,8 @@ public class Params {
     private final String bin = System.getenv("bin") + "\\";
     //le fichier temporaire pour les aller retour svn
     private final String pathTEMP = "D:\\";
+
+    private boolean bob;
 
     private JsonWorker jw;
 
@@ -75,35 +76,42 @@ public class Params {
         String trad = jw.getValueCibleOfStudy(studyName, "Trad");
         String tabModel = jw.getValueCibleOfStudy(studyName, "Tablet");
         Boolean font = jw.getBooleanCibleOfStudy(studyName, "Font");
-        
+
         String pathSvnDoc = jw.getValueCibleOfStudy(studyName, "pathSvnDoc").replace("Ã©", "é");
         String pathSvnDel = jw.getValueCibleOfStudy(studyName, "pathSvnDel").replace("Ã©", "é");
-        
 
-        System.out.println("pathSvnDoc: "+ pathSvnDoc);
-        
+        System.out.println("pathSvnDoc: " + pathSvnDoc);
+
         //this.studyParam = new SimpleStudyParam(listPath, trad, pathLabels, pathScreens, pathCertifs, tabModel, font, new HashMap<>());
         this.studyParam = new SimpleStudyParam(listPath, trad, new HashMap<>(), tabModel, font, pathSvnDoc, pathSvnDel);
 
-      
     }
 
     public void setStudyName(String studyName) {
         this.studyName = studyName;
     }
 
-    public boolean svgStudyParam(String studyName, SimpleStudyParam ssp) {
-        Boolean bob = false;
+    /**
+     * creer l'entrée au nom de l'etude puis le remplit avec les données
+     *
+     * @param studyName
+     * @param ssp
+     * @return
+     */
+    public boolean svgNewStudyParam(String studyName, SimpleStudyParam ssp) {
 
-        if (!Check.checkIsIn(studyName, listStudy)) {
+        if (ssp != null && Check.isGood(studyName)) {
+            if (Check.checkIsIn(studyName, listStudy)) {
+                JOptionPane.showMessageDialog(null, "A study with same name already exist", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
 
-            bob = jw.setNewStudyName(studyName);
-            if (bob) {
-                bob = jw.fillStudy(studyName, ssp.getTrad(), ssp.getTabModel(), ssp.getFontSamsung(),
-                        ssp.getListStudyPath(), ssp.getPathSvnDoc(), ssp.getPathSvnDel(), ssp.getMap());
+                if (jw.setNewStudyName(studyName)) {
+                    bob = jw.fillStudy(studyName, ssp.getTrad(), ssp.getTabModel(), ssp.getFontSamsung(),
+                            ssp.getListStudyPath(), ssp.getPathSvnDoc(), ssp.getPathSvnDel(), ssp.getMap());
+                }
             }
         } else {
-            JOptionPane.showMessageDialog(null, "A study with same name already exist", "Error", ERROR);
+            System.out.println("erreur de svg de new params");
         }
 
         return bob;
@@ -111,17 +119,34 @@ public class Params {
     }
 
     /**
+     * svg une etude deja existante dans le setting
+     *
+     * @param studyName
+     * @param ssp
+     * @return
+     */
+    public boolean svgStudyParam(String studyName, SimpleStudyParam ssp) {
+       
+        if (ssp != null && Check.isGood(studyName)) {
+            bob = jw.fillStudy(studyName, ssp.getTrad(), ssp.getTabModel(), ssp.getFontSamsung(),
+                    ssp.getListStudyPath(), ssp.getPathSvnDoc(), ssp.getPathSvnDel(), ssp.getMap());
+        } else {
+            System.out.println("erreur de svg de new params");
+        }
+        return bob;
+    }
+
+    /**
      * envoie la list des path dans le json de la study
      *
      * @param studyName
      * @param listPath
-     * @return 
+     * @return
      */
     public boolean svgListStudy(String studyName, ArrayList listPath) {
-        boolean bob = false;
 
-        if (studyName != null && listPath != null && !listPath.isEmpty()) {
-            
+        if (Check.isGood(studyName) && listPath != null && !listPath.isEmpty()) {
+
             bob = jw.setListInStudy(studyName, listPath);
         }
 
@@ -135,6 +160,21 @@ public class Params {
     public String getPathTEMP() {
         return pathTEMP;
     }
-    
-    
+
+    public String getStudyName() {
+        return studyName;
+    }
+
+    public String getStudyPath() {
+        return studyPath;
+    }
+
+    public ArrayList<String> getListStudy() {
+        return listStudy;
+    }
+
+    public SimpleStudyParam getStudyParam() {
+        return studyParam;
+    }
+
 }

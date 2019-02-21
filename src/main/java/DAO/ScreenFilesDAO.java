@@ -5,10 +5,10 @@
  */
 package DAO;
 
-import DAO.interfaceDAO.ScreenshotFilesDAO;
 import Outils.Check;
 import com.JehodFactory.overviewerss.Params;
 import Outils.DateManager;
+import Outils.FilesWorker;
 import Outils.SVNWorker;
 import entity.SimpleStudyParam;
 import java.io.File;
@@ -28,8 +28,8 @@ public class ScreenFilesDAO extends ScreenFilesDAOExt {
     private HashMap map;
     private final SimpleStudyParam ssp;
     private final String langue;
-     private final Outils.SVNWorker svn = new SVNWorker();
-    private final ArrayList listScreens;
+   
+    private List listScreens = new ArrayList();
     private boolean bob;
 
     private final DateManager dateM = new DateManager();
@@ -40,7 +40,7 @@ public class ScreenFilesDAO extends ScreenFilesDAOExt {
         //this.pathScreens = pathScreens+ssp.getPathScreens();
         this.pathScreens = fileName  + langue;
         this.langue = langue;
-        listScreens = svn.listSVNByExt(this.pathScreens, ".pdf");
+        listScreens = FilesWorker.ListerFilesByExt(pathScreens, ".pdf");
         
     }
 
