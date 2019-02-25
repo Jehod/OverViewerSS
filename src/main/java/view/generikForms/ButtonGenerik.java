@@ -5,7 +5,6 @@
  */
 package view.generikForms;
 
-import javax.swing.Icon;
 import javax.swing.JButton;
 
 /**
@@ -22,7 +21,8 @@ public class ButtonGenerik extends JButton
         super.setForeground(style.GraphicCharter.colorFont);
         super.setFont(style.GraphicCharter.fontButton);
         super.setToolTipText("Ceci est un Bouton et cliquer dessus produira un effet (sans doute)");
-        super.setBackground(style.GraphicCharter.colorBlue);
+        //super.setBackground(style.GraphicCharter.colorBlue);
+        
     }
     
 

@@ -18,6 +18,7 @@ import style.GraphicCharter;
 import view.generikForms.ButtonCancel;
 import view.generikForms.ButtonGenerik;
 import view.generikForms.ButtonRefresh;
+import view.generikForms.FenGenerik;
 import view.generikForms.LabelGenerik;
 import view.generikForms.PanBackGenerik;
 import view.generikForms.PanGenerik;
@@ -37,14 +38,14 @@ public class FenViewStudy extends javax.swing.JFrame {
     String studyName = Params.getInstance().studyName;
     SimpleStudyParam ssp = Params.getInstance().studyParam;
     ArrayList<String> list = ssp.getListStudyPath();
-    JFrame prec;
+    FenStudy prec;
 
     /**
      * Creates new form FenViewStudy
      */
     public FenViewStudy(JFrame prec) {
         Dimension dim = this.getToolkit().getScreenSize();
-        this.prec = prec;
+        this.prec = (FenStudy) prec;
         initComponents();
 
         this.setLocation(dim.width / 2 - this.getWidth() / 2, dim.height / 2 - this.getHeight() / 2);
@@ -83,7 +84,6 @@ public class FenViewStudy extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("View Study");
-        setAlwaysOnTop(true);
 
         TxtFieldPathSvnDel.setFont(GraphicCharter.titre3);
         TxtFieldPathSvnDel.setText(ssp.getPathSvnDel());
@@ -274,18 +274,24 @@ public class FenViewStudy extends javax.swing.JFrame {
     }//GEN-LAST:event_butCancelActionPerformed
 
     private void buttSaveNGoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttSaveNGoActionPerformed
-        JsonStudyParamsDAO jspd = new JsonStudyParamsDAO();
+        JsonStudyParamsDAO jspd = new JsonStudyParamsDAO();    
 
         if (!recupInfo()) {
             JOptionPane.showMessageDialog(null, "Please dont left an empty field", "Missing fields", JOptionPane.ERROR_MESSAGE);
-        }  else {
+        }  else {               
 
             if (jspd.modifStudy(studyName, trad, tabletModel, font, pathSvnDoc, pathSvnDel)) {
                 JOptionPane.showMessageDialog(null, "Data saved", "Confirmation", INFORMATION_MESSAGE);
+                //sauvegarde dans la VM
+               
+                Params.getInstance().accedeStudy(studyName);
             } else {
                 JOptionPane.showMessageDialog(null, "A problems occured", "Save failed", JOptionPane.ERROR_MESSAGE);
             }
+            
+            
             this.dispose();
+            if (prec.getClass().getSimpleName().equals("FenStudy")){ prec.refresh();}
             prec.setVisible(true);
 
         }

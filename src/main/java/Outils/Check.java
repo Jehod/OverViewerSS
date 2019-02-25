@@ -102,7 +102,7 @@ public class Check {
             if (svn.CheckExistInSVN(path + ssp.getPathLabels(), "")) {
                 bob = svn.CheckExistInSVN(path + ssp.getPathScreens(), "");
             } else {
-                System.out.println("Svn path ");
+                System.out.println("Svn path DEL incorrect ");
             }
         }
         return str;

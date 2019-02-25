@@ -37,7 +37,7 @@ public class FenSelectStudy extends FenGenerik
 
         this.setLocation(dim.width / 2 - this.getWidth() / 2, dim.height / 2 - this.getHeight() / 2);
         this.setSize(478, 400);
-        this.setBackground(style.GraphicCharter.colorYellow);
+       
         this.setVisible(true);
     }
 

@@ -70,6 +70,7 @@ public class Params {
      */
     public void accedeStudy(String studyName) {
         this.studyName = studyName;
+         System.out.println("accede "+this.studyName);
 
         // on recupere toutes les infos du Json pour les stocker dans le study Params
         ArrayList<String> listPath = jw.getListcibleOfStudy(studyName, "path");
@@ -80,7 +81,7 @@ public class Params {
         String pathSvnDoc = jw.getValueCibleOfStudy(studyName, "pathSvnDoc").replace("Ã©", "é");
         String pathSvnDel = jw.getValueCibleOfStudy(studyName, "pathSvnDel").replace("Ã©", "é");
 
-        System.out.println("pathSvnDoc: " + pathSvnDoc);
+       
 
         //this.studyParam = new SimpleStudyParam(listPath, trad, pathLabels, pathScreens, pathCertifs, tabModel, font, new HashMap<>());
         this.studyParam = new SimpleStudyParam(listPath, trad, new HashMap<>(), tabModel, font, pathSvnDoc, pathSvnDel);

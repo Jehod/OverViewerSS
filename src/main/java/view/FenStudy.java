@@ -29,24 +29,28 @@ import view.generikForms.PanBackGenerik;
  */
 public class FenStudy extends FenGenerik {
 
-   private final String studyName = Params.getInstance().studyName;
-   private final SimpleStudyParam ssp = Params.getInstance().studyParam;
-    ArrayList<String> list = ssp.getListStudyPath();
-
-   private String studyPath;
-   private final String pathSvnDel = ssp.getPathSvnDel();
-   private final String pathSvnDoc = ssp.getPathSvnDoc();
+    private Params params = Params.getInstance();
     
-   private String select;
+    private String studyName;
+    private SimpleStudyParam ssp;
+    ArrayList<String> list; 
 
-    private final FenSelectStudy prec;
+    private String pathSvnDel;
+    private String pathSvnDoc;
+    private String studyPath;
+    private String select;
+
+    private FenSelectStudy prec;
 
     /**
      * Creates new form FenStudy
+     *
      * @param fss fenetre precedente
      */
     public FenStudy(FenSelectStudy fss) {
 
+        System.out.println("constructeur");
+        init();
         //on note la fenetre d'avant pour le retour arriere
         prec = fss;
         Dimension dim = this.getToolkit().getScreenSize();
@@ -57,7 +61,7 @@ public class FenStudy extends FenGenerik {
         //this.setSize(400, 400);
         this.setVisible(true);
         //on cache le browser
-       
+
     }
 
     /**
@@ -83,7 +87,7 @@ public class FenStudy extends FenGenerik {
         jLabel2 = new LabelGenerik();
         jPanel3 = new javax.swing.JPanel();
         butViewStudy = new ButtonGenerik();
-        jButton1 = new ButtonRefresh();
+        butRefresh = new ButtonRefresh();
         butCancel = new ButtonCancel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -208,10 +212,10 @@ public class FenStudy extends FenGenerik {
             }
         });
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/refresh1.png"))); // NOI18N
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        butRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/refresh1.png"))); // NOI18N
+        butRefresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                butRefreshActionPerformed(evt);
             }
         });
 
@@ -229,7 +233,7 @@ public class FenStudy extends FenGenerik {
                 .addContainerGap()
                 .addComponent(butCancel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 143, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(butRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
                 .addComponent(butViewStudy)
                 .addContainerGap())
@@ -241,7 +245,7 @@ public class FenStudy extends FenGenerik {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(butCancel)
                     .addComponent(butViewStudy)
-                    .addComponent(jButton1))
+                    .addComponent(butRefresh))
                 .addContainerGap())
         );
 
@@ -286,6 +290,7 @@ public class FenStudy extends FenGenerik {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+
     private void butLaunchSVNActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_butLaunchSVNActionPerformed
     {//GEN-HEADEREND:event_butLaunchSVNActionPerformed
 
@@ -296,10 +301,10 @@ public class FenStudy extends FenGenerik {
             Params.getInstance().setStudyPath(pathSvnDel);
 
             this.dispose();
-            FenProgress fenp = new FenProgress();
-            fenp.setVisible(true);
-            metier.OverView ov = new metier.OverView(pathSvnDel,pathSvnDoc, false);
-            ov.overview();
+            
+            
+            metier.OverView ov = new metier.OverView(pathSvnDel, pathSvnDoc, false);
+            ov.overview(new FenProgress());
 
         }
 
@@ -307,10 +312,10 @@ public class FenStudy extends FenGenerik {
 
     private void butAddPathActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_butAddPathActionPerformed
     {//GEN-HEADEREND:event_butAddPathActionPerformed
-       
+
         FenFileChooser ff = new FenFileChooser(this);
         ff.setVisible(true);
-      
+
     }//GEN-LAST:event_butAddPathActionPerformed
 
     private void butViewStudyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butViewStudyActionPerformed
@@ -323,27 +328,45 @@ public class FenStudy extends FenGenerik {
         this.dispose();
     }//GEN-LAST:event_butCancelActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        this.dispose();
-        FenStudy fs = new FenStudy(prec);
+    private void butRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butRefreshActionPerformed
+        refresh();
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_butRefreshActionPerformed
 
     /**
-     * methode qui recupere la selection du fileChooser et l'insert dans la comboBox
-     * @param selection 
+     * set les valeurs des attributs
      */
-    public void setFilechoice(String selection)
-    {
+     private void init() {
+        studyName = params.getStudyName();
+        ssp = params.getStudyParam();
+        list = ssp.getListStudyPath();
+        pathSvnDel = ssp.getPathSvnDel();
+        pathSvnDoc = ssp.getPathSvnDoc();
+    }
+    
+    /**
+     * recharge les données de la page sans re instancier la fenetre
+     */
+    public void refresh() {
+        this.dispose();
+        FenStudy fs = new FenStudy(prec);
+    }
+
+    /**
+     * methode qui recupere la selection du fileChooser et l'insert dans la
+     * comboBox
+     *
+     * @param selection
+     */
+    public void setFilechoice(String selection) {
         select = selection;
 
-            if (!Check.checkIsIn(select, list)) {
-                list.add(select);
-            }
-            comboStudyPath.setSelectedItem(select);
-            comboStudyPath.repaint();
-        
-        
+        if (!Check.checkIsIn(select, list)) {
+            list.add(select);
+        }
+        comboStudyPath.setSelectedItem(select);
+        comboStudyPath.repaint();
+
     }
     private void butLaunchLocalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butLaunchLocalActionPerformed
 
@@ -356,19 +379,18 @@ public class FenStudy extends FenGenerik {
         } else {
             int dialogButton = JOptionPane.YES_NO_OPTION;
             int dialogResult = JOptionPane.showConfirmDialog(null, "Confirm complete path:" + studyPath + " \r  This method has no contact with svn. Please commit after.", "confirmation", dialogButton);
-           
+
             if (dialogResult == JOptionPane.YES_OPTION) {
                 //on met a jour les path de la study
                 Params.getInstance().setStudyPath(studyPath);
-                new JsonStudyParamsDAO().addStudyPath(studyName, studyPath);                        
-                
+                new JsonStudyParamsDAO().addStudyPath(studyName, studyPath);
+
                 //on ouvre et ferme les vues 
                 this.dispose();
-                FenProgress fenp = new FenProgress();
-                fenp.setVisible(true);
-                //et on lance le traitement proprement dit
-                new metier.OverView(studyPath, true).overview();
                 
+                //et on lance le traitement proprement dit
+                new metier.OverView(studyPath, true).overview(new FenProgress());
+
             }
         }
     }//GEN-LAST:event_butLaunchLocalActionPerformed
@@ -379,9 +401,9 @@ public class FenStudy extends FenGenerik {
     private javax.swing.JButton butCancel;
     private javax.swing.JButton butLaunchLocal;
     private javax.swing.JButton butLaunchSVN;
+    private javax.swing.JButton butRefresh;
     private javax.swing.JButton butViewStudy;
     private javax.swing.JComboBox<String> comboStudyPath;
-    private javax.swing.JButton jButton1;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -392,4 +414,6 @@ public class FenStudy extends FenGenerik {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel panTrachSvn;
     // End of variables declaration//GEN-END:variables
+
+   
 }

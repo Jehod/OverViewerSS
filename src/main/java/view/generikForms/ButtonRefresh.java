@@ -21,6 +21,7 @@ public class ButtonRefresh extends ButtonGenerik{
           super.setSize(27, 27);
           super.setPreferredSize(new Dimension(27, 27));
         super.setBackground(style.GraphicCharter.colorGreen);
+        super.setToolTipText("re-initiate the frame");
     }
 
    

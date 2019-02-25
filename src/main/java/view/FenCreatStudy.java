@@ -76,6 +76,7 @@ public class FenCreatStudy extends FenGenerik {
         txtfsPathSvnDel = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Create Study");
 
         LabTitre.setBackground(GraphicCharter.colorBlue);
         LabTitre.setFont(style.GraphicCharter.titre1);
@@ -139,29 +140,35 @@ public class FenCreatStudy extends FenGenerik {
 
         labPathSvnDoc.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         labPathSvnDoc.setText("Path Svn Doc:  ");
-        labPathSvnDoc.setToolTipText("");
+        labPathSvnDoc.setToolTipText("Must be an opening upond Scripts and Settings directories");
 
         labfont.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         labfont.setText("Font:  ");
 
         labPathSvnDel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         labPathSvnDel.setText("Path Svn Del:  ");
+        labPathSvnDel.setToolTipText("Must be an opneing upon 1-Finals and 2-Screenshots directories");
 
         labTabler1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         labTabler1.setText("Tablet Model:  ");
 
         txtfstudyname.setFont(GraphicCharter.fontCorps);
+        txtfstudyname.setToolTipText("complete name");
 
         txtfTrad.setFont(GraphicCharter.fontCorps);
+        txtfTrad.setToolTipText("Rws, Mapi, ...");
 
         txtfTAblet.setFont(GraphicCharter.fontCorps);
+        txtfTAblet.setToolTipText("model , size");
 
         cBxFont.setBackground(panLabel.getBackground());
         cBxFont.setText("Samsung Sans");
 
         txtfPathSvnDoc.setFont(GraphicCharter.fontCorps);
+        txtfPathSvnDoc.setToolTipText("ex: svn://document.kayentis.fr:15000/kayentis/Documentation/Projets/Santé/<CLIENT>/<PROJET>/3- Functional scope/2- Forms/2- Kayentis design/2 – Screenshots/ ");
 
         txtfsPathSvnDel.setFont(GraphicCharter.fontCorps);
+        txtfsPathSvnDel.setToolTipText("svn://svn.kayentis.fr:14000/Kayentis/<CLIENT>/<PROJET>/Platforms/Trunk/ ");
 
         javax.swing.GroupLayout panLabelLayout = new javax.swing.GroupLayout(panLabel);
         panLabel.setLayout(panLabelLayout);
@@ -232,12 +239,12 @@ public class FenCreatStudy extends FenGenerik {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(LabTitre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(panLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
-            .addComponent(LabTitre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

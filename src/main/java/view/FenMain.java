@@ -163,7 +163,7 @@ public class FenMain extends JFrame
                 FenProgress fenp = new FenProgress();
                 fenp.setVisible(true);
                 metier.OverView ov = new metier.OverView(path, pathLabels, true);
-                ov.overview();
+                ov.overview(fenp);
             } else
             {
                 System.out.println("lpol");

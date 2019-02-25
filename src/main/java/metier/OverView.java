@@ -23,6 +23,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import view.FenEnd;
@@ -43,6 +44,12 @@ public class OverView {
     final String pathCertifs = params.getPathCertifs();
     final Boolean local;
 
+   /**
+    * constructeur pour tt online
+    * @param path  chemin vers DEL
+    * @param pathSvnDoc chemin vers DOC
+    * @param local  boolean local (a false ici)
+    */
     public OverView(String path, String pathSvnDoc, boolean local) {
         this.path = path;
         this.local = local;
@@ -50,6 +57,11 @@ public class OverView {
 
     }
 
+    /**constructeur offline
+     * svnDoc est mis a null
+     * @param path  path local
+     * @param local  boolean local (a true ici)
+     */
     public OverView(String path, boolean local) {
         this.path = path;
         this.local = local;
@@ -60,15 +72,17 @@ public class OverView {
     /**
      * methode pour creer les trackers par langue et le studyTracker il
      * instancie les DAO et parcourt les fichiers de langue
+     * @param progress
      */
-    public void overview() {
-        String str = Check.TestNeededPath(local, path, pathSvnDoc);
+    public void overview(JFrame progress) {
         
-
+        String str = Check.TestNeededPath(local, path, pathSvnDoc);
         if (!str.equals("ok")) {
             System.out.println(str);
-            System.exit(ERROR_MESSAGE);
+            JOptionPane.showInternalConfirmDialog(progress, "Path Error" , str, ERROR_MESSAGE);
         }
+        progress.setVisible(true);
+        
         //dao des output excel
         PoiTrackerDAO ptk;
         //dao des screenshots instancié dans les methodes en local ou en svn
@@ -106,7 +120,7 @@ public class OverView {
 
                 //on pointe les dossier de screenshots et labels path est soit svn1400 soit local
                 ptk = new PoiTrackerDAO(path + pathLabels + dir);
-                scf = new ScreenFilesDAO(path + pathScreens, dir);//("svn://svn.kayentis.fr:14000/Kayentis/Novartis/CAIN457M2301/trunk");//(path + pathScreenshot);
+                scf = new ScreenFilesDAO(path + pathScreens, dir);
 
                 SimpleTracker smt = null;
 
@@ -126,6 +140,7 @@ public class OverView {
             pstk.svgStudyTracker(new SimpleStudyTracker((ArrayList<SimpleTracker>) listTrackers));
 
             FenEnd fe = new FenEnd();
+            progress.dispose();
             fe.setVisible(true);
 
         }
@@ -180,9 +195,8 @@ public class OverView {
         SimpleTracker smt = ptk.createTrackerFromSVNLabel(dir);
 
         CertifFilesDAO ctf = new CertifFilesDAO(pathSvnDoc + pathCertifs, dir);
-        // SvnScreenFilesDAO scfFinals = new SvnScreenFilesDAO(pathSvnDoc + pathFinalsScreens, dir);
-        String M2301 = "svn://document.kayentis.fr:15000/kayentis/Documentation/Projets/Santé/Novartis/CAIN457M2301-M2302/3- Functional scope/2- Forms/2- Kayentis design/1 - Screenshots/" + dir + "/M2302/";
-        SvnScreenFilesDAO scfFinals = new SvnScreenFilesDAO(M2301, dir);
+        SvnScreenFilesDAO scfFinals = new SvnScreenFilesDAO(pathSvnDoc + pathFinalsScreens, dir);
+      
         scf = new SvnScreenFilesDAO(path + pathScreens, dir);
 
         if (new File(path + pathLabels + dir).exists()) {
