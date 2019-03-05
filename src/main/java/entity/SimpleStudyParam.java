@@ -31,7 +31,7 @@ public class SimpleStudyParam implements StudyParams {
     private String pathSvnDel = def;   ///svn://svn.kayentis.fr:14000/Kayentis/<CLIENT>/<PROJET>/Platforms/Trunk/ 
     private String pathFinalsScreens = "1-Final/2-Language/";
 
-    public SimpleStudyParam(ArrayList<String> listStudyPath, String trad, HashMap<String, String> map, 
+    public SimpleStudyParam(ArrayList<String> listStudyPath, String trad, HashMap<String, String> map,
             String tabModel, boolean fontSamsung, String pathSvnDoc, String pathSvnDel) {
         this.listStudyPath = listStudyPath;
         if (Check.isGood(trad)) {
@@ -49,7 +49,6 @@ public class SimpleStudyParam implements StudyParams {
             this.pathSvnDel = pathSvnDel;
         }
     }
-
 
     @Override
     public String getTrad() {
@@ -104,7 +103,6 @@ public class SimpleStudyParam implements StudyParams {
     public void setTabModel(String tabModel) {
         this.tabModel = tabModel;
     }
-    
 
     @Override
     public String getPathCertifs() {
@@ -131,7 +129,7 @@ public class SimpleStudyParam implements StudyParams {
 
     @Override
     public String getPathSvnDoc() {
-       return pathSvnDoc;
+        return pathSvnDoc;
     }
 
     @Override
@@ -140,10 +138,16 @@ public class SimpleStudyParam implements StudyParams {
     }
 
     public void setPathSvnDoc(String pathSvnDoc) {
+        if (!pathSvnDoc.endsWith("/")) {
+            pathSvnDoc += "/";
+        }
         this.pathSvnDoc = pathSvnDoc;
     }
 
     public void setPathSvnDel(String pathSvnDel) {
+        if (!pathSvnDel.endsWith("/")) {
+            pathSvnDel += "/";
+        }
         this.pathSvnDel = pathSvnDel;
     }
 
@@ -151,5 +155,4 @@ public class SimpleStudyParam implements StudyParams {
         this.pathFinalsScreens = pathFinalsScreens;
     }
 
-    
 }

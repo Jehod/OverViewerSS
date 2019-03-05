@@ -14,14 +14,14 @@ import java.util.ArrayList;
  *
  * @author nrochas
  */
-public class CertifFilesDAO implements CertificationsFilesDAO {
+public class SvnCertifFilesDAO implements CertificationsFilesDAO {
 
     private final String pathCertifs;
     private final String langue;
     private final Outils.SVNWorker svn = new SVNWorker();
     private final ArrayList list;
 
-    public CertifFilesDAO(String pathCertifs, String langue) {
+    public SvnCertifFilesDAO(String pathCertifs, String langue) {
                   
         this.langue = langue;
         this.pathCertifs = pathCertifs + this.langue; 

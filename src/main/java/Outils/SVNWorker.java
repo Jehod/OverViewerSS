@@ -113,6 +113,7 @@ public class SVNWorker {
             Logger.getLogger(SVNWorker.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+        System.out.println("");
         return list;
     }
 
@@ -145,6 +146,7 @@ public class SVNWorker {
      */
     public String mountInSvn(String pathFile, String url) {
         String str = null;
+        System.out.println("test de chemin utf8: "+ pathFile+" et l'url: "+url);
         String command = "powershell.exe svn import  -m'AutoImport' '" + pathFile + "' '" + url + "'";
 
         try {
@@ -419,6 +421,42 @@ public class SVNWorker {
         }
 
         return file;
+    }
+
+   public boolean checkPathInSvn(String path) {
+         bob = false;
+
+        //dans le commande ne pas oublié les '' en plus, pour que ce soit reconnu dans Powershell
+        String command = "powershell.exe svn info '" + path  + "'";//'svn://svn.kayentis.fr:14000/Kayentis/testeclient/teststudy'";
+
+        try {
+
+            // Executing the command
+            Process powerShellProcess = Runtime.getRuntime().exec(command);
+            // Getting the results
+            powerShellProcess.getOutputStream().close();
+            String line;
+            System.out.print("Standard Output: ");
+            try (BufferedReader stdout = new BufferedReader(new InputStreamReader(
+                    powerShellProcess.getInputStream()))) {
+              
+                System.out.println("test: "+path +" = path find");
+                bob = true;
+            }
+      
+            BufferedReader stderr = new BufferedReader(new InputStreamReader(
+                    powerShellProcess.getErrorStream()));
+            while ((line = stderr.readLine()) != null) {
+                System.out.println("Error "+line);
+            }
+            stderr.close();
+
+        } catch (IOException ex) {
+            System.out.println("catch du check in SVN " + ex.getLocalizedMessage());
+            Logger.getLogger(SVNWorker.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return bob;
     }
 
     

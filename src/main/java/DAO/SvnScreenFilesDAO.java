@@ -27,7 +27,7 @@ public class SvnScreenFilesDAO extends ScreenFilesDAOExt {
     private HashMap map;
     private final SimpleStudyParam ssp;
     private final String langue;
-     private final Outils.SVNWorker svn = new SVNWorker();
+    private final Outils.SVNWorker svn = new SVNWorker();
     private final ArrayList listScreens;
     private boolean bob;
 
@@ -40,26 +40,22 @@ public class SvnScreenFilesDAO extends ScreenFilesDAOExt {
         System.out.println("pathScreens +++++++++" + pathScreens);
 
         listScreens = svn.listSVNByExt(this.pathScreens, ".pdf");
-        
-    }
 
-  
+    }
 
     @Override
     public boolean checkExistingPDF(String langue, String formulaire, String version) {
-        
 
-        String cible = formulaire+"_"+this.langue+"_v"+version+".pdf";
-        
+        String cible = formulaire + "_" + this.langue + "_v" + version + ".pdf";
+        System.out.println("cible: " + cible);
+
         bob = Outils.Check.checkIsIn(cible, listScreens);
-        
-         if (bob) {
-            System.out.println("+++++++++ " + pathScreens +  "/" + formulaire + "_" + langue + "_v"+version+".pdf" + " a ete trouve++++");
+
+        if (bob) {
+            System.out.println("+++++++++ " + pathScreens + "/" + formulaire + "_" + langue + "_v" + version + ".pdf" + " a ete trouve++++");
         } else {
-            System.out.println("+++++++++ " + pathScreens +  "/" + formulaire + "_" + langue + "_v"+version +".pdf" + " InTROUVABLE++++");
+            System.out.println("+++++++++ " + pathScreens + "/" + formulaire + "_" + langue + "_v" + version + ".pdf" + " InTROUVABLE++++");
         }
-        
-     
 
         return bob;
 
@@ -90,25 +86,21 @@ public class SvnScreenFilesDAO extends ScreenFilesDAOExt {
      */
     @Override
     public String searchTrainingPDF(String langue, String formulaire, String version) {
-        String date = "No";
-        Boolean bob = false;
-        File file = null;
-        ArrayList<String> list = (ArrayList) Outils.FilesWorker.ListerFilesByContainsAndExt(pathScreens + "/" + langue, "train", ".pdf");
-
+        String proof = "No";
+        
+        ArrayList<String> list = svn.listSVNByExt(pathScreens , ".pdf");
+        
         if (!list.isEmpty()) {
 
             for (String str : list) {
 
-                if (str.contains(version)) {
-                    file = new File(pathScreens + "/" + langue + "/" + str);
+                if (proof.equals("No") && str.toLowerCase().contains("train") ) {
+                    proof = "Yes";
                 }
             }
         }
-        if (file != null) {
-            date = dateM.getSimpleDate(new Date(file.lastModified()));
-        }
 
-        return date;
+        return proof;
     }
 
     /**
@@ -121,7 +113,7 @@ public class SvnScreenFilesDAO extends ScreenFilesDAOExt {
      * @return
      */
     private boolean compareQuest(String langue, String formulaire, String version) {
-        
+
         String quest;
         String vers;
         String questCible = Check.standardise(formulaire);
@@ -143,12 +135,10 @@ public class SvnScreenFilesDAO extends ScreenFilesDAOExt {
 
             System.out.println("quest " + quest + " questcible " + questCible + " versioncible: " + version + " version: " + vers);
 
-            bob =((quest.contains(questCible) || questCible.contains(quest)) && vers.equals(version));
+            bob = ((quest.contains(questCible) || questCible.contains(quest)) && vers.equals(version));
         }
 
         return bob;
     }
-
-   
 
 }

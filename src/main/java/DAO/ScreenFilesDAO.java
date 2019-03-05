@@ -9,7 +9,6 @@ import Outils.Check;
 import com.JehodFactory.overviewerss.Params;
 import Outils.DateManager;
 import Outils.FilesWorker;
-import Outils.SVNWorker;
 import entity.SimpleStudyParam;
 import java.io.File;
 import java.util.ArrayList;
@@ -28,7 +27,7 @@ public class ScreenFilesDAO extends ScreenFilesDAOExt {
     private HashMap map;
     private final SimpleStudyParam ssp;
     private final String langue;
-   
+
     private List listScreens = new ArrayList();
     private boolean bob;
 
@@ -38,26 +37,25 @@ public class ScreenFilesDAO extends ScreenFilesDAOExt {
         ssp = Params.getInstance().studyParam;
         //this.pathScreens = Params.getInstance().studyPath +ssp.getPathScreens();
         //this.pathScreens = pathScreens+ssp.getPathScreens();
-        this.pathScreens = fileName  + langue;
+        this.pathScreens = fileName + langue;
         this.langue = langue;
         listScreens = FilesWorker.ListerFilesByExt(pathScreens, ".pdf");
-        
+
     }
 
     @Override
     public boolean checkExistingPDF(String langue, String formulaire, String version) {
-        
 
-        String cible = formulaire+"_"+langue+"_v"+version+".pdf";
-        
+        String cible = formulaire + "_" + langue + "_v" + version + ".pdf";
+
         bob = Outils.Check.checkIsIn(cible, listScreens);
-        
-         if (bob) {
-            System.out.println("+++++++++ " + pathScreens +  "/" + formulaire + "_" + langue + "_v"+version+".pdf" + " a ete trouve++++");
+
+        if (bob) {
+            System.out.println("+++++++++ " + pathScreens + "/" + formulaire + "_" + langue + "_v" + version + ".pdf" + " a ete trouve++++");
         } else {
-            System.out.println("+++++++++ " + pathScreens +  "/" + formulaire + "_" + langue + "_v"+version +".pdf" + " InTROUVABLE++++");
+            System.out.println("+++++++++ " + pathScreens + "/" + formulaire + "_" + langue + "_v" + version + ".pdf" + " InTROUVABLE++++");
         }
-        
+
         /*
         if (new File((pathScreens + "/" + langue + "/" + formulaire + "_" + langue + "_v" + version + ".pdf")) != null) {
             bob = true;
@@ -66,12 +64,11 @@ public class ScreenFilesDAO extends ScreenFilesDAOExt {
         } //partie qui sera remplacé par le mapping
         /*else if (bob == false) {
             bob = compareQuest(langue, formulaire, version);
-        } */ 
-        /*else {
+        } */
+ /*else {
             System.out.println("+++++++++ " + pathScreens + "/" + langue + "/" + formulaire + "_" + langue + "_v" + version + ".pdf" + " InTROUVABLE++++");
         }
-        */
-
+         */
         return bob;
 
     }
@@ -92,7 +89,7 @@ public class ScreenFilesDAO extends ScreenFilesDAOExt {
 
     /**
      * methode un peu alambiqué pour trouver le formulaire de training et de ce
-     * fichier en tirer la date de creation
+     * fichier en tirer la date de creation // plus la date, juste un yes si il trouve un train
      *
      * @param langue
      * @param formulaire
@@ -102,23 +99,23 @@ public class ScreenFilesDAO extends ScreenFilesDAOExt {
     @Override
     public String searchTrainingPDF(String langue, String formulaire, String version) {
         String date = "No";
-        Boolean bob = false;
         File file = null;
         ArrayList<String> list = (ArrayList) Outils.FilesWorker.ListerFilesByContainsAndExt(pathScreens + "/" + langue, "train", ".pdf");
 
         if (!list.isEmpty()) {
+            date = "Yes";
+        }
 
-            for (String str : list) {
+        /*  for (String str : list) {
 
                 if (str.contains(version)) {
-                    file = new File(pathScreens + "/" + langue + "/" + str);
+                    file = new File(pathScreens  + "/" + str);
                 }
             }
         }
         if (file != null) {
             date = dateM.getSimpleDate(new Date(file.lastModified()));
-        }
-
+        }*/
         return date;
     }
 
@@ -132,7 +129,7 @@ public class ScreenFilesDAO extends ScreenFilesDAOExt {
      * @return
      */
     private boolean compareQuest(String langue, String formulaire, String version) {
-        
+
         String quest;
         String vers;
         String questCible = Check.standardise(formulaire);
@@ -154,12 +151,10 @@ public class ScreenFilesDAO extends ScreenFilesDAOExt {
 
             System.out.println("quest " + quest + " questcible " + questCible + " versioncible: " + version + " version: " + vers);
 
-            bob =((quest.contains(questCible) || questCible.contains(quest)) && vers.equals(version));
+            bob = ((quest.contains(questCible) || questCible.contains(quest)) && vers.equals(version));
         }
 
         return bob;
     }
-
-   
 
 }

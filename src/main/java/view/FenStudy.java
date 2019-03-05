@@ -49,7 +49,7 @@ public class FenStudy extends FenGenerik {
      */
     public FenStudy(FenSelectStudy fss) {
 
-        System.out.println("constructeur");
+        
         init();
         //on note la fenetre d'avant pour le retour arriere
         prec = fss;

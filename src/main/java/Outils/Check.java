@@ -6,6 +6,7 @@
 package Outils;
 
 import com.JehodFactory.overviewerss.Params;
+import com.sun.xml.internal.bind.v2.runtime.output.SAXOutput;
 import entity.SimpleStudyParam;
 import java.io.File;
 import java.util.List;
@@ -99,11 +100,13 @@ public class Check {
 
             SVNWorker svn = new SVNWorker();
 
-            if (svn.CheckExistInSVN(path + ssp.getPathLabels(), "")) {
-                bob = svn.CheckExistInSVN(path + ssp.getPathScreens(), "");
-            } else {
-                System.out.println("Svn path DEL incorrect ");
-            }
+            if (!svn.checkPathInSvn(path + ssp.getPathLabels()) && !svn.checkPathInSvn(path + ssp.getPathScreens())) {
+                str = "Svn path DEL incorrect ";
+            } 
+            if (str.equals("ok") && !svn.checkPathInSvn(pathSvnDoc + ssp.getPathFinalsScreens()) && !svn.checkPathInSvn(pathSvnDoc + ssp.getPathCertifs())) {
+                str = "svn path DOC incorrect";
+            } 
+
         }
         return str;
     }

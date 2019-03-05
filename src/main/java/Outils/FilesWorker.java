@@ -189,7 +189,7 @@ public class FilesWorker {
         if (noms != null) {
             for (String nom : noms) {
 
-                if (nom.toLowerCase().contains(cible)) {
+                if (Check.standardise(nom).contains(cible)) {
 
                     list.add(nom);
                 }
