@@ -89,7 +89,8 @@ public class ScreenFilesDAO extends ScreenFilesDAOExt {
 
     /**
      * methode un peu alambiqué pour trouver le formulaire de training et de ce
-     * fichier en tirer la date de creation // plus la date, juste un yes si il trouve un train
+     * fichier en tirer la date de creation // plus la date, juste un yes si il
+     * trouve un train
      *
      * @param langue
      * @param formulaire
@@ -100,11 +101,13 @@ public class ScreenFilesDAO extends ScreenFilesDAOExt {
     public String searchTrainingPDF(String langue, String formulaire, String version) {
         String date = "No";
         File file = null;
-        ArrayList<String> list = (ArrayList) Outils.FilesWorker.ListerFilesByContainsAndExt(pathScreens + "/" + langue, "train", ".pdf");
+        ArrayList<String> list = (ArrayList) Outils.FilesWorker.ListerFilesByContainsAndExt(pathScreens, "train", ".pdf");
 
         if (!list.isEmpty()) {
             date = "Yes";
+
         }
+
 
         /*  for (String str : list) {
 

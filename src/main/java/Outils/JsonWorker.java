@@ -5,6 +5,7 @@
  */
 package Outils;
 
+import com.JehodFactory.overviewerss.Params;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -32,6 +33,7 @@ public class JsonWorker {
     private JSONObject jo;
     private FileWriter fw = null;
     private String fileConfig;
+    
 
     //https://www.cyril-rabat.fr/articles/index.php?article=50
     //http://jsonviewer.stack.hu/ 
@@ -232,6 +234,7 @@ public class JsonWorker {
     public boolean setNewStudyName(String studyName) {
 
         boolean bob = false;
+        SVNWorker svn = new SVNWorker();
 
         if (Check.isGood(studyName)) {
 
@@ -246,6 +249,7 @@ public class JsonWorker {
 
             bob = writeOnJson();
         }
+        
         return bob;
     }
 

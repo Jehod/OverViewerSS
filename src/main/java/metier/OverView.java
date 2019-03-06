@@ -35,14 +35,14 @@ import view.FenEnd;
  */
 public class OverView {
 
-    entity.SimpleStudyParam params = Params.getInstance().studyParam;
+    entity.SimpleStudyParam params = Params.getInstance().getStudyParam();
     final String path; //egal a svnDEL ou a chemin local suivant mode de track
     final String pathSvnDoc;
     final String pathLabels = params.getPathLabels();
     final String pathScreens = params.getPathScreens();
     final String pathFinalsScreens = params.getPathFinalsScreens();
     final String pathCertifs = params.getPathCertifs();
-    final Boolean local;
+    final Boolean local; //c'est le marqueur pour mode local (true) ou mode svn (false)
     
 
    /**
@@ -144,6 +144,7 @@ public class OverView {
             PoiStudyTrackerDAO pstk = new PoiStudyTrackerDAO(path + pathLabels, local);
             pstk.svgStudyTracker(new SimpleStudyTracker((ArrayList<SimpleTracker>) listTrackers));
 
+            
             FenEnd fe = new FenEnd();
             progress.dispose();
             fe.setVisible(true);
@@ -163,8 +164,7 @@ public class OverView {
     private SimpleTracker localTraitement(String dir, ScreenFilesDAOExt scf, PoiTrackerDAO ptk) {
 
         SimpleTracker smt = ptk.createTrackerFromLabel(dir);
-        // ArrayList list = new ArrayList();
-       // scf = new ScreenFilesDAO(path + pathScreens, dir);
+      
         //comme le rowtracker ont été créé depuis les labels il manque plusieurs infos
         //on fait ici l'ajout de la verif de screenshot et de certif si !local
         if (new File(path + pathLabels + dir).exists()) {
@@ -173,6 +173,7 @@ public class OverView {
                
 
                 if (rt.getFormulaire().contains("Training")) {
+                    System.out.println("test train");
                     rt.setScreenDone(scf.searchTrainingPDF(dir, rt.getFormulaire(), rt.getVersion()));
                 } else {
 
@@ -200,8 +201,7 @@ public class OverView {
 
         SvnCertifFilesDAO ctf = new SvnCertifFilesDAO(pathSvnDoc + pathCertifs, dir);
         SvnScreenFilesDAO scfFinals = new SvnScreenFilesDAO(pathSvnDoc + pathFinalsScreens, dir);
-      
-        //scf = new SvnScreenFilesDAO(path + pathScreens, dir);
+     
 
         
             //pour chaque questionnaire de la langue
@@ -214,14 +214,14 @@ public class OverView {
 
                     //si ce n'est pas un label final on TraiTe normal sinon TTT en screenfinal
                     if (!rt.getVersion().endsWith(".0.0")) {
-                        System.out.println("not finals");
+                       
 
                         if (scf.checkExistingPDF(dir, rt.getFormulaire(), rt.getVersion())) {
                             rt.setScreenDone("Yes");
                         }
 
                     } else {
-                        System.out.println("finals");
+                        
                         //check supplementaire des versions finals et des certifs
                         if (scfFinals.checkExistingPDF(dir, rt.getFormulaire(), rt.getVersion())) {
 

@@ -223,6 +223,9 @@
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection component="panOfFiels" name="background" type="property"/>
                 </Property>
+                <Property name="selected" type="boolean" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="ssp.getFontSamsung()" type="code"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Samsung Sans"/>
               </Properties>
             </Component>

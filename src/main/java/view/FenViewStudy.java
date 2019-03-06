@@ -18,7 +18,6 @@ import style.GraphicCharter;
 import view.generikForms.ButtonCancel;
 import view.generikForms.ButtonGenerik;
 import view.generikForms.ButtonRefresh;
-import view.generikForms.FenGenerik;
 import view.generikForms.LabelGenerik;
 import view.generikForms.PanBackGenerik;
 import view.generikForms.PanGenerik;
@@ -42,6 +41,7 @@ public class FenViewStudy extends javax.swing.JFrame {
 
     /**
      * Creates new form FenViewStudy
+     * @param prec
      */
     public FenViewStudy(JFrame prec) {
         Dimension dim = this.getToolkit().getScreenSize();
@@ -117,6 +117,7 @@ public class FenViewStudy extends javax.swing.JFrame {
         jLabel3.setText("Path Svn Doc:  ");
 
         cBxFont.setBackground(panOfFiels.getBackground());
+        cBxFont.setSelected(ssp.getFontSamsung());
         cBxFont.setText("Samsung Sans");
 
         jLabel5.setFont(GraphicCharter.titre3);
@@ -323,6 +324,7 @@ public class FenViewStudy extends javax.swing.JFrame {
         pathSvnDoc = TxtFieldPathSvnDoc.getText();
         trad = TxtFieldTrad.getText();
         tabletModel = TxtFieldTabModel.getText();
+        font = cBxFont.isSelected();
 
         return (Check.isGood(pathSvnDel) && Check.isGood(pathSvnDoc) && Check.isGood(trad) && Check.isGood(tabletModel));
     }

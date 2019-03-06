@@ -178,6 +178,7 @@ public class FilesWorker {
      */
     public static List ListerFilesByContainsAndExt(String path, String cible, String ext) {
 
+        
         File f = new File(path);
         List list = new ArrayList();
 
@@ -187,13 +188,10 @@ public class FilesWorker {
         String[] noms = f.list(filter);
 
         if (noms != null) {
-            for (String nom : noms) {
-
-                if (Check.standardise(nom).contains(cible)) {
-
+            for (String nom : noms) {             
+                if (nom.toLowerCase().contains(cible)) {
                     list.add(nom);
                 }
-
             }
         }
 

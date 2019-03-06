@@ -111,7 +111,7 @@ public class PoiTrackerDAO implements TrackerDAO {
             //on note l'existence d'un training.
             findTrain = (xls.toLowerCase().contains("train"));
 
-            if (xls.contains("PARAM") || xls.contains("PFT"))//smtk.getFormulaire().equals("PARAM") || smtk.getFormulaire().contains("PFT")) {
+            if (xls.equals("PARAM") || xls.equals("PFT"))//smtk.getFormulaire().equals("PARAM") || smtk.getFormulaire().contains("PFT")) {
             {
                 System.out.println("les pft et le param ne sont pas pris");
             } else {
@@ -274,7 +274,7 @@ public class PoiTrackerDAO implements TrackerDAO {
 
             System.out.println("++++++++++++++++++++testing: " + smtk.getFormulaire());
 
-            if (smtk.getFormulaire().equals("PARAM") || smtk.getFormulaire().contains("PFT")) {
+            if (smtk.getFormulaire().equals("PARAM") || smtk.getFormulaire().equals("PFT")) {
                 System.out.println("les pft et le param ne sont pas pris");
             } else {
                 allMdT.add(modifTrackToRowTracker(smtk));
