@@ -7,6 +7,7 @@ package DAO;
 
 import DAO.interfaceDAO.StudyTrackerDAO;
 import Outils.DateManager;
+import Outils.FilesWorker;
 import Outils.SVNWorker;
 import com.JehodFactory.overviewerss.Params;
 import entity.SimpleRowTracker;
@@ -56,7 +57,7 @@ public class PoiStudyTrackerDAO implements StudyTrackerDAO {
 
     @Override
     public boolean svgStudyTracker(SimpleStudyTracker sst) {
-         bob = false;
+         
 
         Sheet sheet = null;
         String date = new DateManager().getSimpleCurrentDate();
@@ -105,11 +106,13 @@ public class PoiStudyTrackerDAO implements StudyTrackerDAO {
 
         //apply decoration
         style.pairStyle();
+        
+        String TrackerName = "STUDYTRACKER.xlsx";
 
         if (local) {
-            bob = svgLocal("STUDYTRACKER.xlsx");
+            bob = svgLocal(TrackerName);
         } else {
-            bob = svgSvn("STUDYTRACKER.xlsx");
+            bob = svgSvn(TrackerName);
 
         }
 
@@ -158,7 +161,7 @@ public class PoiStudyTrackerDAO implements StudyTrackerDAO {
      *
      * @return
      */
-    private boolean svgSvn(String fileStudy) {
+    private boolean svgSvn(String studyTracker) {
          bob = false;
         String out;
         
@@ -167,10 +170,10 @@ public class PoiStudyTrackerDAO implements StudyTrackerDAO {
         //creation d'un fichier temporaire (on part du principe que l'adresse local n'est pas connu.
         try {
 
-            file = new File(pathTEMP + fileStudy);
+            file = new File(pathTEMP + studyTracker);
             FileOutputStream outFile = new FileOutputStream(file);
             wb.write(outFile);
-            //outFile.close();
+            
             bob = true;
         } catch (IOException ex) {
             
@@ -184,27 +187,25 @@ public class PoiStudyTrackerDAO implements StudyTrackerDAO {
         
         //pour svnDel 1400
         //si il existe on le detruit    
-        if (svn.CheckExistInSVN(pathFileLabels, fileStudy)) {
-            svn.deleteInSVN(pathFileLabels, fileStudy);
+        if (svn.CheckExistInSVN(pathFileLabels, studyTracker)) {
+            svn.deleteInSVN(pathFileLabels, studyTracker);
         }
 
-        out = svn.mountInSvn(pathTEMP + fileStudy, pathFileLabels + fileStudy);
+        out = svn.mountInSvn(pathTEMP + studyTracker, pathFileLabels + studyTracker);
 
         //out = svn.commitSVN("AutCommit", pathFile);
         
         // pour svnDoc 1500
-        if (svn.CheckExistInSVN(pathSvnDoc, fileStudy)) {
-            svn.deleteInSVN(pathSvnDoc, fileStudy);
+        if (svn.CheckExistInSVN(pathSvnDoc, studyTracker)) {
+            svn.deleteInSVN(pathSvnDoc, studyTracker);
         }
 
-        out = svn.mountInSvn(pathTEMP + fileStudy, pathSvnDoc + fileStudy);
+        out = svn.mountInSvn(pathTEMP + studyTracker, pathSvnDoc + studyTracker);
 
         
         //on detruit le fichier temp car on sort
          file.deleteOnExit();
          
-       
-       
         
         return bob;
     }

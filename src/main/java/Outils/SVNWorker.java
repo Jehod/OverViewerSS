@@ -382,7 +382,7 @@ public class SVNWorker {
      */
     public File copyInTempLocal(String URL, String cible, String pathTEMP) {
        
-        File file =null;
+        File file = null;
         
          String command = "powershell.exe svn export --force '" + URL +cible+ "' '"+pathTEMP+"'";
 
@@ -402,6 +402,7 @@ public class SVNWorker {
                 
                 file = new File(pathTEMP+cible);
                 file.deleteOnExit();
+               
          
             }
             stdout.close();
@@ -448,6 +449,7 @@ public class SVNWorker {
                     powerShellProcess.getErrorStream()));
             while ((line = stderr.readLine()) != null) {
                 System.out.println("Error "+line);
+                bob = false;
             }
             stderr.close();
 

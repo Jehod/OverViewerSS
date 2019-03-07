@@ -15,6 +15,7 @@ import DAO.ScreenFilesDAOExt;
 import DAO.SvnLabelFileDAO;
 import DAO.SvnScreenFilesDAO;
 import Outils.Check;
+import Outils.FilesWorker;
 import com.JehodFactory.overviewerss.Params;
 import entity.SimpleRowTracker;
 import entity.SimpleStudyTracker;
@@ -140,11 +141,14 @@ public class OverView {
                 listTrackers.add(smt);
             }
 
+            
             //on creer le studytracker avec tout ce qu'on a recuperé et on le svg          
             PoiStudyTrackerDAO pstk = new PoiStudyTrackerDAO(path + pathLabels, local);
             pstk.svgStudyTracker(new SimpleStudyTracker((ArrayList<SimpleTracker>) listTrackers));
 
             
+            
+            //on affiche la dernier fenetre
             FenEnd fe = new FenEnd();
             progress.dispose();
             fe.setVisible(true);
@@ -198,14 +202,16 @@ public class OverView {
     private SimpleTracker svnTraitement(String dir, ScreenFilesDAOExt scf, PoiTrackerDAO ptk) {
 
         SimpleTracker smt = ptk.createTrackerFromSVNLabel(dir);
-
+/*
+        ArrayList<SimpleRowTracker> li = smt.getAllRowTracker();
+        
         SvnCertifFilesDAO ctf = new SvnCertifFilesDAO(pathSvnDoc + pathCertifs, dir);
         SvnScreenFilesDAO scfFinals = new SvnScreenFilesDAO(pathSvnDoc + pathFinalsScreens, dir);
      
 
         
             //pour chaque questionnaire de la langue
-            for (SimpleRowTracker rt : smt.getAllRowTracker()) {
+            for (SimpleRowTracker rt : li) {
                 
                
                 if (rt.getFormulaire().contains("Training")) {
@@ -213,30 +219,28 @@ public class OverView {
                 } else {
 
                     //si ce n'est pas un label final on TraiTe normal sinon TTT en screenfinal
-                    if (!rt.getVersion().endsWith(".0.0")) {
+                   
                        
 
                         if (scf.checkExistingPDF(dir, rt.getFormulaire(), rt.getVersion())) {
                             rt.setScreenDone("Yes");
-                        }
-
-                    } else {
+                       
                         
                         //check supplementaire des versions finals et des certifs
-                        if (scfFinals.checkExistingPDF(dir, rt.getFormulaire(), rt.getVersion())) {
+                        if ( rt.getVersion().endsWith(".0.0") && scfFinals.checkExistingPDF(dir, rt.getFormulaire(), rt.getVersion())) {
 
                             rt.setScreenDone("Yes");
-                            if (ctf.checkCertif(rt.getFormulaire(), rt.getVersion())) {
+                            if ( ctf.checkCertif(rt.getFormulaire(), rt.getVersion())) {
                                 rt.setCertified("Yes");
                             }
-
-                        
+              
                     }
 
-                }
+        }
 
             }
-        }
+        }*/
+            
         return smt;
     }
 }

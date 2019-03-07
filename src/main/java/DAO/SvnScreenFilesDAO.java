@@ -27,7 +27,7 @@ public class SvnScreenFilesDAO extends ScreenFilesDAOExt {
     private HashMap map;
     private final SimpleStudyParam ssp;
     private final String langue;
-    private final Outils.SVNWorker svn = new SVNWorker();
+    private final Outils.SVNWorker svn;
     private final ArrayList listScreens;
     private boolean bob;
 
@@ -38,7 +38,7 @@ public class SvnScreenFilesDAO extends ScreenFilesDAOExt {
         this.langue = langue;
         this.pathScreens = fileName + langue;
         System.out.println("pathScreens +++++++++" + pathScreens);
-
+        svn = new SVNWorker();
         listScreens = svn.listSVNByExt(this.pathScreens, ".pdf");
 
     }
@@ -87,14 +87,14 @@ public class SvnScreenFilesDAO extends ScreenFilesDAOExt {
     @Override
     public String searchTrainingPDF(String langue, String formulaire, String version) {
         String proof = "No";
-        
-        ArrayList<String> list = svn.listSVNByExt(pathScreens , ".pdf");
-        
+
+        ArrayList<String> list = svn.listSVNByExt(pathScreens, ".pdf");
+
         if (!list.isEmpty()) {
 
             for (String str : list) {
 
-                if (proof.equals("No") && str.toLowerCase().contains("train") ) {
+                if (proof.equals("No") && str.toLowerCase().contains("train")) {
                     proof = "Yes";
                 }
             }

@@ -9,6 +9,7 @@ import Outils.Check;
 import Outils.JsonWorker;
 import Outils.SVNWorker;
 import entity.SimpleStudyParam;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
@@ -24,7 +25,7 @@ public class Params {
     //recup de la variable d'environnement
     private final String bin = System.getenv("bin") + "\\";
     //le fichier temporaire pour les aller retour svn
-    private final String pathTEMP = "D:\\";
+    private final String pathTEMP = "D:\\ovTemp\\";
 
     private boolean bob;
 
@@ -38,6 +39,8 @@ public class Params {
     //les données du fichier de settings
     public ArrayList<String> listStudy;
     public SimpleStudyParam studyParam;
+    
+    public File fileTemp;
 
     Params() {
         System.out.println("bin:++++ " + bin);
@@ -61,6 +64,13 @@ public class Params {
         jw = new JsonWorker(bin + settings);
         listStudy = jw.getJsonTableau("studies");
         svn = new SVNWorker();
+        
+        //initie le chemin des fichier temp
+        File t = new File(pathTEMP);
+                t.mkdir();
+                fileTemp = t;
+                
+        
 
     }
 

@@ -261,8 +261,9 @@ public class PoiTrackerDAO implements TrackerDAO {
 
             File file = svn.copyInTempLocal(fileName + "/", xls, pathTEMP);
             file.deleteOnExit();
+            
             PoiModifTrackDAO pmtk = new PoiModifTrackDAO(pathTEMP, xls, file);
-
+            
             //on note l'existence d'un training.
             if (xls.toLowerCase().contains("train")) {
                 findTrain = true;
@@ -271,7 +272,7 @@ public class PoiTrackerDAO implements TrackerDAO {
             //creation de la ligne
             SimpleModifTrack smtk;
             smtk = pmtk.getLastModifTrack();
-
+            //file.delete();
             System.out.println("++++++++++++++++++++testing: " + smtk.getFormulaire());
 
             if (smtk.getFormulaire().equals("PARAM") || smtk.getFormulaire().equals("PFT")) {
@@ -280,7 +281,9 @@ public class PoiTrackerDAO implements TrackerDAO {
                 allMdT.add(modifTrackToRowTracker(smtk));
             }
 
-            System.out.println("xls traité: " + xls.toString() + " size: " + listXls.size());
+            System.out.println("xls traité: " + xls + " size: " + listXls.size());
+            
+            
         }
 
         //on ajoute un train si il ne l'a pas trouvé
@@ -291,6 +294,9 @@ public class PoiTrackerDAO implements TrackerDAO {
         }
 
         stk = createTracker((ArrayList<SimpleRowTracker>) allMdT);
+        
+        
+                
 
         return stk;
     }

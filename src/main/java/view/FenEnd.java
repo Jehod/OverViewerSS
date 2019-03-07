@@ -5,8 +5,9 @@
  */
 package view;
 
+import Outils.FilesWorker;
+import com.JehodFactory.overviewerss.Params;
 import java.awt.Dimension;
-import javax.swing.JFrame;
 
 /**
  *
@@ -25,7 +26,8 @@ public class FenEnd extends javax.swing.JFrame
        initComponents();
       
         this.setLocation(dim.width/2 - this.getWidth()/2, dim.height/2 - this.getHeight()/2);
-        
+        //on nettoie les fichiers temp
+           FilesWorker.clearDir(Params.getInstance().fileTemp, Params.getInstance().getPathTEMP());
     }
 
     /**
@@ -35,14 +37,14 @@ public class FenEnd extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("End");
 
         jLabel1.setFont(style.GraphicCharter.titre1);
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);

@@ -5,14 +5,17 @@
  */
 package Outils;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -198,4 +201,57 @@ public class FilesWorker {
         System.out.println("list de" + list.toString());
         return list;
     }
+
+    /**
+     * methode pour vider les fichiers d'un dossier puis detruit le dossier vidé
+     * attention ne fonctionne pas si contient d'autre dossiers remplis
+     * @param fi 
+     */
+    public static void clearDir(File fi, String path) {
+        /*String[] li = fi.list();
+        for (String st : li) {
+            System.out.println("clean: "+st);
+            new File(path +st).delete();
+        }
+        fi.delete();
+    */
+    path = "D:\\ovTemp";
+        
+
+        //dans le commande ne pas oublié les '' en plus, pour que ce soit reconnu dans Powershell
+        String command = "powershell.exe Remove-Item -Recurse -force '" + path  + "'";//'svn://svn.kayentis.fr:14000/Kayentis/testeclient/teststudy'";
+
+        try {
+
+            // Executing the command
+            Process powerShellProcess = Runtime.getRuntime().exec(command);
+            // Getting the results
+            powerShellProcess.getOutputStream().close();
+            String line;
+            System.out.print("Standard Output: ");
+            try (BufferedReader stdout = new BufferedReader(new InputStreamReader(
+                    powerShellProcess.getInputStream()))) {
+              
+                System.out.println("test: "+path +" = path removed");
+               
+            }
+      
+            BufferedReader stderr = new BufferedReader(new InputStreamReader(
+                    powerShellProcess.getErrorStream()));
+            while ((line = stderr.readLine()) != null) {
+                System.out.println("Error "+line);
+                
+            }
+            stderr.close();
+
+        } catch (IOException ex) {
+            System.out.println("catch du check in SVN " + ex.getLocalizedMessage());
+            Logger.getLogger(SVNWorker.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+       
+    
+    }
+        
+        
 }
