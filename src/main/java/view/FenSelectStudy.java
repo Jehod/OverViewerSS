@@ -5,6 +5,7 @@
  */
 package view;
 
+import Outils.Check;
 import view.generikForms.FenGenerik;
 import view.generikForms.ButtonGenerik;
 import com.JehodFactory.overviewerss.Params;
@@ -60,7 +61,6 @@ public class FenSelectStudy extends FenGenerik
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Select Study");
-        setAlwaysOnTop(true);
 
         jLabel2.setFont(GraphicCharter.titre2);
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -170,17 +170,17 @@ public class FenSelectStudy extends FenGenerik
 
     private void butGoWithActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_butGoWithActionPerformed
     {//GEN-HEADEREND:event_butGoWithActionPerformed
-        if (comboStudy.getSelectedItem() != null)
+        String study = (String) comboStudy.getSelectedItem();
+        if (!Check.isGood(study))
+        {
+            JOptionPane.showMessageDialog(null, "Select a study", "Error Fill ComboBox", JOptionPane.ERROR_MESSAGE, null);
+            comboStudy.setBackground(Color.RED);
+            comboStudy.repaint();    
+        }else
         {
             Params.getInstance().accedeStudy((String) comboStudy.getSelectedItem());
             FenStudy fens = new FenStudy(this);
             this.setVisible(false);
-        }else
-        {
-            comboStudy.setBackground(Color.RED);
-            comboStudy.repaint();
-            comboStudy.requestFocusInWindow();
-            JOptionPane.showMessageDialog(null, "Select a study", "Error Fill ComboBox", JOptionPane.ERROR_MESSAGE, null);
         }
         
     }//GEN-LAST:event_butGoWithActionPerformed

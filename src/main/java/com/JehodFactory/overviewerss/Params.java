@@ -25,7 +25,7 @@ public class Params {
     //recup de la variable d'environnement
     private final String bin = System.getenv("bin") + "\\";
     //le fichier temporaire pour les aller retour svn
-    private final String pathTEMP = "D:\\ovTemp\\";
+    private final String pathTEMP = System.getenv("TEMP") + "\\ovTemp\\";
 
     private boolean bob;
 
@@ -67,8 +67,8 @@ public class Params {
         
         //initie le chemin des fichier temp
         File t = new File(pathTEMP);
-                t.mkdir();
-                fileTemp = t;
+        t.mkdir();
+        fileTemp = t;
                 
         
 

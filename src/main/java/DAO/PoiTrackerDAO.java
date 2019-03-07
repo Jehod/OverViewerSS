@@ -110,14 +110,15 @@ public class PoiTrackerDAO implements TrackerDAO {
 
             //on note l'existence d'un training.
             findTrain = (xls.toLowerCase().contains("train"));
-
-            if (xls.equals("PARAM") || xls.equals("PFT"))//smtk.getFormulaire().equals("PARAM") || smtk.getFormulaire().contains("PFT")) {
+            //creation de la ligne
+            SimpleModifTrack smtk;
+            smtk = pmtk.getLastModifTrack();
+            
+            if (smtk.getFormulaire().equals("PARAM") || smtk.getFormulaire().equals("PFT"))
             {
                 System.out.println("les pft et le param ne sont pas pris");
             } else {
-                //creation de la ligne
-                SimpleModifTrack smtk;
-                smtk = pmtk.getLastModifTrack();
+               
                 allMdT.add(modifTrackToRowTracker(smtk));
             }
 
@@ -261,9 +262,9 @@ public class PoiTrackerDAO implements TrackerDAO {
 
             File file = svn.copyInTempLocal(fileName + "/", xls, pathTEMP);
             file.deleteOnExit();
-            
+
             PoiModifTrackDAO pmtk = new PoiModifTrackDAO(pathTEMP, xls, file);
-            
+
             //on note l'existence d'un training.
             if (xls.toLowerCase().contains("train")) {
                 findTrain = true;
@@ -272,7 +273,7 @@ public class PoiTrackerDAO implements TrackerDAO {
             //creation de la ligne
             SimpleModifTrack smtk;
             smtk = pmtk.getLastModifTrack();
-            //file.delete();
+
             System.out.println("++++++++++++++++++++testing: " + smtk.getFormulaire());
 
             if (smtk.getFormulaire().equals("PARAM") || smtk.getFormulaire().equals("PFT")) {
@@ -282,21 +283,19 @@ public class PoiTrackerDAO implements TrackerDAO {
             }
 
             System.out.println("xls traité: " + xls + " size: " + listXls.size());
-            
-            
+
+           
         }
 
         //on ajoute un train si il ne l'a pas trouvé
         if (!findTrain) {
             SimpleModifTrack smtk;
             smtk = new SimpleModifTrack("Training", new DateManager().getSimpleCurrentDate(), "Kayentis", "1.0.0", "Auto-creation");
+            System.out.println("Creation du train:");
             allMdT.add(modifTrackToRowTracker(smtk));
         }
 
         stk = createTracker((ArrayList<SimpleRowTracker>) allMdT);
-        
-        
-                
 
         return stk;
     }

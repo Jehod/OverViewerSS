@@ -5,8 +5,6 @@
  */
 package view;
 
-import Outils.FilesWorker;
-import com.JehodFactory.overviewerss.Params;
 import java.awt.Dimension;
 
 /**
@@ -26,8 +24,7 @@ public class FenEnd extends javax.swing.JFrame
        initComponents();
       
         this.setLocation(dim.width/2 - this.getWidth()/2, dim.height/2 - this.getHeight()/2);
-        //on nettoie les fichiers temp
-           FilesWorker.clearDir(Params.getInstance().fileTemp, Params.getInstance().getPathTEMP());
+      
     }
 
     /**

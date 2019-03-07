@@ -293,7 +293,7 @@ public class FenViewStudy extends javax.swing.JFrame {
             
             this.dispose();
             if (prec.getClass().getSimpleName().equals("FenStudy")){ prec.refresh();}
-            prec.setVisible(true);
+           
 
         }
     }//GEN-LAST:event_buttSaveNGoActionPerformed
@@ -320,8 +320,9 @@ public class FenViewStudy extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private boolean recupInfo() {
-        pathSvnDel = TxtFieldPathSvnDel.getText();
-        pathSvnDoc = TxtFieldPathSvnDoc.getText();
+       
+        pathSvnDel = Check.autoSlash(TxtFieldPathSvnDel.getText());
+        pathSvnDoc = Check.autoSlash(TxtFieldPathSvnDoc.getText());
         trad = TxtFieldTrad.getText();
         tabletModel = TxtFieldTabModel.getText();
         font = cBxFont.isSelected();
@@ -329,6 +330,6 @@ public class FenViewStudy extends javax.swing.JFrame {
         return (Check.isGood(pathSvnDel) && Check.isGood(pathSvnDoc) && Check.isGood(trad) && Check.isGood(tabletModel));
     }
 
-    
+  
 
 }

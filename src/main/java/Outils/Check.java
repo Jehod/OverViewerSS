@@ -6,7 +6,6 @@
 package Outils;
 
 import com.JehodFactory.overviewerss.Params;
-import com.sun.xml.internal.bind.v2.runtime.output.SAXOutput;
 import entity.SimpleStudyParam;
 import java.io.File;
 import java.util.List;
@@ -31,6 +30,17 @@ public class Check {
             bob = true;
         }
         return bob;
+    }
+    
+    /**
+     * ajoute un slash si il manque
+     * @param str
+     * @return 
+     */
+      public static String autoSlash(String str)
+    {
+        if (!str.endsWith("/")) str += "/";
+        return str;
     }
 
     /**

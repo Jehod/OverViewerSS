@@ -279,8 +279,8 @@ public class FenCreatStudy extends FenGenerik {
         String name = txtfstudyname.getText().trim().toUpperCase();
         String trad = txtfTrad.getText().trim().toUpperCase();
         String tablet = txtfTAblet.getText().trim().toUpperCase();
-        String pathSvnDoc = txtfPathSvnDoc.getText().trim();
-        String pathSvnDel = txtfsPathSvnDel.getText().trim();
+        String pathSvnDoc = Check.autoSlash(txtfPathSvnDoc.getText().trim());
+        String pathSvnDel = Check.autoSlash(txtfsPathSvnDel.getText().trim());
         Boolean font = cBxFont.isSelected();
 
         if (Outils.Check.isGood(name) && Check.isGood(trad) && Check.isGood(tablet)

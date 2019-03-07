@@ -5,6 +5,7 @@
  */
 package Outils;
 
+import com.JehodFactory.overviewerss.Params;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -215,7 +216,7 @@ public class FilesWorker {
         }
         fi.delete();
     */
-    path = "D:\\ovTemp";
+    path = Params.getInstance().getPathTEMP();
         
 
         //dans le commande ne pas oublié les '' en plus, pour que ce soit reconnu dans Powershell

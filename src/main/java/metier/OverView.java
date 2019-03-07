@@ -44,14 +44,14 @@ public class OverView {
     final String pathFinalsScreens = params.getPathFinalsScreens();
     final String pathCertifs = params.getPathCertifs();
     final Boolean local; //c'est le marqueur pour mode local (true) ou mode svn (false)
-    
 
-   /**
-    * constructeur pour tt online
-    * @param path  chemin vers DEL
-    * @param pathSvnDoc chemin vers DOC
-    * @param local  boolean local (a false ici)
-    */
+    /**
+     * constructeur pour tt online
+     *
+     * @param path chemin vers DEL
+     * @param pathSvnDoc chemin vers DOC
+     * @param local boolean local (a false ici)
+     */
     public OverView(String path, String pathSvnDoc, boolean local) {
         this.path = path;
         this.local = local;
@@ -59,10 +59,11 @@ public class OverView {
 
     }
 
-    /**constructeur offline
-     * svnDoc est mis a null
-     * @param path  path local
-     * @param local  boolean local (a true ici)
+    /**
+     * constructeur offline svnDoc est mis a null
+     *
+     * @param path path local
+     * @param local boolean local (a true ici)
      */
     public OverView(String path, boolean local) {
         this.path = path;
@@ -74,21 +75,21 @@ public class OverView {
     /**
      * methode pour creer les trackers par langue et le studyTracker il
      * instancie les DAO et parcourt les fichiers de langue
+     *
      * @param progress
      */
     public void overview(JFrame progress) {
-        
+
         progress.setVisible(true);
         //on teste les chemins
         String str = Check.TestNeededPath(local, path, pathSvnDoc);
-        System.out.println("le test des path:" +str);
+        System.out.println("le test des path:" + str);
         if (!str.equals("ok")) {
             System.out.println(str);
-            JOptionPane.showMessageDialog(progress, str,"path Error", ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(progress, str, "path Error", ERROR_MESSAGE);
             System.exit(ERROR_MESSAGE);
         }
-        
-        
+
         //dao des output excel
         PoiTrackerDAO ptk;
         //dao des screenshots instancié dans les methodes en local ou en svn
@@ -139,15 +140,13 @@ public class OverView {
 
                 }
                 listTrackers.add(smt);
+
             }
 
-            
             //on creer le studytracker avec tout ce qu'on a recuperé et on le svg          
             PoiStudyTrackerDAO pstk = new PoiStudyTrackerDAO(path + pathLabels, local);
             pstk.svgStudyTracker(new SimpleStudyTracker((ArrayList<SimpleTracker>) listTrackers));
 
-            
-            
             //on affiche la dernier fenetre
             FenEnd fe = new FenEnd();
             progress.dispose();
@@ -168,13 +167,12 @@ public class OverView {
     private SimpleTracker localTraitement(String dir, ScreenFilesDAOExt scf, PoiTrackerDAO ptk) {
 
         SimpleTracker smt = ptk.createTrackerFromLabel(dir);
-      
+
         //comme le rowtracker ont été créé depuis les labels il manque plusieurs infos
         //on fait ici l'ajout de la verif de screenshot et de certif si !local
         if (new File(path + pathLabels + dir).exists()) {
             //pour chaque questionnaire de la langue
             for (SimpleRowTracker rt : smt.getAllRowTracker()) {
-               
 
                 if (rt.getFormulaire().contains("Training")) {
                     System.out.println("test train");
@@ -202,45 +200,34 @@ public class OverView {
     private SimpleTracker svnTraitement(String dir, ScreenFilesDAOExt scf, PoiTrackerDAO ptk) {
 
         SimpleTracker smt = ptk.createTrackerFromSVNLabel(dir);
-/*
+
         ArrayList<SimpleRowTracker> li = smt.getAllRowTracker();
-        
+
         SvnCertifFilesDAO ctf = new SvnCertifFilesDAO(pathSvnDoc + pathCertifs, dir);
         SvnScreenFilesDAO scfFinals = new SvnScreenFilesDAO(pathSvnDoc + pathFinalsScreens, dir);
-     
 
-        
-            //pour chaque questionnaire de la langue
-            for (SimpleRowTracker rt : li) {
-                
-               
-                if (rt.getFormulaire().contains("Training")) {
-                    rt.setScreenDone(scf.searchTrainingPDF(dir, rt.getFormulaire(), rt.getVersion()));
-                } else {
+        //pour chaque questionnaire de la langue
+        li.forEach((rt) -> {
+            if (rt.getFormulaire().contains("Training")) {
+                rt.setScreenDone(scf.searchTrainingPDF(dir, rt.getFormulaire(), rt.getVersion()));
+            } else {
 
-                    //si ce n'est pas un label final on TraiTe normal sinon TTT en screenfinal
-                   
-                       
+                //si ce n'est pas un label final on TraiTe normal sinon TTT en screenfinal
+                if (scf.checkExistingPDF(dir, rt.getFormulaire(), rt.getVersion())) {
+                    rt.setScreenDone("Yes");
 
-                        if (scf.checkExistingPDF(dir, rt.getFormulaire(), rt.getVersion())) {
-                            rt.setScreenDone("Yes");
-                       
-                        
-                        //check supplementaire des versions finals et des certifs
-                        if ( rt.getVersion().endsWith(".0.0") && scfFinals.checkExistingPDF(dir, rt.getFormulaire(), rt.getVersion())) {
+                    //check supplementaire des versions finals et des certifs
+                    if (rt.getVersion().endsWith(".0.0") && scfFinals.checkExistingPDF(dir, rt.getFormulaire(), rt.getVersion())) {
 
-                            rt.setScreenDone("Yes");
-                            if ( ctf.checkCertif(rt.getFormulaire(), rt.getVersion())) {
-                                rt.setCertified("Yes");
-                            }
-              
+                        rt.setScreenDone("Yes");
+                        if (ctf.checkCertif(rt.getFormulaire(), rt.getVersion())) {
+                            rt.setCertified("Yes");
+                        }
                     }
-
-        }
-
+                }
             }
-        }*/
-            
+        });
+
         return smt;
     }
 }

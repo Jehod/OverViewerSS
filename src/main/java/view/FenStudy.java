@@ -29,7 +29,7 @@ import view.generikForms.PanBackGenerik;
  */
 public class FenStudy extends FenGenerik {
 
-    private Params params = Params.getInstance();
+    private final Params params = Params.getInstance();
     
     private String studyName;
     private SimpleStudyParam ssp;
