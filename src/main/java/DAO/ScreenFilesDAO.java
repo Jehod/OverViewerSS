@@ -24,7 +24,7 @@ public class ScreenFilesDAO extends ScreenFilesDAOExt {
 
     private final String pathScreens;
     private String studyName;
-    private HashMap map;
+    private final HashMap map;
     private final SimpleStudyParam ssp;
     private final String langue;
 
@@ -35,10 +35,10 @@ public class ScreenFilesDAO extends ScreenFilesDAOExt {
 
     public ScreenFilesDAO(String fileName, String langue) {
         ssp = Params.getInstance().studyParam;
-        //this.pathScreens = Params.getInstance().studyPath +ssp.getPathScreens();
-        //this.pathScreens = pathScreens+ssp.getPathScreens();
-        this.pathScreens = fileName + langue;
+        map = ssp.getMap();
         this.langue = langue;
+        this.pathScreens = fileName + this.langue;
+
         listScreens = FilesWorker.ListerFilesByExt(pathScreens, ".pdf");
 
     }
@@ -46,8 +46,12 @@ public class ScreenFilesDAO extends ScreenFilesDAOExt {
     @Override
     public boolean checkExistingPDF(String langue, String formulaire, String version) {
 
-        String cible = formulaire + "_" + langue + "_v" + version + ".pdf";
+        System.out.println("formualaire avant: "+ formulaire);
+        formulaire = mappedName(formulaire, map);
+        System.out.println("formualire apres : "+ formulaire);
 
+        String cible = formulaire + "_" + langue + "_v" + version + ".pdf";
+        
         bob = Outils.Check.checkIsIn(cible, listScreens);
 
         if (bob) {
@@ -56,19 +60,6 @@ public class ScreenFilesDAO extends ScreenFilesDAOExt {
             System.out.println("+++++++++ " + pathScreens + "/" + formulaire + "_" + langue + "_v" + version + ".pdf" + " InTROUVABLE++++");
         }
 
-        /*
-        if (new File((pathScreens + "/" + langue + "/" + formulaire + "_" + langue + "_v" + version + ".pdf")) != null) {
-            bob = true;
-
-            System.out.println("+++++++++ " + pathScreens + "/" + langue + "/" + formulaire + "_" + langue + "_v" + version + ".pdf" + " a ete trouve++++");
-        } //partie qui sera remplacé par le mapping
-        /*else if (bob == false) {
-            bob = compareQuest(langue, formulaire, version);
-        } */
- /*else {
-            System.out.println("+++++++++ " + pathScreens + "/" + langue + "/" + formulaire + "_" + langue + "_v" + version + ".pdf" + " InTROUVABLE++++");
-        }
-         */
         return bob;
 
     }
@@ -108,7 +99,7 @@ public class ScreenFilesDAO extends ScreenFilesDAOExt {
 
         }
 
-
+        //pour recuperer la date
         /*  for (String str : list) {
 
                 if (str.contains(version)) {
@@ -130,7 +121,7 @@ public class ScreenFilesDAO extends ScreenFilesDAOExt {
      * @param formulaire
      * @param version
      * @return
-     */
+     *//*
     private boolean compareQuest(String langue, String formulaire, String version) {
 
         String quest;
@@ -158,6 +149,6 @@ public class ScreenFilesDAO extends ScreenFilesDAOExt {
         }
 
         return bob;
-    }
+    }*/
 
 }

@@ -8,6 +8,7 @@ package Outils;
 import com.JehodFactory.overviewerss.Params;
 import entity.SimpleStudyParam;
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -120,4 +121,6 @@ public class Check {
         }
         return str;
     }
+
+ 
 }

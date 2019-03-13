@@ -312,7 +312,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="GraphicCharter.fontCorps" type="code"/>
                 </Property>
-                <Property name="toolTipText" type="java.lang.String" value="complete name"/>
+                <Property name="toolTipText" type="java.lang.String" value="complete name ex: CAIN457M2302"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtfTrad">
@@ -336,7 +336,9 @@
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection component="panLabel" name="background" type="property"/>
                 </Property>
+                <Property name="selected" type="boolean" value="true"/>
                 <Property name="text" type="java.lang.String" value="Samsung Sans"/>
+                <Property name="toolTipText" type="java.lang.String" value="si la font est presente "/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtfPathSvnDoc">
@@ -352,7 +354,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="GraphicCharter.fontCorps" type="code"/>
                 </Property>
-                <Property name="toolTipText" type="java.lang.String" value="svn://svn.kayentis.fr:14000/Kayentis/&lt;CLIENT&gt;/&lt;PROJET&gt;/Platforms/Trunk/ "/>
+                <Property name="toolTipText" type="java.lang.String" value="ex: svn://svn.kayentis.fr:14000/Kayentis/&lt;CLIENT&gt;/&lt;PROJET&gt;/Platforms/Trunk/ "/>
               </Properties>
             </Component>
           </SubComponents>

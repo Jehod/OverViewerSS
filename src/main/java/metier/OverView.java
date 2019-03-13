@@ -15,7 +15,6 @@ import DAO.ScreenFilesDAOExt;
 import DAO.SvnLabelFileDAO;
 import DAO.SvnScreenFilesDAO;
 import Outils.Check;
-import Outils.FilesWorker;
 import com.JehodFactory.overviewerss.Params;
 import entity.SimpleRowTracker;
 import entity.SimpleStudyTracker;

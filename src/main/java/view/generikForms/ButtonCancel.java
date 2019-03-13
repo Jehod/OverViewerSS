@@ -5,8 +5,8 @@
  */
 package view.generikForms;
 
-import javax.swing.Icon;
 import javax.swing.JButton;
+
 
 /**
  *
@@ -18,6 +18,7 @@ public class ButtonCancel extends JButton
 
     public ButtonCancel()
     {
+        
         super.setSize(140, 25);
         super.setForeground(style.GraphicCharter.colorFont);
         super.setFont(style.GraphicCharter.fontButton);

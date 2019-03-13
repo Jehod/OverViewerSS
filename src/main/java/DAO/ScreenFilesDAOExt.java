@@ -6,15 +6,13 @@
 package DAO;
 
 import DAO.interfaceDAO.ScreenshotFilesDAO;
+import java.util.HashMap;
 
 /**
  *
  * @author nrochas
  */
 public class ScreenFilesDAOExt implements ScreenshotFilesDAO {
-
-
-
 
     @Override
     public boolean checkExistingPDF(String langue, String formulaire, String version) {
@@ -40,7 +38,7 @@ public class ScreenFilesDAOExt implements ScreenshotFilesDAO {
      */
     public String searchTrainingPDF(String langue, String formulaire, String version) {
         String date = "No";
-       System.out.println("probleme d'heritage screensFileDAO");
+        System.out.println("probleme d'heritage screensFileDAO");
         return date;
     }
 
@@ -54,10 +52,17 @@ public class ScreenFilesDAOExt implements ScreenshotFilesDAO {
      * @return
      */
     private boolean compareQuest(String langue, String formulaire, String version) {
-       System.out.println("probleme d'heritage screensFileDAO");
+        System.out.println("probleme d'heritage screensFileDAO");
         return false;
     }
 
-    
+    protected String mappedName(String formulaire, HashMap map) {
+
+        if (map.containsKey(formulaire)) {
+            formulaire = (String) map.get(formulaire);
+        }
+
+        return formulaire;
+    }
 
 }

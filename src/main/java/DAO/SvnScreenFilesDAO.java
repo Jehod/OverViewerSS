@@ -24,7 +24,7 @@ public class SvnScreenFilesDAO extends ScreenFilesDAOExt {
 
     private final String pathScreens;
     private String studyName;
-    private HashMap map;
+    private final HashMap map;
     private final SimpleStudyParam ssp;
     private final String langue;
     private final Outils.SVNWorker svn;
@@ -40,14 +40,17 @@ public class SvnScreenFilesDAO extends ScreenFilesDAOExt {
         System.out.println("pathScreens +++++++++" + pathScreens);
         svn = new SVNWorker();
         listScreens = svn.listSVNByExt(this.pathScreens, ".pdf");
+        map = ssp.getMap();
 
     }
 
     @Override
     public boolean checkExistingPDF(String langue, String formulaire, String version) {
 
+        formulaire = mappedName(formulaire, map);
+        
         String cible = formulaire + "_" + this.langue + "_v" + version + ".pdf";
-        System.out.println("cible: " + cible);
+        
 
         bob = Outils.Check.checkIsIn(cible, listScreens);
 

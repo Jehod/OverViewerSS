@@ -81,12 +81,14 @@ public class FenViewStudy extends javax.swing.JFrame {
         butCancel = new ButtonCancel();
         butrefresh = new ButtonRefresh();
         buttSaveNGo = new ButtonGenerik();
+        butMap = new ButtonGenerik();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("View Study");
 
         TxtFieldPathSvnDel.setFont(GraphicCharter.titre3);
         TxtFieldPathSvnDel.setText(ssp.getPathSvnDel());
+        TxtFieldPathSvnDel.setToolTipText("path on svn14000");
 
         jLabel2.setFont(GraphicCharter.titre3);
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -95,6 +97,7 @@ public class FenViewStudy extends javax.swing.JFrame {
 
         TxtFieldPathSvnDoc.setFont(GraphicCharter.titre3);
         TxtFieldPathSvnDoc.setText(ssp.getPathSvnDoc());
+        TxtFieldPathSvnDoc.setToolTipText("path on svn15000");
         TxtFieldPathSvnDoc.setMaximumSize(new java.awt.Dimension(72, 20));
         TxtFieldPathSvnDoc.setMinimumSize(new java.awt.Dimension(72, 20));
 
@@ -111,6 +114,7 @@ public class FenViewStudy extends javax.swing.JFrame {
 
         TxtFieldTrad.setFont(GraphicCharter.titre3);
         TxtFieldTrad.setText(ssp.getTrad());
+        TxtFieldTrad.setToolTipText("");
 
         jLabel3.setFont(GraphicCharter.titre3);
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -195,6 +199,7 @@ public class FenViewStudy extends javax.swing.JFrame {
         });
 
         buttSaveNGo.setText("Save n Go");
+        buttSaveNGo.setToolTipText("save modification");
         buttSaveNGo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttSaveNGoActionPerformed(evt);
@@ -226,6 +231,14 @@ public class FenViewStudy extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        butMap.setText("Mapping");
+        butMap.setToolTipText("create mapping between screenshot and label names");
+        butMap.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                butMapActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panFondLayout = new javax.swing.GroupLayout(panFond);
         panFond.setLayout(panFondLayout);
         panFondLayout.setHorizontalGroup(
@@ -236,7 +249,11 @@ public class FenViewStudy extends javax.swing.JFrame {
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panOfFiels, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panFondLayout.createSequentialGroup()
+                .addContainerGap(250, Short.MAX_VALUE)
+                .addComponent(butMap)
+                .addGap(246, 246, 246))
         );
         panFondLayout.setVerticalGroup(
             panFondLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -245,7 +262,9 @@ public class FenViewStudy extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31)
                 .addComponent(panOfFiels, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
+                .addGap(3, 3, 3)
+                .addComponent(butMap)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(38, Short.MAX_VALUE))
         );
@@ -298,6 +317,11 @@ public class FenViewStudy extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_buttSaveNGoActionPerformed
 
+    private void butMapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butMapActionPerformed
+        FenMapping fm = new FenMapping(this);
+        this.setVisible(false);
+    }//GEN-LAST:event_butMapActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField TxtFieldPathSvnDel;
@@ -305,6 +329,7 @@ public class FenViewStudy extends javax.swing.JFrame {
     private javax.swing.JTextField TxtFieldTabModel;
     private javax.swing.JTextField TxtFieldTrad;
     private javax.swing.JButton butCancel;
+    private javax.swing.JButton butMap;
     private javax.swing.JButton butrefresh;
     private javax.swing.JButton buttSaveNGo;
     private javax.swing.JCheckBox cBxFont;

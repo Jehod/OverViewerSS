@@ -162,7 +162,7 @@
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="4"/>
                 <Property name="text" type="java.lang.String" value="Local Path:  "/>
-                <Property name="toolTipText" type="java.lang.String" value=""/>
+                <Property name="toolTipText" type="java.lang.String" value="pointe sur le dossier contenant les dossiers Scripts et Settings"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="butLaunchLocal">
@@ -186,6 +186,7 @@
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="new ComboModel(list)" type="code"/>
                 </Property>
+                <Property name="toolTipText" type="java.lang.String" value="select the local path. Settings and Scripts directories must be visible"/>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>

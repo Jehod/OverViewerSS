@@ -5,7 +5,6 @@
  */
 package Outils;
 
-import com.JehodFactory.overviewerss.Params;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -32,8 +31,7 @@ public class JsonWorker {
     private Scanner scanner;
     private JSONObject jo;
     private FileWriter fw = null;
-    private String fileConfig;
-    
+    private final String fileConfig;
 
     //https://www.cyril-rabat.fr/articles/index.php?article=50
     //http://jsonviewer.stack.hu/ 
@@ -101,7 +99,6 @@ public class JsonWorker {
 
         }
 
-        
         return str;
     }
 
@@ -241,15 +238,15 @@ public class JsonWorker {
             try {
                 //obj.put("studies",  "{"+studyName+"}");
                 jo.append("studies", new JSONObject().put("Name", studyName));
-                bob = true;
+
             } catch (JSONException ex) {
-                bob = false;
+
                 System.out.println("error to put study name in Json " + ex.getLocalizedMessage());
             }
 
             bob = writeOnJson();
         }
-        
+
         return bob;
     }
 
@@ -264,12 +261,12 @@ public class JsonWorker {
      * @param pathSvnDoc
      * @param map
      * @param pathSvnDel
-     * @return 
+     * @return
      */
     public boolean fillStudy(String studyName, String trad, String tabModel, boolean fontSamsung,
             ArrayList<String> listStudyPath, String pathSvnDoc, String pathSvnDel, HashMap<String, String> map) {
 
-        boolean bob =false;
+        boolean bob = false;
         JSONArray tab = null;
 
         if (jo != null) {
@@ -290,13 +287,19 @@ public class JsonWorker {
                 next.put("pathSvnDoc", pathSvnDoc);
                 next.put("map", map);
 
-               
             }
             bob = writeOnJson();
         }
         return bob;
     }
 
+    /**
+     * ecrit une list dans le json
+     *
+     * @param studyName
+     * @param listPath
+     * @return
+     */
     public boolean setListInStudy(String studyName, ArrayList listPath) {
 
         JSONArray tab = null;
@@ -350,4 +353,63 @@ public class JsonWorker {
         return bob;
     }
 
+    /**
+     * recupere un objet Json et le renvoie sous forme de hashmap
+     *
+     * @param studyName
+     * @param map
+     * @return
+     */
+    public HashMap getMapCibleOfStudy(String studyName, String map) {
+        HashMap<String, Object> hm;
+        hm = new HashMap<>();
+
+        JSONObject job;
+        JSONArray tab = null;
+
+        if (jo != null) {
+            tab = jo.getJSONArray("studies");
+        }
+
+        for (Iterator it = tab.iterator(); it.hasNext();) {
+            JSONObject next = (JSONObject) it.next();
+
+            if (next.get("Name").equals(studyName)) {
+
+                if (next.has(map) && next.get(map).getClass().getSimpleName().equals("JSONObject")) {
+
+                    job = next.getJSONObject(map);
+                    System.out.println("Map++++++++++find: " + next.getJSONObject(map).toString());
+
+                    hm = (HashMap<String, Object>) job.toMap();
+                    
+                } else {
+                    System.out.println("la cible n'est pas presente ou n'est pas de classe JSONOBject");
+                }
+            }
+        }
+        return hm;
+    }
+
+     public boolean setMapInStudy(String studyName, HashMap map) {
+
+        JSONArray tab = null;
+
+        if (jo != null) {
+            tab = jo.getJSONArray("studies");
+
+        }
+
+        for (Iterator it = tab.iterator(); it.hasNext();) {
+            JSONObject next = (JSONObject) it.next();
+
+            if (next.get("Name").equals(studyName)) {
+
+                next.put("map", map);
+            }
+        }
+
+        return writeOnJson();
+
+    }
 }

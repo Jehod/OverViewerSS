@@ -39,7 +39,7 @@ public class Params {
     //les données du fichier de settings
     public ArrayList<String> listStudy;
     public SimpleStudyParam studyParam;
-    
+
     public File fileTemp;
 
     Params() {
@@ -64,13 +64,11 @@ public class Params {
         jw = new JsonWorker(bin + settings);
         listStudy = jw.getJsonTableau("studies");
         svn = new SVNWorker();
-        
+
         //initie le chemin des fichier temp
         File t = new File(pathTEMP);
         t.mkdir();
         fileTemp = t;
-                
-        
 
     }
 
@@ -90,12 +88,14 @@ public class Params {
         String trad = jw.getValueCibleOfStudy(studyName, "Trad");
         String tabModel = jw.getValueCibleOfStudy(studyName, "Tablet");
         Boolean font = jw.getBooleanCibleOfStudy(studyName, "Font");
+        HashMap map = jw.getMapCibleOfStudy(studyName, "map");
+        System.out.println("la map est : " + map.toString());
 
         String pathSvnDoc = jw.getValueCibleOfStudy(studyName, "pathSvnDoc").replace("Ã©", "é");
         String pathSvnDel = jw.getValueCibleOfStudy(studyName, "pathSvnDel").replace("Ã©", "é");
 
         //this.studyParam = new SimpleStudyParam(listPath, trad, pathLabels, pathScreens, pathCertifs, tabModel, font, new HashMap<>());
-        this.studyParam = new SimpleStudyParam(listPath, trad, new HashMap<>(), tabModel, font, pathSvnDoc, pathSvnDel);
+        this.studyParam = new SimpleStudyParam(listPath, trad, map, tabModel, font, pathSvnDoc, pathSvnDel);
 
     }
 
@@ -170,6 +170,27 @@ public class Params {
         if (bob) {
             svn.commitSVN("auto commit from bin", bin + settings);
         }
+        return bob;
+    }
+
+    /**
+     * envoie la map dans le json de la study
+     *
+     * @param studyName
+     * @param map
+     * @return bob
+     */
+    public boolean svgMapStudy(String studyName, HashMap map) {
+        
+        if (Check.isGood(studyName) && map != null && !map.isEmpty()) {
+
+            bob = jw.setMapInStudy(studyName, map);
+        }
+        if (bob) {
+            svn.commitSVN("auto commit from bin", bin + settings);
+        }
+        
+        
         return bob;
     }
 

@@ -153,7 +153,7 @@ public class FenCreatStudy extends FenGenerik {
         labTabler1.setText("Tablet Model:  ");
 
         txtfstudyname.setFont(GraphicCharter.fontCorps);
-        txtfstudyname.setToolTipText("complete name");
+        txtfstudyname.setToolTipText("complete name ex: CAIN457M2302");
 
         txtfTrad.setFont(GraphicCharter.fontCorps);
         txtfTrad.setToolTipText("Rws, Mapi, ...");
@@ -162,13 +162,15 @@ public class FenCreatStudy extends FenGenerik {
         txtfTAblet.setToolTipText("model , size");
 
         cBxFont.setBackground(panLabel.getBackground());
+        cBxFont.setSelected(true);
         cBxFont.setText("Samsung Sans");
+        cBxFont.setToolTipText("si la font est presente ");
 
         txtfPathSvnDoc.setFont(GraphicCharter.fontCorps);
         txtfPathSvnDoc.setToolTipText("ex: svn://document.kayentis.fr:15000/kayentis/Documentation/Projets/Santé/<CLIENT>/<PROJET>/3- Functional scope/2- Forms/2- Kayentis design/2 – Screenshots/ ");
 
         txtfsPathSvnDel.setFont(GraphicCharter.fontCorps);
-        txtfsPathSvnDel.setToolTipText("svn://svn.kayentis.fr:14000/Kayentis/<CLIENT>/<PROJET>/Platforms/Trunk/ ");
+        txtfsPathSvnDel.setToolTipText("ex: svn://svn.kayentis.fr:14000/Kayentis/<CLIENT>/<PROJET>/Platforms/Trunk/ ");
 
         javax.swing.GroupLayout panLabelLayout = new javax.swing.GroupLayout(panLabel);
         panLabel.setLayout(panLabelLayout);
